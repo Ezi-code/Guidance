@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<main class="login-section">
+    <form class="login-form" action="{% url 'core:login' %}" method="post">
+
+        {% csrf_token %}
+
+        <center>
+            {{ error_msg }}
+        </center>
+
+        <p>
+            <input type="text" name="username" id="name" required placeholder="Index Number">
+        </p>
+        <p>
+            <input type="password" name="password" id="password" required placeholder="Password">
+        </p>
+        <p>
+            <button class="btn" type="submit">Login</button>
+        </p>
+    </form>
+</main>
+{% endblock %}

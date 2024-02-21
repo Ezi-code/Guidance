@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<div class="user-nav">
+    <section class="options">
+        <a href="#">Check Appointment</a>
+        <a href="{% url 'core:book' %}">Book</a>
+        <a href="" onclick="hello()">Notifications</a>
+    </section>
+</div>
+<main>
+    <div class="notification">
+        <p>content date time </p>
+        <button>Read</button>
+    </div>
+    <div class="notification">
+        <p>content date time </p>
+        <button>Read</button>
+    </div>
+    <div class="notification">
+        <p>content date time </p>
+        <button>Read</button>
+    </div>
+    <div class="notification">
+        <p>content date time </p>
+        <button>Read</button>
+    </div>
+    <div class="notification">
+        <p>content date time </p>
+        <button>Read</button>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Book Appointment
+{% endblock %}
+
+{% block content %}
+<main class="form-section">
+    <h2>fill in the form below to book a session with a counsellor </h2>
+    <form class="booking" required action="{% url 'core:book' %}" method="post">
+
+        {% csrf_token %}
+
+        <p>
+            <input type="text" name="name" id="name" placeholder="Full Name" required autocomplete="on">
+        </p>
+        <p>
+            <input type="email" name="email" id="email" placeholder="email" required autocomplete="on">
+        </p>
+        <p>
+            <input type="tel" name="phone" id="phone" autocomplete="on" required placeholder="Valid Phone Number">
+        </p>
+        <p>
+            <!-- <label for="level">Level</label> -->
+            <select required name="level" id="level">
+                <option selected="true" disabled aria-disabled="false">Level</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="400">400</option>
+            </select>
+        </p>
+        <p>
+            <!-- <label for="service">Service Type</label> -->
+            <select required name="service" id="level">
+                <option disabled selected="true">Service Type</option>
+                <option value="guidance">Guidance</option>
+                <option value="counselling">Counselling</option>
+            </select>
+        </p>
+        <p>
+            <input required type="text" name="department" id="department" placeholder="Department" spellcheck="true">
+        </p>
+        <p>
+            <textarea required name="reason" id="reason" cols="30" rows="10"
+                placeholder="Reason for Counselling Session..." spellcheck="true"></textarea>
+        </p>
+        <p>
+            <button class="btn" type="submit" value="Book Session">Book Session</button>
+        </p>
+    </form>
+</main>
+{% endblock %}

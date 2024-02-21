@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <!-- <section class="navbar-header">
+                <a href="/">The African Preacher</a>
+            </section> -->
+            <section class="navbar-links">
+                <a href="{% url 'core:home' %}">Home</a>
+                {% if not request.user %}
+                <a href="{% url 'core:login' %}">Login</a>
+                {% else %}
+                <a href="{% url 'core:logout' %}">Logout</a>
+                {% endif %}
+                <a href="{% url 'core:book' %}">Book</a>
+                <a href="{% url 'core:dashboard' %}">Dashborad</a>
+            </section>
+            <!-- <section class="navbar-toggle">
+                <a href="javascript:void(0);" class="icon" onclick="toggleNavbar()">&#9776;</a>
+            </section> -->
+        </nav>
+    </header>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- <footer class="footer">
+        <p> &copy; 2024</p>
+    </footer>
+</body>
+
+</html> -->
