@@ -21,13 +21,14 @@
             </section> -->
             <section class="navbar-links">
                 <a href="{% url 'core:home' %}">Home</a>
-                {% if not request.user %}
-                <a href="{% url 'core:login' %}">Login</a>
+                {% if not user.is_authenticated %}
+                <a href="{% url 'accounts:login' %}">Login</a>
                 {% else %}
-                <a href="{% url 'core:logout' %}">Logout</a>
-                {% endif %}
+                <a href="{% url 'accounts:logout' %}?next={{request.path}}">Logout</a>
                 <a href="{% url 'core:book' %}">Book</a>
                 <a href="{% url 'core:dashboard' %}">Dashborad</a>
+                {% endif %}
+
             </section>
             <!-- <section class="navbar-toggle">
                 <a href="javascript:void(0);" class="icon" onclick="toggleNavbar()">&#9776;</a>

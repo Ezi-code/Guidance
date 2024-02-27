@@ -6,7 +6,7 @@ Login
 
 {% block content %}
 <main class="login-section">
-    <form class="login-form" action="{% url 'core:login' %}" method="post">
+    <form class="login-form" action="{% url 'accounts:login' %}" method="post">
 
         {% csrf_token %}
 
