@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.utils import timezone
 from django.contrib.auth.models import User
+from settings import base
 
 
 # Create your models here.
@@ -10,7 +11,7 @@ class Guidance(models.Model):
         GUIDANCE = "GUIDANCE", "Guidance"
         COUNSELLING = "COUNSELLING", "Counselling"
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(base.AUTH_USER_MODEL, on_delete=models.CASCADE)
     fname = models.CharField(max_length=100, blank=False, null=False)
     email = models.EmailField()
     phone = models.CharField(max_length=15, blank=False, null=False)

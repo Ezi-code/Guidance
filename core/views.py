@@ -1,18 +1,8 @@
 from django.shortcuts import render, redirect
-from django.views.generic import (
-    View,
-    CreateView,
-    ListView,
-    DeleteView,
-    UpdateView,
-    TemplateView,
-)
+from django.views.generic import TemplateView, View, CreateView
 from django.urls import reverse_lazy
 from core.models import Guidance
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-# from django.contrib.auth.mixin import LoginRequiredMixin
 from django.core.mail import EmailMessage
 from django.views.generic.base import TemplateView
 
@@ -59,15 +49,15 @@ class BookView(LoginRequiredMixin, CreateView):
     #     return redirect("core:home")
 
 
-class DashboardView(ListView):
-    queryset = Guidance.objects.all()
-    success_url = "core:appointment"
+class DashboardView(View):
+    # queryset = Guidance.objects.all()
+    # success_url = "core:appointment"
 
-    # def get(self, request):
-    #     if request.user.is_authenticated:
-    #         return redirect("core:appointment")
-    #     else:
-    #         return redirect("core:login")
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("core:appointment")
+        else:
+            return redirect("core:login")
 
 
 class NotificationsView(View):
@@ -82,4 +72,4 @@ class CheckAppointmentView(View):
         if request.user.is_authenticated:
             return render(request, "appointments.html")
         else:
-            return redirect("core:login")
+            return redirect("accounts:login")

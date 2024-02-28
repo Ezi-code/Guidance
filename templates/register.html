@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Register
+{% endblock %}
+
+
+{% block content %}
+<form action="{%}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- <p>
+        <input type="text" name="username" required placeholder="User Name">
+    </p>
+    <p>
+        <input type="email" name="email" required placeholder="email">
+    </p>
+    <p>
+        <input type="password" name="password" required placeholder="Password">
+    </p>
+    <p>
+        <input type="password" name="password1" required placeholder="Confirm Password">
+    </p> -->
+
+    <br>
+    <input type="submit" value="Register">
+    <input type="button" value="{{next}}" hidden>
+</form>
+{% endblock %}

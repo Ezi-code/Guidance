@@ -23,8 +23,9 @@
                 <a href="{% url 'core:home' %}">Home</a>
                 {% if not user.is_authenticated %}
                 <a href="{% url 'accounts:login' %}">Login</a>
+                <a href="{% url 'accounts:register' %}">Register</a>
                 {% else %}
-                <a href="{% url 'accounts:logout' %}?next={{request.path}}">Logout</a>
+                <a href="{% url 'accounts:logout' %}">Logout</a>
                 <a href="{% url 'core:book' %}">Book</a>
                 <a href="{% url 'core:dashboard' %}">Dashborad</a>
                 {% endif %}
