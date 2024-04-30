@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     "staff",
     "accounts",
     # Extemsions
+    # "crispy_forms",
+    # "widget_tweaks",
+    # "crispy_bootstrap4",
 ]
 
 MIDDLEWARE = [
@@ -61,6 +64,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "GuidanceUnit.wsgi.application"
 
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

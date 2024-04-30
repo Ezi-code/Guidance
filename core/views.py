@@ -2,56 +2,24 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View, CreateView
 from django.urls import reverse_lazy
 from core.models import Guidance
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import EmailMessage
 from django.views.generic.base import TemplateView
+from core.services import LoginMixin
 
 
 class HomeView(TemplateView):
     template_name = "index.html"
-    # def get(self, request):
-    #     return render(request, "index.html")
 
 
-class BookView(LoginRequiredMixin, CreateView):
+class BookView(LoginMixin, CreateView):
     template_name = "book.html"
     success_url = reverse_lazy("core:notitfications")
     login_required = True
     model = Guidance
     fields = "__all__"
 
-    # def get(self, request):
-    #     if request.user.is_authenticated:
-    #         return render(request, "book.html")
-    #     else:
-    #         return redirect("core:login")
-
-    # def post(self, request):
-    #     name = request.POST.get("name")
-    #     email = request.POST.get("email")
-    #     phone = request.POST.get("phone")
-    #     level = request.POST.get("level")
-    #     department = request.POST.get("department")
-    #     service = request.POST.get("service")
-    #     reason = request.POST.get("reason")
-    #     if service == "guidance":
-    #         appointment = Guidance.objects.create(
-    #             fname=name,
-    #             email=email,
-    #             phone=phone,
-    #             level=level,
-    #             service_type=service,
-    #             department=department,
-    #             reason=reason,
-    #         )
-    #         appointment.clean_fields()
-    #         appointment.save()
-    #     return redirect("core:home")
-
 
 class DashboardView(View):
-    # queryset = Guidance.objects.all()
-    # success_url = "core:appointment"
 
     def get(self, request):
         if request.user.is_authenticated:

@@ -33,21 +33,24 @@ class LoginView(View):
 class RegisterView(View):
     def get(self, request):
         form = RegisterForm()
-        return render(request, "register.html", {form: "form"})
+        return render(request, "register.html", {"form": form})
 
     def post(self, request):
         form = RegisterForm(request.POST)
+        print(form)
         if form.is_valid():
             form.save()
-        return
+            return redirect("core:home")
+        else:
+            form = RegisterForm()
+            return render(request, "register.html", {"form": form})
 
 
 # class RegisterView(CreateView):
-#     form_class = RegisterForm
 #     template_name = "register.html"
-#     model = User
-#     fields = ["username", "email", "password"]
 #     queryset = User.objects.all()
+#     # fields = ["username", "email", "password"]
+#     form_class = RegisterForm
 
 
 class LogoutView(View):

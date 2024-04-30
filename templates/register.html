@@ -7,10 +7,10 @@ Register
 
 
 {% block content %}
-<form action="{%}">
+<form action="{% url 'accounts:register'%}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <!-- <p>
+    <!-- {{ form.as_p }} -->
+    <p>
         <input type="text" name="username" required placeholder="User Name">
     </p>
     <p>
@@ -21,7 +21,7 @@ Register
     </p>
     <p>
         <input type="password" name="password1" required placeholder="Confirm Password">
-    </p> -->
+    </p>
 
     <br>
     <input type="submit" value="Register">
