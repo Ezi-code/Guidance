@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Guidance
+from core.models import Appointment
 
 # Register your models here.
-admin.site.register(Guidance)
+admin.site.register(Appointment)

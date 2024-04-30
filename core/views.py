@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View, CreateView
 from django.urls import reverse_lazy
-from core.models import Guidance
-from django.core.mail import EmailMessage
+from core.models import Appointment, Notifications
 from django.views.generic.base import TemplateView
 from core.services import LoginMixin
 
@@ -15,11 +14,11 @@ class BookView(LoginMixin, CreateView):
     template_name = "book.html"
     success_url = reverse_lazy("core:notitfications")
     login_required = True
-    model = Guidance
+    model = Appointment
     fields = "__all__"
 
 
-class DashboardView(View):
+class DashboardView(LoginMixin, View):
 
     def get(self, request):
         if request.user.is_authenticated:
@@ -28,16 +27,21 @@ class DashboardView(View):
             return redirect("core:login")
 
 
-class NotificationsView(View):
+class NotificationsView(LoginMixin, View):
     def get(self, request):
-        return render(request, "notifications.html")
+        notifications = Notifications.objects.filter(user=request.user).all()
+        ctx = {
+            "notifications": notifications,
+        }
+        return render(request, "notifications.html", ctx)
 
 
-class CheckAppointmentView(View):
-    from core.models import Guidance
+class CheckAppointmentView(LoginMixin, View):
+    from core.models import Appointment
 
     def get(self, request):
-        if request.user.is_authenticated:
-            return render(request, "appointments.html")
-        else:
-            return redirect("accounts:login")
+        appointment = Appointment.objects.filter(user=request.user)
+        ctx = {
+            "appointment": appointment,
+        }
+        return render(request, "appointments.html", ctx)

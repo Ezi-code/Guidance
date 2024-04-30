@@ -25,7 +25,7 @@ class LoginView(View):
         if user is not None:
             login(request, user)
             print(user)
-            return reverse_lazy("core:dashboard")
+            return redirect("core:dashboard")
         else:
             return render(request, self.template_name)
 
