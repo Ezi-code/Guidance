@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Appointment
+{% endblock %}
+
+{% block nav %}
+{% include "staff/nav.html"%}
+{% endblock %}
+
+{% block content %}
+<style>
+    .appointments {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+    }
+
+    .appointments h4 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .appointment {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 5px;
+        background-color: green;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+<main class="appointments">
+    <h4>Accepted Appointments</h4>
+    <div class="appointments">
+        {% for appointment in appointments %}
+        <div class="appointment">
+            <p>{{appointment.user}}</p>
+            <p>{{appointment.reason}}</p>
+            <p>{{appointment.date}}</p>
+            <p>{{appointment.time}}</p>
+            <form action="{% url 'staff:appointments' %}" method="post">
+                {% csrf_token %}
+                <button name="id" value="{{ appointment.id }}">Complete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+</main>
+{% endblock %}

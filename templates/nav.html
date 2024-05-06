@@ -1,0 +1,12 @@
+<nav class="navbar">
+    <section class="navbar-links">
+        <a href="{% url 'core:home' %}">Home</a>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'accounts:login' %}">Login</a>
+        {% else %}
+        <a href="{% url 'accounts:logout' %}">Logout</a>
+        <a href="{% url 'core:book' %}">Book</a>
+        <a href="{% url 'core:dashboard' %}">Dashborad</a>
+        {% endif %}
+    </section>
+</nav>

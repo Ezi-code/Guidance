@@ -3,11 +3,17 @@
 {% block title %}
 Home
 {% endblock %}
+
+{% block nav%}
+{% include "nav.html"%}
+{% endblock %}
+
 {% block content %}
 <div class="user-nav">
     <section class="options">
         {% url 'core:appointment' as appt %}
-        <a {% if request.get_full_path == appt%}class="active"{% endif %} href="{% url 'core:appointment' %}">Appointments</a>
+        <a {% if request.get_full_path==appt%}class="active" {% endif %}
+            href="{% url 'core:appointment' %}">Appointments</a>
         <a href="{% url 'core:book' %}">Book</a>
         <a href="{% url 'core:notifications'%}" onclick="hello()">Notifications {{count}}</a>
     </section>

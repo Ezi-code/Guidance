@@ -10,6 +10,10 @@ class Appointment(models.Model):
         GUIDANCE = "GUIDANCE", "Guidance"
         COUNSELLING = "COUNSELLING", "Counselling"
 
+    class Status(models.TextChoices):
+        ACCEPTED = ("ACCEPTED", "Accepted")
+        DRAFT = ("DRAFT", "Draft")
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     fname = models.CharField(max_length=100, blank=False, null=False)
     email = models.EmailField()
@@ -21,6 +25,9 @@ class Appointment(models.Model):
     date_booked = models.DateField(
         editable=False,
         default=timezone.now,
+    )
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.DRAFT
     )
 
     def __str__(self) -> str:

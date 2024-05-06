@@ -5,11 +5,13 @@
 Register
 {% endblock %}
 
+{% block nav%}
+{% include "nav.html"%}
+{% endblock %}
 
 {% block content %}
 <form action="{% url 'accounts:register'%}" method="post">
     {% csrf_token %}
-    <!-- {{ form.as_p }} -->
     <p>
         <input type="text" name="username" required placeholder="User Name">
     </p>

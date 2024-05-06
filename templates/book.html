@@ -4,7 +4,20 @@
 Book Appointment
 {% endblock %}
 
+{% block nav%}
+{% include "nav.html"%}
+{% endblock %}
+
 {% block content %}
+<div class="user-nav">
+    <section class="options">
+        {% url 'core:appointment' as appt %}
+
+        <a href="{% url 'core:appointment' %}">Appointments</a>
+        <a href="{% url 'core:book' %}">Book</a>
+        <a href="{% url 'core:notifications'%}" onclick="hello()">Notifications {{count}}</a>
+    </section>
+</div>
 <main class="form-section">
     <h2>fill in the form below to book a session with a counsellor </h2>
     <form class="booking" required action="{% url 'core:book' %}" method="post">

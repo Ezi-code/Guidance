@@ -1,5 +1,5 @@
 from django.contrib import admin
-from staff.models import Staff, AvailabelDates
+from staff.models import AvailabelDates, Session
 
 # Register your models here.
-admin.site.register([Staff, AvailabelDates])
+admin.site.register([AvailabelDates, Session])

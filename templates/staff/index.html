@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Staff Home
+{% endblock %}
+
+{% block nav %}
+{% include "staff/nav.html"%}
+{% endblock %}
+
+{% block content %}
+<style>
+    .card {
+        display: flex;
+        flex-direction: column;
+        /* Adjust as needed (column, row-reverse, etc.) */
+        width: 300px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .card-header {
+        font-size: 20px;
+        font-weight: bold;
+
+    }
+
+    .card-body {
+        font-size: 16px;
+
+    }
+
+    button {
+        margin-top: 100px;
+        padding: 5px;
+        background-color: green;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+<main>
+    {% for appointment in appointments %}
+    <div class="card">
+        <form action="{% url 'staff:home' %}" method="post">
+            {% csrf_token %}
+            <p class="card-header">{{appointment.user}}</p>
+            <p class="card-body">{{appointment.reason}}</p>
+            <button name="id" value="{{ appointment.id}}">Accept</button>
+        </form>
+    </div>
+    {% endfor %}
+</main>
+{% endblock %}
