@@ -34,6 +34,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=100, null=False, blank=False)
     email = models.EmailField()
     password = models.CharField(max_length=100, null=False, blank=False)
+    is_staff = models.BooleanField(default=False)
 
     objects = UserManager()
 

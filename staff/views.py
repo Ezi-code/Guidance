@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from staff.models import Session
+from staff.models import Session, AvailabelDates
 from core.models import Appointment
 
 
@@ -27,9 +27,16 @@ class CreateAvailabeDate(View):
         return render(request, "staff/add_dates.html")
 
     def post(self, request):
-        pass
+        date = request.POST.get("date")
+        time = request.POST.get("time")
+        new_date = AvailabelDates.objects.create(date=date, time=time)
+        new_date.full_clean()
+        new_date.save()
+        return redirect("staff:add_dates")
 
 
 class Appointemtns(View):
     def get(self, request):
-        return render(request, "staff/appointments.html")
+        appointments = Appointment.objects.filter(status="ACCEPTED").all()
+        ctx = {"appointments": appointments}
+        return render(request, "staff/appointments.html", ctx)
