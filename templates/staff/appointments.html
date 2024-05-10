@@ -1,60 +1,91 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}
-Appointment
-{% endblock %}
+Appointments
+{% endblock title %}
 
 {% block nav %}
-{% include "staff/nav.html"%}
-{% endblock %}
+{% include "staff/nav.html" %}
+{% endblock nav %}
 
 {% block content %}
 <style>
-    .appointments {
+    main {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .card {
         margin: 10px;
-    }
-
-    .appointments h4 {
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    .appointment {
-        display: flex;
-        flex-direction: column;
-        border: 1px solid black;
-        margin: 10px;
-        padding: 10px;
-    }
-
-    button {
-        margin-top: 10px;
+        width: 18rem;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         padding: 5px;
-        background-color: green;
+    }
+
+    .card-header {
+        font-size: 1.5rem;
+        background-color: #548bc6;
         color: white;
-        border: none;
-        cursor: pointer;
+        padding: 3px;
+        text-align: center;
+        margin: 5px;
+    }
+
+    .card-body {
+        padding: 10px;
+
+
+    }
+
+    .revoke-btn {
+        background-color: #dc3545;
+        color: white;
+        padding: 5px;
+        margin: 10px;
+        /* margin-top: 1rem; */
+        border: 0px;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .done-btn {
+        background-color: #35c941;
+        color: white;
+        padding: 5px;
+        margin: 10px;
+        border: 0px;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .card hr {
+        margin: 5px;
+
     }
 </style>
 
-<main class="appointments">
-    <h4>Accepted Appointments</h4>
-    <div class="appointments">
-        {% for appointment in appointments %}
-        <div class="appointment">
-            <p>{{appointment.user}}</p>
-            <p>{{appointment.reason}}</p>
-            <p>{{appointment.date}}</p>
-            <p>{{appointment.time}}</p>
-            <form action="{% url 'staff:appointments' %}" method="post">
+<main>
+    {% for appointment in appointments %}
+
+    <div class="card">
+        <div class="card-header">
+            {{appointment.user}} o-o {{appointment.department}}
+        </div>
+        <div class="card-body">
+            <form action="{% url 'staff:appointments' %}">
                 {% csrf_token %}
-                <button name="id" value="{{ appointment.id }}">Complete</button>
+
+                <h5 class="card-title">{{appointment.date.date}} @ {{appointment.date.time}}</h5> <br>
+                <p class="card-text">{{appointment.reason}}</p>
+                <input type="submit" name="done" class="done-btn" value="Done">
+                <input type="submit" name="revoke" class="revoke-btn" value="Revoke">
             </form>
         </div>
-        {% endfor %}
     </div>
-
+    {% endfor %}
 </main>
-{% endblock %}
+{% endblock content %}

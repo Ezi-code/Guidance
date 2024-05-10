@@ -24,7 +24,9 @@ class Home(View):
 
 class CreateAvailabeDate(View):
     def get(self, request):
-        return render(request, "staff/add_dates.html")
+        dates = AvailabelDates.objects.all()
+        ctx = {"dates": dates}
+        return render(request, "staff/add_dates.html", ctx)
 
     def post(self, request):
         date = request.POST.get("date")
@@ -35,8 +37,24 @@ class CreateAvailabeDate(View):
         return redirect("staff:add_dates")
 
 
+class DeleteDate(View):
+    def post(self, request):
+        date_id = int(request.POST.get("id"))
+        date = AvailabelDates.objects.get(id=date_id)
+        date.delete()
+        return redirect("staff:add_dates")
+
+
 class Appointemtns(View):
     def get(self, request):
         appointments = Appointment.objects.filter(status="ACCEPTED").all()
         ctx = {"appointments": appointments}
         return render(request, "staff/appointments.html", ctx)
+
+    def post(self, request):
+        appointment_id = int(request.POST.get("id"))
+        appointment = Appointment.objects.get(id=appointment_id)
+        print(appointment)
+        # appointment.status = "COMPLETED"
+        # appointment.save()
+        return redirect("staff:appointments")

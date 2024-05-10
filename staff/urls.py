@@ -12,4 +12,5 @@ urlpatterns = [
         name="add_dates",
     ),
     path("appointments", views.Appointemtns.as_view(), name="appointments"),
+    path("delete-date", views.DeleteDate.as_view(), name="delete_date"),
 ]

@@ -22,7 +22,7 @@ class Appointment(models.Model):
     service_type = models.CharField(max_length=50, blank=False, null=False)
     department = models.CharField(max_length=150, blank=False, null=False)
     reason = models.TextField(null=False, blank=False)
-    date_booked = models.DateField(
+    date = models.DateTimeField(
         editable=False,
         default=timezone.now,
     )

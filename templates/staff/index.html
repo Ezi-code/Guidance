@@ -10,12 +10,18 @@ Staff Home
 
 {% block content %}
 <style>
-    .card {
+    main {
         display: flex;
-        flex-direction: column;
-        /* Adjust as needed (column, row-reverse, etc.) */
-        width: 300px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .card {
+        width: 18rem;
+        height: auto;
         border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         padding: 10px;
         margin: 10px;
     }
@@ -35,6 +41,7 @@ Staff Home
         margin-top: 100px;
         padding: 5px;
         background-color: green;
+        border-radius: 5px;
         color: white;
         border: none;
         cursor: pointer;
