@@ -22,7 +22,7 @@ class BookView(LoginMixin, CreateView):
     model = Appointment
     fields = "__all__"
 
-    def get_context_data(self, **kwargs: reverse_lazy):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["professionals"] = Professional.objects.all()
         return context
