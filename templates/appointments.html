@@ -13,31 +13,19 @@ Appointments
     <section class="options">
         <a href="{% url 'core:appointment' %}">Appointments</a>
         <a href="{% url 'core:book' %}">Book</a>
-        <a href="{% url 'core:notifications'%}" onclick="hello()">Notifications</a>
+        <a href="{% url 'core:notifications'%}">Notifications</a>
     </section>
 </div>
-<main>
-    <div class="notification">
-        <div class="apt-content">
-            <p><b>Appointment type:</b></p> <br>
-            <p><b>Time:</b></p> <br>
-            <p><b>Professional:</b></p> <br>
-        </div>
-    </div>
-    <div class="notification">
-        <div class="apt-content">
-            <p><b>Appointment type:</b></p> <br>
-            <p><b>Time:</b></p> <br>
-            <p><b>Professional:</b></p> <br>
-        </div>
-    </div>
-    <div class="notification">
-        <div class="apt-content">
-            <p><b>Appointment type:</b></p> <br>
-            <p><b>Time:</b></p> <br>
-            <p><b>Professional:</b></p> <br>
-        </div>
-    </div>
 
+<main>
+    {% for appointment in appointments %}
+    <div class="notification">
+        <div class="apt-content">
+            <p><b>Appointment type: {{appointment.service_type}}</b></p> <br>
+            <p><b>Time: {{appointment.date}}</b></p> <br>
+            <p><b>Professional: {{appointment.professional}}</b></p> <br>
+        </div>
+    </div>
+    {% endfor %}
 </main>
 {% endblock %}

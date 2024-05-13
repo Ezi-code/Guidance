@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.utils import timezone
 from django.conf import settings
+from staff.models import Professional
 
 
 # Create your models here.
@@ -22,6 +23,7 @@ class Appointment(models.Model):
     service_type = models.CharField(max_length=50, blank=False, null=False)
     department = models.CharField(max_length=150, blank=False, null=False)
     reason = models.TextField(null=False, blank=False)
+    professional = models.ForeignKey(Professional, on_delete=models.CASCADE, default=1)
     date = models.DateTimeField(
         editable=False,
         default=timezone.now,

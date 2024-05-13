@@ -231,10 +231,10 @@ body {
 
 /* END OF STYLES  */
 
-/* LOGIN FORM */
+/* STUDENT LOGIN FORM */
 .login-section {
     text-align: center;
-    margin-top: 10rem;
+    margin-top: 15rem;
 }
 
 .login-form input {

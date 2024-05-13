@@ -1,9 +1,12 @@
 <nav class="navbar">
     <section class="navbar-links">
+        {% if user.is_authenticated %}
         <a href="{% url 'staff:home' %}">Home</a>
-        <a href="{% url 'accounts:login' %}">Login</a>
         <a href="{% url 'staff:appointments' %}">Appointments</a>
         <a href="{% url 'staff:add_dates'%}">Add Dates</a>
-        <a href="{% url 'accounts:logout' %}">Logout</a>
+        <a href="{% url 'accounts:staff_logout' %}">Logout</a>
+        {% else %}
+        <a href="{% url 'accounts:staff_login' %}">Login</a>
+        {% endif %}
     </section>
 </nav>

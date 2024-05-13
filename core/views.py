@@ -12,7 +12,9 @@ class HomeView(TemplateView):
 
 class BookView(LoginMixin, CreateView):
     template_name = "book.html"
-    success_url = reverse_lazy("core:notitfications")
+    success_url = reverse_lazy(
+        "core:notitfications", kwargs={"message": "Appointment booked successfully"}
+    )
     login_required = True
     model = Appointment
     fields = "__all__"
@@ -40,8 +42,8 @@ class CheckAppointmentView(LoginMixin, View):
     from core.models import Appointment
 
     def get(self, request):
-        appointment = Appointment.objects.filter(user=request.user)
+        appointments = Appointment.objects.filter(status="ACCEPTED").all()
         ctx = {
-            "appointment": appointment,
+            "appointments": appointments,
         }
         return render(request, "appointments.html", ctx)

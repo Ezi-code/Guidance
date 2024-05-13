@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Staff Login
+{% endblock %}
+
+{% block nav%}
+{% include "staff/nav.html"%}
+{% endblock %}
+
+{% block content %}
+
+<style>
+    ._login-section {
+        text-align: center;
+        margin-top: 5rem;
+    }
+
+    ._login_form input {
+        width: 50%;
+        padding: 0.6rem;
+        border-radius: 1rem;
+        margin: 0.15rem;
+        border: 1px solid rgb(158, 156, 153);
+    }
+
+    ._login-form button {
+        margin-top: 1rem;
+        width: 50%;
+    }
+</style>
+
+<main class="_login-section">
+    <form class="_login_form" action="{% url 'accounts:staff_login' %}" method="post">
+
+        {% csrf_token %}
+
+        <center>
+            {{ error_msg }}
+        </center>
+
+        <p>
+            <input type="text" name="username" id="name" required placeholder="Index Number">
+        </p>
+        <p>
+            <input type="password" name="password" id="password" required placeholder="Password">
+        </p>
+        <p>
+            <button class="btn" type="submit">Login</button>
+        </p>
+    </form>
+</main>
+{% endblock %}
