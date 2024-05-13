@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View, CreateView
 from django.urls import reverse_lazy
-from core.models import Appointment, Notifications
+from core.models import Appointment, Notifications, Professional
 from django.views.generic.base import TemplateView
 from core.services import LoginMixin
 
@@ -13,11 +13,19 @@ class HomeView(TemplateView):
 class BookView(LoginMixin, CreateView):
     template_name = "book.html"
     success_url = reverse_lazy(
-        "core:notitfications", kwargs={"message": "Appointment booked successfully"}
+        "core:notitfications",
+        kwargs={
+            "message": "Appointment booked successfully",
+        },
     )
     login_required = True
     model = Appointment
     fields = "__all__"
+
+    def get_context_data(self, **kwargs: reverse_lazy):
+        context = super().get_context_data(**kwargs)
+        context["professionals"] = Professional.objects.all()
+        return context
 
 
 class DashboardView(LoginMixin, View):

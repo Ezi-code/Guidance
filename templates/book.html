@@ -52,6 +52,14 @@ Book Appointment
             </select>
         </p>
         <p>
+            <select required name="professional" id="professional">
+                <option selected="true" disabled aria-disabled="false">Professional</option>
+                {% for professional in professionals %}
+                <option value="{{professional.id}}">{{professional.name}}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
             <input required type="text" name="department" id="department" placeholder="Department" spellcheck="true">
         </p>
         <p>
