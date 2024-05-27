@@ -46,6 +46,30 @@ Staff Home
         border: none;
         cursor: pointer;
     }
+
+    ._card {
+        margin: 5rem auto;
+        text-align: center;
+        width: 90%;
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        padding: 1rem;
+    }
+
+    ._card-header {
+        font-size: 20px;
+        font-weight: bold;
+        color: red;
+
+    }
+
+    ._card-body {
+        font-size: 16px;
+        color: green;
+
+    }
 </style>
 
 <main>
@@ -57,6 +81,11 @@ Staff Home
             <p class="card-body">{{appointment.reason}}</p>
             <button name="id" value="{{ appointment.id}}">Accept</button>
         </form>
+    </div>
+    {% empty %}
+    <div class="_card">
+        <h3 class="_card-header">No Request Yet</h3>
+        <p class="_card-body">...No appointment request made to you at the moment.</p>
     </div>
     {% endfor %}
 </main>

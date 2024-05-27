@@ -52,9 +52,10 @@ class DeleteDate(LoginMixin, View):
 
 class Appointemtns(LoginMixin, View):
     def get(self, request):
+        print(request.user.username)
         print(request.user.id)
         appointments = Appointment.objects.filter(
-            status="ACCEPTED", professional__name=request.user.username
+            professional__name=request.user.username
         ).all()
         ctx = {"appointments": appointments}
         return render(request, "staff/appointments.html", ctx)
@@ -62,7 +63,7 @@ class Appointemtns(LoginMixin, View):
     def post(self, request):
         appointment_id = int(request.POST.get("id"))
         appointment = Appointment.objects.get(id=appointment_id)
-        print(appointment)
-        # appointment.status = "COMPLETED"
-        # appointment.save()
+        appointment.status = "COMPLETED"
+        appointment.save()
+        messages.success(request, "Appointment marked as Completed")
         return redirect("staff:appointments")

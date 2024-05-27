@@ -10,7 +10,7 @@ Appointments
 
 {% block content %}
 <style>
-    main {
+    .apmt-section {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -67,26 +67,64 @@ Appointments
         margin: 5px;
 
     }
+
+    .search {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 10px;
+
+    }
+
+    #search-input {
+        padding: 5px;
+        width: 80%;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    #search-input:active {
+        border: 1px solid #9bc4f0;
+
+    }
+
+    #search-submit {
+        padding: 5px;
+        width: 15%;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        background-color: #548bc6;
+        color: white;
+    }
 </style>
 
 <main>
-    {% for appointment in appointments %}
-
-    <div class="card">
-        <div class="card-header">
-            {{appointment.user}} o-o {{appointment.department}}
-        </div>
-        <div class="card-body">
-            <form action="{% url 'staff:appointments' %}">
-                {% csrf_token %}
-
-                <h5 class="card-title">{{appointment.date.date}} @ {{appointment.date.time}}</h5> <br>
-                <p class="card-text">{{appointment.reason}}</p>
-                <input type="submit" name="done" class="done-btn" value="Done">
-                <input type="submit" name="revoke" class="revoke-btn" value="Revoke">
-            </form>
-        </div>
+    <div class="search">
+        <form action="">
+            <input id="search-input" type="search" required placeholder="search...">
+            <input id="search-submit" type="submit" value="search">
+        </form>
     </div>
-    {% endfor %}
+
+    <section class="apmt-section">
+        {% for appointment in appointments %}
+        <div class="card">
+            <div class="card-header">
+                {{appointment.user}}
+            </div>
+            <div class="card-body">
+                <form action="{% url 'staff:appointments' %}" method="post">
+                    {% csrf_token %}
+
+                    <h5 class="card-title">{{appointment.date.date}} @ {{appointment.date.time}}</h5> <br>
+                    <p class="card-text">{{appointment.reason}}</p>
+                    <!-- <input type="submit" name="done" class="done-btn" value="Done"> -->
+                    <button class="done-btn" value={{appointment.id}} name="id">Done</button>
+                    <!-- <input type="submit" name="revoke" class="revoke-btn" value="Revoke"> -->
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
 </main>
 {% endblock content %}
