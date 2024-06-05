@@ -12,3 +12,6 @@ It is cuurently under development. If you wish to contribute to this project, re
 - Run `python manage.py migrate` and and migrate to create the database
 
 - Create a superuser accounts for testing purposes `python manage.py creatsuperuser` and follow the prompts to create a superuser accoutns .
+
+# Note
+- All tasks that needs to be done are stated in TODO.md file 

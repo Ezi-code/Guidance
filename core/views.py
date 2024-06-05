@@ -12,15 +12,11 @@ class HomeView(TemplateView):
 
 class BookView(LoginMixin, CreateView):
     template_name = "book.html"
-    success_url = reverse_lazy(
-        "core:notitfications",
-        kwargs={
-            "message": "Appointment booked successfully",
-        },
-    )
+    success_url = reverse_lazy('core:dashboard')
     login_required = True
     model = Appointment
     fields = "__all__"
+    # fields = ['fname','email','phone','level','service_type','professional', 'department', 'reason']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

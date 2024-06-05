@@ -19,13 +19,14 @@ Book Appointment
     </section>
 </div>
 <main class="form-section">
+    <br>
     <h2>fill in the form below to book a session with a counsellor </h2>
-    <form class="booking" required action="{% url 'core:book' %}" method="post">
+    <form class="booking" action="{% url 'core:book' %}" method="post">
 
         {% csrf_token %}
-
+        <input type="text" name="user" value="{{request.user}}" hidden>
         <p>
-            <input type="text" name="name" id="name" placeholder="Full Name" required autocomplete="on">
+            <input type="text" name="fname" id="name" placeholder="Full Name" required autocomplete="on">
         </p>
         <p>
             <input type="email" name="email" id="email" placeholder="email" required autocomplete="on">
@@ -45,7 +46,7 @@ Book Appointment
         </p>
         <p>
             <!-- <label for="service">Service Type</label> -->
-            <select required name="service" id="level">
+            <select required name="service_type" id="level">
                 <option disabled selected="true">Service Type</option>
                 <option value="guidance">Guidance</option>
                 <option value="counselling">Counselling</option>

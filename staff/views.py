@@ -52,10 +52,9 @@ class DeleteDate(LoginMixin, View):
 
 class Appointemtns(LoginMixin, View):
     def get(self, request):
-        print(request.user.username)
-        print(request.user.id)
         appointments = Appointment.objects.filter(
-            professional__name=request.user.username
+            professional__name=request.user.username, 
+            status="ACCEPTED"
         ).all()
         ctx = {"appointments": appointments}
         return render(request, "staff/appointments.html", ctx)
