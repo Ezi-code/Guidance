@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-# from core.models import Appointment
+# from student.models import Appointment
 
 
 # Create your models here.
@@ -32,5 +32,5 @@ class Professional(models.Model):
 
 
 class Session(models.Model):
-    student = models.ForeignKey("core.Appointment", on_delete=models.CASCADE)
+    student = models.ForeignKey("student.Appointment", on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now)

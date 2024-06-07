@@ -1,36 +1,37 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, View, CreateView
+from django.views.generic import TemplateView, View
+from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
-from core.models import Appointment, Notifications, Professional
+from student.models import Appointment, Notifications, Professional
 from django.views.generic.base import TemplateView
-from core.services import LoginMixin
+from student.services import LoginMixin
+from .forms import BookingForm
+from django.contrib import messages
 
 
 class HomeView(TemplateView):
     template_name = "index.html"
 
 
-class BookView(LoginMixin, CreateView):
+class BookView(LoginMixin, FormView):
     template_name = "book.html"
-    success_url = reverse_lazy('core:dashboard')
-    login_required = True
-    model = Appointment
-    fields = "__all__"
-    # fields = ['fname','email','phone','level','service_type','professional', 'department', 'reason']
+    success_url = reverse_lazy("student:dashboard")
+    form_class = BookingForm
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["professionals"] = Professional.objects.all()
-        return context
+    def form_valid(self, form):
+        form.full_clean()
+        form.save()
+        messages.success(self.request, "Appointment booked successfully")
+        return super().form_valid(form)
 
 
 class DashboardView(LoginMixin, View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect("core:appointment")
+            return redirect("student:appointment")
         else:
-            return redirect("core:login")
+            return redirect("student:login")
 
 
 class NotificationsView(LoginMixin, View):
@@ -43,7 +44,7 @@ class NotificationsView(LoginMixin, View):
 
 
 class CheckAppointmentView(LoginMixin, View):
-    from core.models import Appointment
+    from student.models import Appointment
 
     def get(self, request):
         appointments = Appointment.objects.filter(status="ACCEPTED").all()

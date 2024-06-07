@@ -18,7 +18,7 @@ class LoginView(View):
             if not user.is_staff:
                 login(request, user)
                 messages.success(request, "You are now logged in")
-                return redirect("core:dashboard")
+                return redirect("student:dashboard")
             else:
                 messages.error(request, "You are not allowed to login here")
                 return redirect("accounts:login")
@@ -31,7 +31,7 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         messages.success(request, "You are now logged out")
-        return redirect("core:home")
+        return redirect("student:home")
 
 
 class StaffLoginView(View):

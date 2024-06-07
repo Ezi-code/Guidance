@@ -172,7 +172,7 @@ body {
 }
 
 .form-section input {
-    width: 80%;
+    width: 40%;
     padding: 0.6rem;
     border-radius: 1rem;
     border: 1px solid rgb(158, 156, 153);
@@ -180,7 +180,7 @@ body {
 }
 
 .booking select {
-    width: 80%;
+    width: 40%;
     padding: 0.6rem;
     border-radius: 1rem;
     border: 1px solid rgb(158, 156, 153);
@@ -188,7 +188,7 @@ body {
 }
 
 .form-section textarea {
-    width: 80%;
+    width: 40%;
     padding: 0.6rem;
     border-radius: 1rem;
     border: 1px solid rgb(158, 156, 153);
@@ -198,7 +198,7 @@ body {
 .btn {
     color: rgb(24, 150, 19);
     font-size: 1.25rem;
-    width: 50%;
+    width: 25%;
     height: 6vh;
     border: 1px solid rgba(184, 134, 8, 0.685);
     border-radius: 1rem;
@@ -266,21 +266,25 @@ body {
     }
 
     .booking input {
-        width: 90%;
+        width: 60%;
         padding: 0.6rem;
         border-radius: 1rem;
         border: 1px solid rgb(158, 156, 153);
     }
 
+    .btn {
+        width: 40%;
+    }
+
     .booking select {
-        width: 90%;
+        width: 60%;
         padding: 0.6rem;
         border-radius: 1rem;
         border: 1px solid rgb(158, 156, 153);
     }
 
     .booking textarea {
-        width: 90%;
+        width: 60%;
         padding: 0.6rem;
         border-radius: 1rem;
         border: 1px solid rgb(158, 156, 153);

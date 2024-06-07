@@ -15,8 +15,7 @@ class Appointment(models.Model):
         ACCEPTED = ("ACCEPTED", "Accepted")
         DRAFT = ("DRAFT", "Draft")
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    fname = models.CharField(max_length=100, blank=False, null=False)
+    full_name = models.CharField(max_length=100, blank=False, null=False)
     email = models.EmailField()
     phone = models.CharField(max_length=15, blank=False, null=False)
     level = models.CharField(max_length=10, blank=False, null=False)
@@ -33,7 +32,7 @@ class Appointment(models.Model):
     )
 
     def __str__(self) -> str:
-        return f"{self.fname} --> {self.service_type}"
+        return f"{self.full_name} --> {self.service_type}"
 
 
 class Notifications(models.Model):

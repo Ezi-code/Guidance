@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from staff.models import Session, AvailabelDates
-from core.models import Appointment
+from student.models import Appointment
 from staff.services import LoginMixin
 from django.contrib import messages
 
@@ -53,8 +53,7 @@ class DeleteDate(LoginMixin, View):
 class Appointemtns(LoginMixin, View):
     def get(self, request):
         appointments = Appointment.objects.filter(
-            professional__name=request.user.username, 
-            status="ACCEPTED"
+            professional__name=request.user.username, status="ACCEPTED"
         ).all()
         ctx = {"appointments": appointments}
         return render(request, "staff/appointments.html", ctx)
