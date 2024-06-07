@@ -1,6 +1,13 @@
-from typing import Any
 from django import forms
+from accounts.models import User
+from typing import Any
 from student.models import Appointment
+
+
+class RegisterForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("username", "email", "phone", "password")
 
 
 class BookingForm(forms.ModelForm):
@@ -16,6 +23,18 @@ class BookingForm(forms.ModelForm):
             "department",
             "reason",
         ]
+        widgets = {
+            "full_name": forms.TextInput(attrs={"placeholder": "Full Name"}),
+            "email": forms.TextInput(attrs={"placeholder": "example@mail.com"}),
+            "phone": forms.TextInput(attrs={"placeholder": "Phone number"}),
+            "level": forms.TextInput(attrs={"placeholder": "Level"}),
+            "service_type": forms.TextInput(
+                attrs={"placeholder": "Service type (guidance/coucelling)"}
+            ),
+            "professional": forms.Select(),
+            "department": forms.TextInput(attrs={"placeholder": "Department"}),
+            "reason": forms.Textarea(attrs={"placeholder": "Reason fro session"}),
+        }
 
     def cleaned_data(self):
         cleaned_data = self.clean()

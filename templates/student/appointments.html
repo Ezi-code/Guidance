@@ -5,7 +5,7 @@ Appointments
 {% endblock %}
 
 {% block nav%}
-{% include "nav.html"%}
+{% include "student/nav.html"%}
 {% endblock %}
 
 {% block content %}
@@ -26,6 +26,8 @@ Appointments
             <p><b>Professional: {{appointment.professional}}</b></p> <br>
         </div>
     </div>
+    {% empty %}
+    <p>No appoiments yet! </p>
     {% endfor %}
 </main>
 {% endblock %}

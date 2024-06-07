@@ -5,7 +5,7 @@ Book Appointment
 {% endblock %}
 
 {% block nav%}
-{% include "nav.html"%}
+{% include "student/nav.html"%}
 {% endblock %}
 
 {% block content %}
@@ -21,13 +21,31 @@ Book Appointment
 <main class="form-section">
     <br>
     <h2>fill in the form below to book a session with a counsellor </h2>
+    {% if form.erros %}
+      {{form.errors}}
+    {% endif %}
     <form class="booking" action="{% url 'student:book' %}" method="post">
 
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.full_name }} <br>
+        {{ form.email }} <br>
+        {{ form.phone }} <br>
+        {{ form.level }} <br>
+        {{ form.service_type }} <br>
+        <!-- {{ form.professional }} <br> -->
+        <select name="professional" id="id_professional">
+            <option value="0" disabled selected>Select professional</option>
+            {% for prof in professionals %}
+              <option value="{{prof.id}}">{{prof.name}}</option>
+            {% endfor %}
+        </select>
+        {{ form.department }} <br>
+        {{ form.reason }}
+        <!-- {{ form.as_p }} -->
         <input type="text" value="{{request.user.id}}" name="user" hidden>
         <p>
-            <button class="btn" type="submit" value="Book Session">Book Session</button>
+            <button class="btn" type="submit" value="Book Session" spellcheck="true
+            ">Book Session</button>
         </p>
     </form>
 </main>

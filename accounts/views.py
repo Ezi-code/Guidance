@@ -4,8 +4,8 @@ from django.views.generic import View
 from django.contrib import messages
 
 
-class LoginView(View):
-    template_name = "login.html"
+class StudentLoginView(View):
+    template_name = "student/login.html"
 
     def get(self, request):
         return render(request, self.template_name)
@@ -27,7 +27,7 @@ class LoginView(View):
             return render(request, self.template_name)
 
 
-class LogoutView(View):
+class StudentLogoutView(View):
     def get(self, request):
         logout(request)
         messages.success(request, "You are now logged out")

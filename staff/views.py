@@ -32,12 +32,16 @@ class CreateAvailabeDate(LoginMixin, View):
         return render(request, "staff/add_dates.html", ctx)
 
     def post(self, request):
-        date = request.POST.get("date")
-        time = request.POST.get("time")
-        new_date = AvailabelDates.objects.create(date=date, time=time)
-        new_date.full_clean()
-        new_date.save()
-        messages.success(request, "Date Added")
+        try:
+            date = request.POST.get("date")
+            time = request.POST.get("time")
+            new_date = AvailabelDates.objects.create(date=date, time=time)
+            new_date.full_clean()
+            new_date.save()
+            messages.success(request, "Date Added")
+        except Exception as e:
+            messages.error(request, "Unable to add date. try again!")
+            return redirect("staff:add_dates")
         return redirect("staff:add_dates")
 
 

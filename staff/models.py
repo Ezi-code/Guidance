@@ -32,5 +32,7 @@ class Professional(models.Model):
 
 
 class Session(models.Model):
-    student = models.ForeignKey("student.Appointment", on_delete=models.CASCADE)
+    student = models.ForeignKey(
+        "student.Appointment", on_delete=models.CASCADE, default=None
+    )
     date = models.DateTimeField(default=timezone.now)

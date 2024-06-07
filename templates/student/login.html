@@ -5,12 +5,12 @@ Login
 {% endblock %}
 
 {% block nav%}
-{% include "nav.html"%}
+{% include "student/nav.html"%}
 {% endblock %}
 
 {% block content %}
 <main class="login-section">
-    <form class="login-form" action="{% url 'accounts:login' %}" method="post">
+    <form class="login-form" action="{% url 'accounts:student_login' %}" method="post">
 
         {% csrf_token %}
 
