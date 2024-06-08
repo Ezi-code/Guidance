@@ -16,7 +16,6 @@ class Home(LoginMixin, View):
 
     def post(self, request):
         appointment_id = int(request.POST.get("id"))
-        # print(type(appointment_id))
         appointment = Appointment.objects.get(id=appointment_id)
         appointment.status = "ACCEPTED"
         appointment.response_date = timezone.now()
