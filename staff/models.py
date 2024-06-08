@@ -1,21 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-# from student.models import Appointment
-
-
-# Create your models here.
-class AvailabelDates(models.Model):
-    class Status(models.TextChoices):
-        AVAILABLE = ("AVAILABLE", "Available")
-        EXPIRED = ("EXPIRED", "Expired")
-
-    date = models.DateField(default=timezone.localdate)
-    time = models.TimeField(default=timezone.localtime)
-    status = models.CharField(
-        max_length=50, choices=Status.choices, default=Status.AVAILABLE
-    )
-
 
 class Professional(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)

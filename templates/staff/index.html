@@ -78,6 +78,13 @@ Staff Home
         border: 1px solid #ddd;
         border-radius: 5px;
     }
+
+    .timepicker {
+        border-radius: 5px;
+        width: 90%;
+        padding: 5px 20px;
+        border: 1px solid #ddd;
+    }
 </style>
 
 <main>
@@ -94,6 +101,9 @@ Staff Home
             <br>
             <p>
                 <input class="datepicker" type="date" name="session_date" id="id_session_date">
+            </p>
+            <p>
+                <input class="timepicker" type="time" name="session_time" id="id_session_date">
             </p>
             <button name="id" value="{{ appointment.id}}">Accept</button>
         </form>

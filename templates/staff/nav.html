@@ -3,7 +3,6 @@
         {% if user.is_authenticated %}
         <a href="{% url 'staff:home' %}">Requests</a>
         <a href="{% url 'staff:appointments' %}">Appointments</a>
-        <a href="{% url 'staff:add_dates'%}">Add Dates</a>
         <a href="{% url 'accounts:staff_logout' %}">Logout</a>
         {% else %}
         <a href="{% url 'student:home' %}">Home</a>

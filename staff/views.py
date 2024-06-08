@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from staff.models import Session, AvailabelDates
+from staff.models import Session
 from student.models import Appointment
 from staff.services import LoginMixin
 from django.contrib import messages
 from django.utils import timezone
 
 
-# Create your views here.
 class Home(LoginMixin, View):
     def get(self, request):
         appointments = Appointment.objects.filter(status="DRAFT").all()
@@ -15,44 +14,23 @@ class Home(LoginMixin, View):
         return render(request, "staff/index.html", ctx)
 
     def post(self, request):
+        #
+        ses_date = request.POST.get("session_date")
+        ses_time = request.POST.get("session_time")
         appointment_id = int(request.POST.get("id"))
+        print(ses_time)
+        #
         appointment = Appointment.objects.get(id=appointment_id)
         appointment.status = "ACCEPTED"
         appointment.response_date = timezone.now()
+        appointment.session_date = ses_date
+        appointment.session_time = ses_time
+        #
         appointment.save()
         new_session = Session.objects.create(student=appointment)
         new_session.save()
         messages.success(request, "Appointment Accepted")
         return redirect("staff:home")
-
-
-class CreateAvailabeDate(LoginMixin, View):
-    def get(self, request):
-        dates = AvailabelDates.objects.all()
-        ctx = {"dates": dates}
-        return render(request, "staff/add_dates.html", ctx)
-
-    def post(self, request):
-        try:
-            date = request.POST.get("date")
-            time = request.POST.get("time")
-            new_date = AvailabelDates.objects.create(date=date, time=time)
-            new_date.full_clean()
-            new_date.save()
-            messages.success(request, "Date Added")
-        except Exception as e:
-            messages.error(request, "Unable to add date. try again!")
-            return redirect("staff:add_dates")
-        return redirect("staff:add_dates")
-
-
-class DeleteDate(LoginMixin, View):
-    def post(self, request):
-        date_id = int(request.POST.get("id"))
-        date = AvailabelDates.objects.get(id=date_id)
-        date.delete()
-        messages.success(request, "Date Deleted")
-        return redirect("staff:add_dates")
 
 
 class Appointemtns(LoginMixin, View):

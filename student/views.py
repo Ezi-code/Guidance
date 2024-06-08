@@ -7,7 +7,6 @@ from student.services import LoginMixin
 from forms import BookingForm
 from django.contrib import messages
 from django.utils import timezone
-from staff.models import AvailabelDates
 from datetime import datetime
 
 

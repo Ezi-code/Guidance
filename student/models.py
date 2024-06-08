@@ -26,9 +26,10 @@ class Appointment(models.Model):
     reason = models.TextField(null=False, blank=False)
     professional = models.ForeignKey(Professional, on_delete=models.CASCADE, default=1)
     request_date = models.DateTimeField(blank=True, null=True)
-    session_date = models.DateTimeField(
+    session_date = models.DateField(
         default=timezone.now,
     )
+    session_time = models.TimeField(null=True, blank=True)
     response_date = models.DateTimeField(null=True, blank=True)
     status = models.CharField(
         max_length=20, choices=Status.choices, default=Status.DRAFT
