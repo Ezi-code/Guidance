@@ -110,17 +110,16 @@ Appointments
         {% for appointment in appointments %}
         <div class="card">
             <div class="card-header">
-                {{appointment.user}}
+                {{appointment.full_name}}
             </div>
             <div class="card-body">
                 <form action="{% url 'staff:appointments' %}" method="post">
                     {% csrf_token %}
 
-                    <h5 class="card-title">{{appointment.date.date}} @ {{appointment.date.time}}</h5> <br>
+                    <h5 class="card-title">{{appointment.session_date.date}} @ {{appointment.session_date.time}}</h5>
+                    <br>
                     <p class="card-text">{{appointment.reason}}</p>
-                    <!-- <input type="submit" name="done" class="done-btn" value="Done"> -->
                     <button class="done-btn" value={{appointment.id}} name="id">Done</button>
-                    <!-- <input type="submit" name="revoke" class="revoke-btn" value="Revoke"> -->
                 </form>
             </div>
         </div>

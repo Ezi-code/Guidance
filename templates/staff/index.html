@@ -38,7 +38,7 @@ Staff Home
     }
 
     button {
-        margin-top: 100px;
+        margin-top: 1px;
         padding: 5px;
         background-color: green;
         border-radius: 5px;
@@ -70,6 +70,14 @@ Staff Home
         color: green;
 
     }
+
+    .datepicker {
+        width: 90%;
+        padding: 5px 20px;
+        margin-top: 90px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
 </style>
 
 <main>
@@ -77,8 +85,16 @@ Staff Home
     <div class="card">
         <form action="{% url 'staff:home' %}" method="post">
             {% csrf_token %}
-            <p class="card-header">{{appointment.user}}</p>
-            <p class="card-body">{{appointment.reason}}</p>
+            <p class="_card-header">{{appointment.full_name}}</p>
+            <p class="card-body"><b>Department:</b> {{appointment.department}}</p>
+            <p class="card-body"><b>Level: </b>{{appointment.level}}</p>
+            <p class="card-body"><b>Phone: </b>{{appointment.phone}}</p>
+            <br>
+            <p class="card-body"><b>Reason:</b> {{appointment.reason}}</p>
+            <br>
+            <p>
+                <input class="datepicker" type="date" name="session_date" id="id_session_date">
+            </p>
             <button name="id" value="{{ appointment.id}}">Accept</button>
         </form>
     </div>

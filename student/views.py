@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
-from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from student.models import Appointment, Notifications, Professional
 from django.views.generic.base import TemplateView
@@ -8,6 +7,11 @@ from student.services import LoginMixin
 from forms import BookingForm
 from django.contrib import messages
 from django.utils import timezone
+from staff.models import AvailabelDates
+from datetime import datetime
+
+
+datetime.date
 
 
 class HomeView(TemplateView):
@@ -21,7 +25,10 @@ class BookView(LoginMixin, View):
 
     def get(self, request):
         professionals = Professional.objects.all()
-        ctx = {"form": self.form_class, "professionals": professionals}
+        ctx = {
+            "form": self.form_class,
+            "professionals": professionals,
+        }
         return render(request, self.template, ctx)
 
     def post(self, request):

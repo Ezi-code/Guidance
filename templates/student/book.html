@@ -22,7 +22,7 @@ Book Appointment
     <br>
     <h2>fill in the form below to book a session with a counsellor </h2>
     {% if form.erros %}
-      {{form.errors}}
+    {{form.errors}}
     {% endif %}
     <form class="booking" action="{% url 'student:book' %}" method="post">
 
@@ -36,9 +36,9 @@ Book Appointment
         <select name="professional" id="id_professional">
             <option value="0" disabled selected>Select professional</option>
             {% for prof in professionals %}
-              <option value="{{prof.id}}">{{prof.name}}</option>
+            <option value="{{prof.id}}">{{prof.name}}</option>
             {% endfor %}
-        </select>
+        </select> <br>
         {{ form.department }} <br>
         {{ form.reason }}
         <!-- {{ form.as_p }} -->

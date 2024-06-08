@@ -16,9 +16,6 @@ class AvailabelDates(models.Model):
         max_length=50, choices=Status.choices, default=Status.AVAILABLE
     )
 
-    def __str__(self):
-        return f"{self.date.date()} {self.date.time()}"
-
 
 class Professional(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
