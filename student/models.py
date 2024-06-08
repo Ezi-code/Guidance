@@ -7,6 +7,7 @@ from staff.models import Professional
 
 # Create your models here.
 class Appointment(models.Model):
+
     class Service(models.TextChoices):
         GUIDANCE = "GUIDANCE", "Guidance"
         COUNSELLING = "COUNSELLING", "Counselling"
@@ -14,8 +15,9 @@ class Appointment(models.Model):
     class Status(models.TextChoices):
         ACCEPTED = ("ACCEPTED", "Accepted")
         DRAFT = ("DRAFT", "Draft")
+        REJECTED = ("REJECTED", "Rejected")
 
-    full_name = models.CharField(max_length=100, blank=False, null=False)
+    full_name = models.CharField(db_index=True, max_length=100, blank=False, null=False)
     email = models.EmailField()
     phone = models.CharField(max_length=15, blank=False, null=False)
     level = models.CharField(max_length=10, blank=False, null=False)
@@ -23,16 +25,17 @@ class Appointment(models.Model):
     department = models.CharField(max_length=150, blank=False, null=False)
     reason = models.TextField(null=False, blank=False)
     professional = models.ForeignKey(Professional, on_delete=models.CASCADE, default=1)
-    date = models.DateTimeField(
-        editable=False,
+    request_date = models.DateTimeField(blank=True, null=True)
+    session_date = models.DateTimeField(
         default=timezone.now,
     )
+    response_date = models.DateTimeField(null=True, blank=True)
     status = models.CharField(
         max_length=20, choices=Status.choices, default=Status.DRAFT
     )
 
     def __str__(self) -> str:
-        return f"{self.full_name} --> {self.service_type}"
+        return "Appointment for {}".format(self.full_name)
 
 
 class Notifications(models.Model):
@@ -53,4 +56,4 @@ class Notifications(models.Model):
         ordering = ("-time_stamp",)
 
     def __str__(self):
-        return self.pk
+        return "Notification for {}".format(self.user.username)

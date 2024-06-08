@@ -7,6 +7,7 @@ from django.views.generic.base import TemplateView
 from student.services import LoginMixin
 from forms import BookingForm
 from django.contrib import messages
+from django.utils import timezone
 
 
 class HomeView(TemplateView):
@@ -26,22 +27,13 @@ class BookView(LoginMixin, View):
     def post(self, request):
         form = BookingForm(request.POST)
         if form.is_valid():
+            form.instance.request_date = timezone.now()
             form.save()
             messages.success(request, "Appointment booked successfylly")
             return redirect("student:dashboard")
         else:
             messages.error(request, "An error occured")
             return redirect("student:book")
-
-    # def form_valid(self, form):
-    #     form.full_clean()
-    #     form.save()
-    #     messages.success(self.request, "Appointment booked successfully")
-    #     return super().form_valid(form)
-
-    # def get_context_data(self, **kwargs):
-    #     professionals = Professional.objects.all()
-    #     return super().get_context_data(professionals)
 
 
 class DashboardView(LoginMixin, View):

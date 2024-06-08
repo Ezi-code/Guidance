@@ -4,6 +4,7 @@ from staff.models import Session, AvailabelDates
 from student.models import Appointment
 from staff.services import LoginMixin
 from django.contrib import messages
+from django.utils import timezone
 
 
 # Create your views here.
@@ -18,6 +19,7 @@ class Home(LoginMixin, View):
         # print(type(appointment_id))
         appointment = Appointment.objects.get(id=appointment_id)
         appointment.status = "ACCEPTED"
+        appointment.response_date = timezone.now()
         appointment.save()
         new_session = Session.objects.create(student=appointment)
         new_session.save()
