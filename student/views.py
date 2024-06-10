@@ -53,10 +53,7 @@ class DashboardView(LoginMixin, View):
 
 class NotificationsView(LoginMixin, View):
     def get(self, request):
-        notifications = Notifications.objects.filter(user=request.user).all()
-        ctx = {
-            "notifications": notifications,
-        }
+
         return render(request, "student/notifications.html", ctx)
 
 

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block nav%}
+{% include "student/nav.html"%}
+{% endblock %}
+
+{% block content %}
+{% block inner_nav %}
+{% include "student/inner_nav.html" %}
+{% endblock inner_nav %}
+<main>
+    <div class="notification">
+        <p>content date time </p>
+        <button>Read</button>
+    </div>
+</main>
+{% endblock %}
