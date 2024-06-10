@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-completed sessions
+Requests
 {% endblock %}
 
 {% block nav%}
@@ -13,10 +13,10 @@ completed sessions
 {% include "student/inner_nav.html" %}
 {% endblock inner_nav %}
 <main>
-    {% for session in comp_sessions %}
+    {% for req in reqs %}
     <div class="notification">
-        <p>{{session.reason }} | {{session.session_date}}</p>
-        <button>delete</button>
+        <p>{{req.reason }} | {{req.request_date}}</p>
+        <button>draft</button>
     </div>
     {% endfor %}
 </main>

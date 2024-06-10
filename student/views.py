@@ -34,6 +34,7 @@ class BookView(LoginMixin, View):
         form = BookingForm(request.POST)
         if form.is_valid():
             form.instance.request_date = timezone.now()
+            form.instance.user = request.user
             form.save()
             messages.success(request, "Appointment booked successfylly")
             return redirect("student:dashboard")
@@ -51,10 +52,13 @@ class DashboardView(LoginMixin, View):
             return redirect("student:login")
 
 
-class NotificationsView(LoginMixin, View):
+class CompletedSessionsView(LoginMixin, View):
     def get(self, request):
-
-        return render(request, "student/notifications.html", ctx)
+        comp_sessions = Appointment.objects.filter(status="COMPLETED").all()
+        ctx = {
+            "comp_sessions": comp_sessions,
+        }
+        return render(request, "student/completed.html", ctx)
 
 
 class CheckAppointmentView(LoginMixin, View):
@@ -66,3 +70,10 @@ class CheckAppointmentView(LoginMixin, View):
             "appointments": appointments,
         }
         return render(request, "student/appointments.html", ctx)
+
+
+class RequestsView(LoginMixin, View):
+    def get(self, request):
+        reqs = Appointment.objects.filter(status="DRAFT").all()
+        ctx = {"reqs": reqs}
+        return render(request, "student/requests.html", ctx)

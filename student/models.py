@@ -3,6 +3,7 @@ from datetime import datetime
 from django.utils import timezone
 from django.conf import settings
 from staff.models import Professional
+from accounts.models import User
 
 
 # Create your models here.
@@ -15,8 +16,9 @@ class Appointment(models.Model):
     class Status(models.TextChoices):
         ACCEPTED = ("ACCEPTED", "Accepted")
         DRAFT = ("DRAFT", "Draft")
-        REJECTED = ("REJECTED", "Rejected")
+        COMPLETED = ("COMPLETED", "Completed")
 
+    user = models.ForeignKey(User, on_delete=models.PROTECT, db_index=True, default=1)
     full_name = models.CharField(db_index=True, max_length=100, blank=False, null=False)
     email = models.EmailField()
     phone = models.CharField(max_length=15, blank=False, null=False)
