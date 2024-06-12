@@ -5,7 +5,7 @@ from django.contrib import messages
 
 
 class StudentLoginView(View):
-    template_name = "student/login.html"
+    template_name = "accounts/student_signin.html"
 
     def get(self, request):
         return render(request, self.template_name)
@@ -18,7 +18,7 @@ class StudentLoginView(View):
             if not user.is_staff:
                 login(request, user)
                 messages.success(request, "You are now logged in")
-                return redirect("student:dashboard")
+                return redirect("student:home")
             else:
                 messages.error(request, "You are not allowed to login here")
                 return redirect("accounts:login")
@@ -36,7 +36,7 @@ class StudentLogoutView(View):
 
 class StaffLoginView(View):
     def get(self, request):
-        return render(request, "staff/login.html")
+        return render(request, "accounts/staff_signin.html")
 
     def post(self, request):
         username = request.POST.get("username")
@@ -54,8 +54,8 @@ class StaffLoginView(View):
         return redirect("accounts:staff_login")
 
 
-class StaffLogoutView(View):
+class LogoutView(View):
     def get(self, request):
         logout(request)
         messages.success(request, "You are now logged out")
-        return redirect("accounts:staff_login")
+        return render(request, "registration/logged_out.html")

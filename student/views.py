@@ -18,8 +18,8 @@ class HomeView(TemplateView):
 
 
 class BookView(LoginMixin, View):
-    template = "student/book.html"
-    success_url = reverse_lazy("student:dashboard")
+    template = "student/booking_form.html"
+    success_url = reverse_lazy("student:requests")
     form_class = BookingForm()
 
     def get(self, request):
@@ -32,7 +32,10 @@ class BookView(LoginMixin, View):
 
     def post(self, request):
         form = BookingForm(request.POST)
+        print(form.data)
+        print("In try block")
         if form.is_valid():
+            print("form is valid")
             form.instance.request_date = timezone.now()
             form.instance.user = request.user
             form.save()
@@ -40,16 +43,8 @@ class BookView(LoginMixin, View):
             return redirect("student:dashboard")
         else:
             messages.error(request, "An error occured")
+            print("Out of try block")
             return redirect("student:book")
-
-
-class DashboardView(LoginMixin, View):
-
-    def get(self, request):
-        if request.user.is_authenticated:
-            return redirect("student:appointment")
-        else:
-            return redirect("student:login")
 
 
 class CompletedSessionsView(LoginMixin, View):
@@ -61,11 +56,13 @@ class CompletedSessionsView(LoginMixin, View):
         return render(request, "student/completed.html", ctx)
 
 
-class CheckAppointmentView(LoginMixin, View):
+class AppointmentsView(LoginMixin, View):
     from student.models import Appointment
 
     def get(self, request):
-        appointments = Appointment.objects.filter(status="ACCEPTED").all()
+        appointments = Appointment.objects.filter(
+            user=request.user, status="DRAFT"
+        ).all()
         ctx = {
             "appointments": appointments,
         }
@@ -74,6 +71,6 @@ class CheckAppointmentView(LoginMixin, View):
 
 class RequestsView(LoginMixin, View):
     def get(self, request):
-        reqs = Appointment.objects.filter(status="DRAFT").all()
-        ctx = {"reqs": reqs}
+        requests = Appointment.objects.filter(status="DRAFT").all()
+        ctx = {"requests": requests}
         return render(request, "student/requests.html", ctx)

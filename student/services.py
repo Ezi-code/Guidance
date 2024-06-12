@@ -4,4 +4,4 @@ from django.urls import reverse_lazy
 
 class LoginMixin(LoginRequiredMixin):
     def get_login_url(self):
-        return reverse_lazy("accounts:login")
+        return reverse_lazy("accounts:student_login")

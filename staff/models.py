@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from accounts.models import User
 
 
 class Professional(models.Model):
@@ -18,3 +19,29 @@ class Session(models.Model):
         "student.Appointment", on_delete=models.CASCADE, default=None
     )
     date = models.DateTimeField(default=timezone.now)
+
+
+class CaseManagementPrgressNotes(models.Model):
+    client = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="client", default=None
+    )
+    counselling_session = models.TextField(blank=True, null=True)
+    client_appearance = models.TextField()
+    problem_identity = models.TextField()
+    intervention = models.TextField()
+    recomendation = models.TextField()
+    assignments = models.TextField()
+    next_date = models.DateField(default=timezone.now)
+    next_time = models.TimeField(default=timezone.now)
+    counsellor_name = models.CharField(max_length=100, blank=False)
+    counsellor_signature = models.FileField(upload_to="media/staff/signatures")
+
+
+class ClientReferral(models.Model):
+    name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=100)
+    departmanetn = models.CharField(max_length=100)
+    referred_by = models.CharField(max_length=100)
+    counsellor_id = models.IntegerField()
+    reason = models.TextField(max_length=1000, blank=True, null=True)
+    date = models.DateField(default=timezone.now)

@@ -35,7 +35,7 @@ class User(AbstractUser):
     email = models.EmailField()
     password = models.CharField(max_length=100, null=False, blank=False)
     is_staff = models.BooleanField(default=False)
-
+    is_student = models.BooleanField(default=False)
     objects = UserManager()
 
     EMAIL_FIELD = "email"

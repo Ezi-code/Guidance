@@ -1,0 +1,84 @@
+{% extends "../base/base.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+<style>
+    .login,
+    .image {
+        min-height: 100vh;
+    }
+
+    .bg-image {
+        background-image: url('https://picsum.photos/id/1079/1080');
+        background-size: cover;
+        background-position: center center;
+    }
+
+    .container-fluid {
+        max-width: 100%;
+    }
+
+    .account-form input {
+        border: 2px solid #ccc;
+        height: calc(2em + .75rem + 2px);
+    }
+
+    .account-form input:focus {
+        border-color: #1497ff;
+        box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(255, 0, 0, 0.6);
+    }
+</style>
+
+
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-6 bg-light">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-12  mx-auto">
+
+                            <form class="account-form p-4 rounded" action="{% url 'accounts:staff_login' %}"
+                                method="post">
+
+                                {% csrf_token %}
+                                <p class="h4 mb-4 font-weight-bold">Staff Sign In</p>
+
+                                <label class="small font-weight-bold">Username</label>
+                                <input class="form-control" type="text" name="username" id="id_username" required>
+
+                                <label class="small font-weight-bold">Password</label>
+                                <input class="form-control" type="password" name="password" id="is_password" required>
+
+                                <button class="btn btn-dark btn-block py-2 mb-4 mt-5 font-weight-bold" type="submit"
+                                    value="Log-in">Sign
+                                    in</button>
+
+                                <p class="small font-weight-bold text-center pb-3">
+
+                                </p>
+
+                                <hr class="mb-3">
+                                <p class="small text-center">By signing in to your account, you agree to Blog <a
+                                        href="">Terms of
+                                        Service</a> and
+                                    consent to
+                                    our <a href="">Cookie Policy</a> and <a href="">Privacy Policy</a>. This site is not
+                                    protected
+                                    by reCAPTCHA and
+                                    is a demonstration website
+                                    for learning purposes only.
+                                </p>
+                            </form>
+                            <p class="small text-center pt-4">
+                            </p>
+                            <p class="small text-center">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 d-none d-md-flex bg-image"></div>
+    </div>
+</div>
+{% endblock %}

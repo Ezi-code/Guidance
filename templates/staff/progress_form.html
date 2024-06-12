@@ -1,0 +1,45 @@
+{% extends "../base/base.html" %}
+{% block title %}
+Home - Client Progress
+{% endblock %}
+{% block content %}
+{% include "staff/nav-main.html" %}
+<main class="">
+    <form class="form p-4 mx-auto m-4 col-md-6" action="#" method="#">
+        {% csrf_token %}
+
+        <h3 class="head text-center">Case Management Progress Note</h3>
+        <small class="text-muted text-center">summary notes for a session</small>
+        <hr><br>
+
+        <p>
+            <label class="small font-weight-bold">Counselling Session</label>
+            {{ form.counselling_session }}
+        </p>
+        <p>
+            <label class="small font-weight-bold">Client Appearance</label>
+            {{ form.client_appearance }}
+        </p>
+        <p>
+            <label class="small font-weight-bold">Problem Identity</label>
+            {{ form.problem_identity }}
+        </p>
+        <p>
+            <label class="small font-weight-bold">Interventions</label>{{ form.intervention }}
+        </p>
+        <p>
+            <label class="small font-weight-bold">Recomendation/Assignment</label>{{ form.recomendation }}
+        </p>
+        <p>
+            <label class="small font-weight-bold">Next date and time </label>
+        <p><input type="date" name="next_date" required></p>
+        </label><input type="time" name="next_time" required>
+        </p>
+
+        <button class="btn btn-dark btn-block py-2 mb-4 mt-5 font-weight-bold" type="submit"
+            value="Log-in">Save</button>
+
+    </form>
+</main>
+{% include "base/footer.html" %}
+{% endblock %}
