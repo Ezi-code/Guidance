@@ -161,3 +161,9 @@ class CaseManagementPrgressForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class ClientRefferalForm(forms.ModelForm):
+    class Meta:
+        model = ClientReferral
+        fields = ["reason"]

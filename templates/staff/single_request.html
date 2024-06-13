@@ -4,7 +4,7 @@ Staff- Single Requests
 {% endblock %}
 {% block content %}
 {% include "staff/nav-main.html" %}
-<style>
+<!-- <style>
     /* Custom CSS for fixing left column */
     .fixed-left-column {
         position: sticky;
@@ -12,7 +12,7 @@ Staff- Single Requests
         z-index: 1;
         /* Ensure it's above other content */
     }
-</style>
+</style> -->
 <main>
     <div class="container-fluid mt-5">
         <div class="row">
@@ -33,16 +33,22 @@ Staff- Single Requests
                             <p><small class="text-muted">{{appointment.reason}}</small></p>
                         </div>
                         <div class="card-text">
-                            <a href="{% url 'staff:client_progress' %}" class="user-link"
-                                data-url="{% url 'staff:client_progress' %}?client_id={{client.id}}">Respond</a><br>
-                            <a href="{% url 'staff:past_sessions' client.id %}" class="user-link"
-                                data-url="{% url 'staff:past_sessions' client.id %}">Previous
-                                Appointments</a><br>
+                           <p>
+                                <a href="{% url 'staff:client_progress' %}&appointment_id={{appointment.id}}" class="user-link"
+                                data-url="{% url 'staff:client_progress' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Respond</a>
+                            </p>
+                            <p>
+                                <a href="{% url 'staff:previous_notes' %}?appointment_id={{appointment.id}}" class="user-link" data-url="{% url 'staff:previous_notes' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Previous Notes</a>
+                            </p>
+                            <p>
+                                <a href="{% url 'staff:past_sessions' client.id %}" class="user-link"
+                                data-url="{% url 'staff:past_sessions' client.id %}">Previous Appointments</a>
+                            </p>
+                           
                             <a href="#" class="user-link" data-url="/profile/joined/">
                             </a>
                         </div>
-                        <a href="#" class="btn btn-primary mt-3">
-                            << Back</a>
+                        <a href="#" class="btn btn-dark btn-sm mt-3">completed</a>
                     </div>
                 </div>
             </div>

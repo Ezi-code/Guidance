@@ -14,4 +14,6 @@ urlpatterns = [
     path(
         "past-session/<uuid>", views.CompletedSessions.as_view(), name="past_sessions"
     ),
+    path("previous-notes", views.PreviousNotes.as_view(), name="previous_notes"),
+    path('client-referal', views.ClientReferralView.as_view(), name="client_referral")
 ]

@@ -22,8 +22,12 @@ class Session(models.Model):
 
 
 class CaseManagementPrgressNotes(models.Model):
+
     client = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="client", default=None
+    )
+    appointment = models.ForeignKey(
+        "student.Appointment", on_delete=models.CASCADE, default=None
     )
     counselling_session = models.TextField(blank=True, null=True)
     client_appearance = models.TextField()
@@ -33,15 +37,17 @@ class CaseManagementPrgressNotes(models.Model):
     assignments = models.TextField()
     next_date = models.DateField(default=timezone.now)
     next_time = models.TimeField(default=timezone.now)
+    session_date = models.DateTimeField(default=timezone.now, editable=False)
     counsellor_name = models.CharField(max_length=100, blank=False)
     counsellor_signature = models.FileField(upload_to="media/staff/signatures")
 
 
 class ClientReferral(models.Model):
+    client = models.ForeignKey(User, on_delete=models.PROTECT, default=None)
     name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=100)
-    departmanetn = models.CharField(max_length=100)
+    department = models.CharField(max_length=100)
     referred_by = models.CharField(max_length=100)
-    counsellor_id = models.IntegerField()
+    counsellor_id = models.UUIDField()
     reason = models.TextField(max_length=1000, blank=True, null=True)
     date = models.DateField(default=timezone.now)

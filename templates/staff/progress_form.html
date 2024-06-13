@@ -1,7 +1,7 @@
 {% block content %}
 <main>
 
-    <form class="form" style="width: 100%;" action="{% url 'staff:client_progress' %}?appointment_id={{appointment.id}}"
+    <form class="form" style="width: 100%;" action="{% url 'staff:client_progress' %}?appointment_id={{appointment_id}}"
         method="post">
         {% csrf_token %}
 
@@ -37,7 +37,7 @@
             <a href="#" class="btn btn-primary mt-3" data-toggle="modal" data-target="#referralModal">Refer Client</a>
         </p>
         <input type="text" value="{{client_id}}" name="client_id" hidden>
-        <input type="text" value="{{appointment_id}}" name="appointment_id" hidden>
+        <input type="text" value="{{appointment.id}}" name="appointment_id" hidden>
         <button class="btn btn-dark btn-block py-2 mb-4 mt-5 font-weight-bold" type="submit"
             value="Log-in">Save</button>
 
@@ -55,22 +55,28 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="{% url 'staff:client_referral' %}" method="post">
+                        {% csrf_token %}
+
                         <div class="form-group">
-                            <label for="referralName">Name</label>
-                            <input type="text" class="form-control" id="referralName" placeholder="Enter name">
+                            <label for="referralName">Counsellor Name</label>
+                            <input type="text" class="form-control" id="referralName" placeholder="Enter ID" name="counsellor_name" required>
+
+                            <p><input type="text" name="client_id" value="{{client_id}}" hidden></p>
                         </div>
                         <div class="form-group">
                             <label for="referralReason">Reason</label>
                             <textarea class="form-control" id="referralReason" rows="3"
-                                placeholder="Enter reason"></textarea>
+                                placeholder="Enter reason" name="reason" required></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
-                </div>
+               
             </div>
         </div>
     </div>
