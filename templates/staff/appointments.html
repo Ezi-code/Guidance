@@ -27,7 +27,10 @@ Staff-Appointmentments
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="text-muted">Counsellor: {{appointment.professional}}</small>
                         </div>
-                        <a class="mt-2 btn btn-dark" href="{% url 'staff:single_request' %}">Take Session</a>
+                        <input type="text" hidden value="{{appointment.user.id}}" name="id">
+                        <a class="mt-2 btn btn-dark"
+                            href="{% url 'staff:single_request' appointment.user.id %}?appointment_id={{appointment.id}}">Take
+                            Session</a>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,8 @@
-{% extends "../base/base.html" %}
-{% block title %}
-Home - Client Progress
-{% endblock %}
 {% block content %}
-{% include "staff/nav-main.html" %}
-<main class="">
-    <form class="form p-4 mx-auto m-4 col-md-6" action="#" method="#">
+<main>
+
+    <form class="form" style="width: 100%;" action="{% url 'staff:client_progress' %}?appointment_id={{appointment.id}}"
+        method="post">
         {% csrf_token %}
 
         <h3 class="head text-center">Case Management Progress Note</h3>
@@ -36,10 +33,46 @@ Home - Client Progress
         </label><input type="time" name="next_time" required>
         </p>
 
+        <p>
+            <a href="#" class="btn btn-primary mt-3" data-toggle="modal" data-target="#referralModal">Refer Client</a>
+        </p>
+        <input type="text" value="{{client_id}}" name="client_id" hidden>
+        <input type="text" value="{{appointment_id}}" name="appointment_id" hidden>
         <button class="btn btn-dark btn-block py-2 mb-4 mt-5 font-weight-bold" type="submit"
             value="Log-in">Save</button>
 
     </form>
+
+
+    <div class="modal fade" id="referralModal" tabindex="-1" role="dialog" aria-labelledby="referralModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="referralModalLabel">Client Referral</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="referralName">Name</label>
+                            <input type="text" class="form-control" id="referralName" placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label for="referralReason">Reason</label>
+                            <textarea class="form-control" id="referralReason" rows="3"
+                                placeholder="Enter reason"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
-{% include "base/footer.html" %}
-{% endblock %}
+{% endblock content %}

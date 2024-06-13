@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.views.generic.list import ListView
 from staff.models import Session
@@ -7,6 +7,7 @@ from staff.services import LoginMixin
 from django.contrib import messages
 from django.utils import timezone
 from forms import CaseManagementPrgressForm as CMPF
+from accounts.models import User
 
 
 class Home(LoginMixin, View):
@@ -84,22 +85,60 @@ class RequestsView(LoginMixin, View):
 class ClientProgrssView(LoginMixin, View):
     def get(self, request):
         form = CMPF()
-        ctx = {"form": form}
+        client_id = request.GET.get("client_id")
+        appointment_id = request.GET.get("appointment_id")
+        print(appointment_id)
+        ctx = {"form": form, "client_id": client_id, "appointment_id": appointment_id}
         return render(request, "staff/progress_form.html", ctx)
 
     def post(self, request):
-        form = CMPF(request.post)
+        client_id = request.POST.get("client_id")
+        appointment_id = request.POST.get("appointment_id")
+        print(appointment_id)
+        client = get_object_or_404(User, id=client_id)
+        form = CMPF(request.POST)
+
         if form.is_valid():
+            form.instance.client = client
             form.full_clean()
             form.save()
             messages.success(request, "Session notes saved! ")
-            return redirect()
-        return render(request, "staff/progress_form.html", ctx)
+            return redirect(
+                "staff:single_request",
+                uuid=client_id,
+            )
 
 
 class SingeleRequests(LoginMixin, View):
-    def get(self, request):
-        return render(request, "staff/single_request.html")
+    def get(self, request, uuid):
+        client = get_object_or_404(User, id=uuid)
+        appointment = Appointment.objects.filter(user=client, status="ACCEPTED").first()
+        ctx = {
+            "client": client,
+            "appointment": appointment,
+        }
+        return render(request, "staff/single_request.html", ctx)
 
-    # def post(self, request):
-    #     return re
+    def post(self, request):
+        return
+
+
+class CompletedSessions(LoginMixin, View):
+    def get(self, request, uuid):
+        past_sessions = Appointment.objects.filter(
+            status="COMPLETED", professional__name=request.user, user__id=uuid
+        )
+        ctx = {"past_sessions": past_sessions}
+        print(past_sessions.count())
+        return render(request, "staff/previous_sessions.html", ctx)
+
+    def post(self, request):
+        pass
+
+
+class ReferralsView(ListView, View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
