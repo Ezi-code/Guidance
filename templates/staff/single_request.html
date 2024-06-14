@@ -35,7 +35,7 @@ Staff- Single Requests
                         <div class="card-text">
                            <p>
                                 <a href="{% url 'staff:client_progress' %}&appointment_id={{appointment.id}}" class="user-link"
-                                data-url="{% url 'staff:client_progress' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Respond</a>
+                                data-url="{% url 'staff:client_progress' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Session Notes</a>
                             </p>
                             <p>
                                 <a href="{% url 'staff:previous_notes' %}?appointment_id={{appointment.id}}" class="user-link" data-url="{% url 'staff:previous_notes' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Previous Notes</a>
@@ -45,13 +45,11 @@ Staff- Single Requests
                                 data-url="{% url 'staff:past_sessions' client.id %}">Previous Appointments</a>
                             </p>
                            
-                            <a href="#" class="user-link" data-url="/profile/joined/">
-                            </a>
-                        </div>
-                        <a href="#" class="btn btn-dark btn-sm mt-3">completed</a>
-                    </div>
-                </div>
-            </div>
+                            <a href="#" class="user-link"
+                            data-url="/profile/joined/"> </a> </div> <a
+                            href="{% url 'staff:complete_session' %}?appointment_id={{appointment.id}}"
+                            class="btn btn-dark btn-sm mt-3">completed</a>
+                            </div> </div> </div>
             <!-- Right column for additional details -->
             <div class="col-md-8" id="right-column">
                 <!-- Content will be dynamically loaded here -->

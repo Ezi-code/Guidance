@@ -1,6 +1,14 @@
 {% block content %}
-<main>
 
+<style>
+    .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px; /* Adjust the space between checkboxes as needed */
+}
+</style>
+
+<main>
     <form class="form" style="width: 100%;" action="{% url 'staff:client_progress' %}?appointment_id={{appointment_id}}"
         method="post">
         {% csrf_token %}
@@ -45,40 +53,231 @@
 
 
     <div class="modal fade" id="referralModal" tabindex="-1" role="dialog" aria-labelledby="referralModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="referralModalLabel">Client Referral</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="referralModalLabel">Client Referral</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'staff:client_referral' %}" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="referralName">Counsellor Name</label>
+                    <input type="text" class="form-control" id="referralName" placeholder="Enter ID" name="counsellor_name" required>
+
+                    <p><input type="text" name="client_id" value="{{client_id}}" hidden></p>
                 </div>
-                <div class="modal-body">
-                    <form action="{% url 'staff:client_referral' %}" method="post">
-                        {% csrf_token %}
-
-                        <div class="form-group">
-                            <label for="referralName">Counsellor Name</label>
-                            <input type="text" class="form-control" id="referralName" placeholder="Enter ID" name="counsellor_name" required>
-
-                            <p><input type="text" name="client_id" value="{{client_id}}" hidden></p>
-                        </div>
-                        <div class="form-group">
-                            <label for="referralReason">Reason</label>
-                            <textarea class="form-control" id="referralReason" rows="3"
-                                placeholder="Enter reason" name="reason" required></textarea>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label for="referralReason">Reason</label>
+                    <textarea class="form-control" id="referralReason" rows="3"
+                        placeholder="Enter reason" name="reason" required></textarea>
                 </div>
-               
-            </div>
+
+                <!-- Checkboxes section -->
+                <div class="form-group">
+                    <label>Referral Options</label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Motivation" id="motivation" name="referral_option">
+                                <label class="form-check-label" for="motivation">
+                                    Motivation
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Bullying" id="bullying" name="referral_option">
+                                <label class="form-check-label" for="bullying">
+                                    Bullying
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Divorce" id="divorce" name="referral_option">
+                                <label class="form-check-label" for="divorce">
+                                    Divorce
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Homelessness" id="homelessness" name="referral_option">
+                                <label class="form-check-label" for="homelessness">
+                                    Homelessness
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Worries" id="worries" name="referral_option">
+                                <label class="form-check-label" for="worries">
+                                    Worries
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Stressed" id="stressed" name="referral_option">
+                                <label class="form-check-label" for="stressed">
+                                    Stressed
+                                </label>
+                            </div>
+                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Stressed" id="stressed" name="referral_option">
+                                <label class="form-check-label" for="stressed">
+                                    Lacking basic essentials
+                                </label>
+                            </div>
+                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Stressed" id="stressed" name="referral_option">
+                                <label class="form-check-label" for="stressed">
+                                    Drug/Alcohol Use
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Friendship" id="friendship" name="referral_option">
+                                <label class="form-check-label" for="friendship">
+                                    Friendship
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Problem" id="problem" name="referral_option">
+                                <label class="form-check-label" for="problem">
+                                    Problem
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Social Skills" id="social_skills" name="referral_option">
+                                <label class="form-check-label" for="social_skills">
+                                    Social Skills
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Inattentive" id="inattentive" name="referral_option">
+                                <label class="form-check-label" for="inattentive">
+                                    Inattentive
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Hyperactive" id="hyperactive" name="referral_option">
+                                <label class="form-check-label" for="hyperactive">
+                                    Hyperactive
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Sexual Activity" id="sexual_activity" name="referral_option">
+                                <label class="form-check-label" for="sexual_activity">
+                                    Sexual Activity
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Sexual Activity" id="sexual_activity" name="referral_option">
+                                <label class="form-check-label" for="sexual_activity">
+                                    Lying/Dishonesty
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Sexual Activity" id="sexual_activity" name="referral_option">
+                                <label class="form-check-label" for="sexual_activity">
+                                    Any Other
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Grief" id="grief" name="referral_option">
+                                <label class="form-check-label" for="grief">
+                                    Grief
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Fear" id="fear" name="referral_option">
+                                <label class="form-check-label" for="fear">
+                                    Fear
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Personal Hygiene" id="personal_hygiene" name="referral_option">
+                                <label class="form-check-label" for="personal_hygiene">
+                                    Personal Hygiene
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Pregnancy" id="pregnancy" name="referral_option">
+                                <label class="form-check-label" for="pregnancy">
+                                    Pregnancy
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Abuse" id="abuse" name="referral_option">
+                                <label class="form-check-label" for="abuse">
+                                    Abuse
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Self cutting" id="self_cutting" name="referral_option">
+                                <label class="form-check-label" for="self_cutting">
+                                    Self cutting
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Withdrawn" id="withdrawn" name="referral_option">
+                                <label class="form-check-label" for="withdrawn">
+                                    Withdrawn
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Stealing" id="stealing" name="referral_option">
+                                <label class="form-check-label" for="stealing">
+                                    Stealing
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Depression" id="depression" name="referral_option">
+                                <label class="form-check-label" for="depression">
+                                    Depression
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Perfectionism" id="perfectionism" name="referral_option">
+                                <label class="form-check-label" for="perfectionism">
+                                    Perfectionism
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Neglect" id="neglect" name="referral_option">
+                                <label class="form-check-label" for="neglect">
+                                    Neglect
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Anger" id="anger" name="referral_option">
+                                <label class="form-check-label" for="anger">
+                                    Anger
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Sadness" id="sadness" name="referral_option">
+                                <label class="form-check-label" for="sadness">
+                                    Sadness
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of checkboxes section -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+</div>
+
+
+
+    
 </main>
 {% endblock content %}

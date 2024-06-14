@@ -1,20 +1,21 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, View
+from django.views.generic import View
 from django.urls import reverse_lazy
-from student.models import Appointment, Notifications, Professional
-from django.views.generic.base import TemplateView
+from student.models import Appointment, Professional
 from student.services import LoginMixin
 from forms import BookingForm
 from django.contrib import messages
 from django.utils import timezone
-from datetime import datetime
 
 
-datetime.date
-
-
-class HomeView(TemplateView):
-    template_name = "student/index.html"
+class HomeView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            if request.user.is_student:
+                return render(request, "student/index.html")
+            if request.user.is_staff:
+                return redirect("staff:home")
+        return render(request, "student/index.html")
 
 
 class BookView(LoginMixin, View):
@@ -40,7 +41,7 @@ class BookView(LoginMixin, View):
             form.instance.user = request.user
             form.save()
             messages.success(request, "Appointment booked successfylly")
-            return redirect("student:dashboard")
+            return redirect("student:requests")
         else:
             messages.error(request, "An error occured")
             print("Out of try block")
@@ -57,15 +58,14 @@ class CompletedSessionsView(LoginMixin, View):
 
 
 class AppointmentsView(LoginMixin, View):
-    from student.models import Appointment
-
     def get(self, request):
         appointments = Appointment.objects.filter(
-            user=request.user, status="DRAFT"
+            status="ACCEPTED", user=request.user
         ).all()
         ctx = {
             "appointments": appointments,
         }
+        print(request.user.is_staff)
         return render(request, "student/appointments.html", ctx)
 
 

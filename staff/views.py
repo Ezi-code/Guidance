@@ -186,3 +186,11 @@ class PreviousNotes(LoginMixin, View):
         )
         ctx = {"notes": notes}
         return render(request, "staff/previous_notes.html", ctx)
+
+class CompleteTask(LoginMixin, View):
+    def get(self, request):
+        appointment_id = request.GET.get('appointment_id')
+        appointment = Appointment.objects.get(id=appointment_id)
+        appointment.status = 'COMPLETED'
+        appointment.save()
+        return redirect("staff:appointments")

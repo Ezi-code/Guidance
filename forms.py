@@ -27,6 +27,7 @@ class BookingForm(forms.ModelForm):
             "professional",
             "reason",
         ]
+        forms.CheckboxInput
         widgets = {
             "full_name": forms.TextInput(
                 attrs={"placeholder": "Full Name", "class": "form-control"}
