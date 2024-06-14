@@ -120,4 +120,8 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-
+LOGIN_URL = "accounts:login_page"
+REQUEST_NEW_EMAIL_TEMPLATE = "email_verification/request_new_email.html"
+VERIFICATION_SUCCESS_TEMPLATE = "email_verification/email_verification_successful.html"
+HTML_MESSAGE_TEMPLATE = "email_verification/email_template.html"
+LINK_EXPIRED_TEMPLATE = "email_verification/link_expired.html"

@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.views.generic.list import ListView
 from staff.models import Session
 from student.models import Appointment
-from staff.services import LoginMixin
+from staff.services import LoginMixin, send_email_notification
 from django.contrib import messages
 from django.utils import timezone
 from forms import CaseManagementPrgressForm as CMPF, ClientRefferalForm
@@ -187,10 +187,11 @@ class PreviousNotes(LoginMixin, View):
         ctx = {"notes": notes}
         return render(request, "staff/previous_notes.html", ctx)
 
+
 class CompleteTask(LoginMixin, View):
     def get(self, request):
-        appointment_id = request.GET.get('appointment_id')
+        appointment_id = request.GET.get("appointment_id")
         appointment = Appointment.objects.get(id=appointment_id)
-        appointment.status = 'COMPLETED'
+        appointment.status = "COMPLETED"
         appointment.save()
         return redirect("staff:appointments")
