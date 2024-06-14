@@ -15,6 +15,13 @@ urlpatterns = [
         "past-session/<uuid>", views.CompletedSessions.as_view(), name="past_sessions"
     ),
     path("previous-notes", views.PreviousNotes.as_view(), name="previous_notes"),
-    path('client-referal', views.ClientReferralView.as_view(), name="client_referral"),
-    path('complete-session', views.CompleteTask.as_view(), name="complete_session"),
+    path("client-referal", views.ClientReferralView.as_view(), name="client_referral"),
+    path(
+        "complete-session/<uuid>", views.CompleteTask.as_view(), name="complete_session"
+    ),
+    path(
+        "detail-past-session/<int:pk>",
+        views.SinglePastSession.as_view(),
+        name="detail_past_session",
+    ),
 ]

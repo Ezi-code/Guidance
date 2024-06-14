@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.views.generic.list import ListView
-from staff.models import Session
 from student.models import Appointment
 from staff.services import LoginMixin, send_email_notification
 from django.contrib import messages
@@ -32,8 +31,6 @@ class Home(LoginMixin, View):
         appointment.session_time = ses_time
         #
         appointment.save()
-        new_session = Session.objects.create(student=appointment)
-        new_session.save()
         messages.success(request, "Appointment Accepted")
         return redirect("staff:home")
 
@@ -128,9 +125,6 @@ class SingeleRequests(LoginMixin, View):
         }
         return render(request, "staff/single_request.html", ctx)
 
-    def post(self, request):
-        return
-
 
 class CompletedSessions(LoginMixin, View):
     def get(self, request, uuid):
@@ -144,9 +138,6 @@ class CompletedSessions(LoginMixin, View):
         )
         ctx = {"past_sessions": past_sessions}
         return render(request, "staff/previous_sessions.html", ctx)
-
-    def post(self, request):
-        pass
 
 
 class ClientReferralView(ListView, View):
@@ -189,9 +180,17 @@ class PreviousNotes(LoginMixin, View):
 
 
 class CompleteTask(LoginMixin, View):
-    def get(self, request):
-        appointment_id = request.GET.get("appointment_id")
-        appointment = Appointment.objects.get(id=appointment_id)
+    def get(self, request, uuid):
+        appointment = Appointment.objects.get(id=uuid)
         appointment.status = "COMPLETED"
         appointment.save()
         return redirect("staff:appointments")
+
+
+class SinglePastSession(LoginMixin, View):
+    def get(self, request, pk):
+        appointment = Appointment.objects.get(id=pk)
+        client = appointment.user
+
+        ctx = {"appointment": appointment, "client": client}
+        return render(request, "staff/past_single_client.html", ctx)

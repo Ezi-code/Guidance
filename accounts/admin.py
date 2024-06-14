@@ -5,7 +5,7 @@ from accounts.models import User
 # Register your models here.
 class UserAdmin(admin.ModelAdmin):
     list_display = [
-        "username",
+        "index_number",
         "email",
         "is_active",
         "is_superuser",

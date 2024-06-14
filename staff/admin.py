@@ -1,16 +1,9 @@
 from django.contrib import admin
 from staff.models import (
-    Session,
     Professional,
     CaseManagementPrgressNotes,
     ClientReferral,
 )
-
-
-class SessionAdmin(admin.ModelAdmin):
-    list_display = ["student", "date"]
-    list_filter = ["date"]
-    search_fields = ["student", "date"]
 
 
 class ProfessionalAdmin(admin.ModelAdmin):
@@ -31,7 +24,6 @@ class ClientReferralAdmin(admin.ModelAdmin):
     search_fields = ["name", "referred_by", "counsellor_id"]
 
 
-admin.site.register(Session, SessionAdmin)
 admin.site.register(Professional, ProfessionalAdmin)
 admin.site.register(ClientReferral, ClientReferralAdmin)
 admin.site.register(CaseManagementPrgressNotes, CaseManagementPrgressNotesAdmin)

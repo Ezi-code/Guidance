@@ -14,13 +14,6 @@ class Professional(models.Model):
         return self.name
 
 
-class Session(models.Model):
-    student = models.ForeignKey(
-        "student.Appointment", on_delete=models.CASCADE, default=None
-    )
-    date = models.DateTimeField(default=timezone.now)
-
-
 class CaseManagementPrgressNotes(models.Model):
 
     client = models.ForeignKey(
@@ -39,7 +32,6 @@ class CaseManagementPrgressNotes(models.Model):
     next_time = models.TimeField(default=timezone.now)
     session_date = models.DateTimeField(default=timezone.now, editable=False)
     counsellor_name = models.CharField(max_length=100, blank=False)
-    counsellor_signature = models.FileField(upload_to="media/staff/signatures")
 
 
 class ClientReferral(models.Model):

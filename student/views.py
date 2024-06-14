@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.urls import reverse_lazy
-from student.models import Appointment, Professional
+from student.models import Appointment, Department, Faculty, Professional
 from student.services import LoginMixin
 from forms import BookingForm
 from django.contrib import messages
@@ -25,18 +25,19 @@ class BookView(LoginMixin, View):
 
     def get(self, request):
         professionals = Professional.objects.all()
+        faculty = Faculty.objects.all()
+        department = Department.objects.all()
         ctx = {
             "form": self.form_class,
             "professionals": professionals,
+            "faculty": faculty,
+            "department": department,
         }
         return render(request, self.template, ctx)
 
     def post(self, request):
         form = BookingForm(request.POST)
-        print(form.data)
-        print("In try block")
         if form.is_valid():
-            print("form is valid")
             form.instance.request_date = timezone.now()
             form.instance.user = request.user
             form.save()
@@ -44,7 +45,6 @@ class BookView(LoginMixin, View):
             return redirect("student:requests")
         else:
             messages.error(request, "An error occured")
-            print("Out of try block")
             return redirect("student:book")
 
 
@@ -65,7 +65,6 @@ class AppointmentsView(LoginMixin, View):
         ctx = {
             "appointments": appointments,
         }
-        print(request.user.is_staff)
         return render(request, "student/appointments.html", ctx)
 
 

@@ -27,6 +27,9 @@ Staff-Completed
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="text-muted">Counsellor: {{task.professional}}</small>
                         </div>
+                        <p>
+                            <a href="{% url 'staff:detail_past_session' task.pk %}" class="btn btn-dark btn-sm mt-5">view</a>
+                        </p>
                     </div>
                 </div>
             </div>

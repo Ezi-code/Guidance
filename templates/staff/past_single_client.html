@@ -1,20 +1,11 @@
 {% extends "../base/base.html" %}
 {% block title %}
-Staff- Single Requests
+Staff- Past-Client
 {% endblock %}
 {% block content %}
 {% include "staff/nav-main.html" %}
-<!-- <style>
-    /* Custom CSS for fixing left column */
-    .fixed-left-column {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-        /* Ensure it's above other content */
-    }
-</style> -->
 <main>
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-3">
         <div class="row">
             <!-- Left column for user profile -->
             <div class="col-md-4 bg-light fixed-left-column">
@@ -33,26 +24,14 @@ Staff- Single Requests
                             <p><small class="text-muted">{{appointment.reason}}</small></p>
                         </div>
                         <div class="card-text">
-                           <p>
-                                <a href="{% url 'staff:client_progress' %}&appointment_id={{appointment.id}}" class="user-link"
-                                data-url="{% url 'staff:client_progress' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Session Notes</a>
-                            </p>
                             <p>
-                                <a href="{% url 'staff:previous_notes' %}?appointment_id={{appointment.id}}" class="user-link" data-url="{% url 'staff:previous_notes' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Previous Notes</a>
+                                <a href="{% url 'staff:previous_notes' %}?appointment_id={{appointment.id}}" class="user-link btn btn-dark btn-sm" data-url="{% url 'staff:previous_notes' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Previous Notes</a>
                             </p>
-                            <p>
-                                <a href="{% url 'staff:past_sessions' client.id %}" class="user-link"
-                                data-url="{% url 'staff:past_sessions' client.id %}">Previous Appointments</a>
-                            </p>
-                        </div> 
-                        <a
-                            href="{% url 'staff:complete_session' appointment.id %}"
-                            class="btn btn-dark btn-sm mt-3">completed
-                        </a>
-                            
-                    </div> 
-                </div> 
+                        </div>
+                    </div>
+                </div>
             </div>
+                           
             <!-- Right column for additional details -->
             <div class="col-md-8" id="right-column">
                 <!-- Content will be dynamically loaded here -->

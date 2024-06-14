@@ -10,27 +10,31 @@ class UserManager(BaseUserManager):
     def get_queryset(self) -> models.QuerySet:
         return super().get_queryset()
 
-    def create_user(self, username, password, **kwargs: Any) -> Any:
-        user = self.model(username=username, **kwargs)
+    def create_user(self, index_number, username, password, **kwargs: Any):
+        if not index_number:
+            raise ValueError("Index number field cannot be empty!")
+        if not password:
+            raise ValueError("Password field cannot be empty")
+        user = self.model(index_number=index_number, username=username, **kwargs)
         user.set_password(password)
         user.save()
         return user
-        # return super().create(username, password, **kwargs)
 
-    def create_superuser(self, username, password, **extra_fields):
-        extra_fields.setdefault("is_staff", True)
+    def create_superuser(self, index_number, username, password, **extra_fields):
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
+        extra_fields.setdefault("is_staff", True)
         if extra_fields.get("is_staff") is not True:
             raise ValueError("Usern must be staff")
         if extra_fields.get("is_active") is not True:
             raise ValueError("User must be active")
-        return self.create_user(username, password, **extra_fields)
+        return self.create_user(index_number, username, password, **extra_fields)
 
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    username = models.CharField(max_length=100, null=False, blank=False, unique=True)
+    index_number = models.IntegerField(unique=True, db_index=True, default=None)
+    username = models.CharField(max_length=100, default=None)
     phone = models.CharField(max_length=100, null=False, blank=False)
     email = models.EmailField()
     password = models.CharField(max_length=100, null=False, blank=False)
@@ -38,5 +42,8 @@ class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     objects = UserManager()
 
-    EMAIL_FIELD = "email"
-    REQUIRED_FIELDS = []
+    USERNAME_FIELD = "index_number"
+    REQUIRED_FIELDS = ["username"]
+
+    def __str__(self):
+        return f"{self.username} {self.index_number}"

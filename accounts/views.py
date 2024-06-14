@@ -15,7 +15,7 @@ class StudentLoginView(View):
         password = request.POST.get("password")
         user = authenticate(username=username, password=password)
         if user is not None:
-            if not user.is_staff:
+            if user.is_student:
                 login(request, user)
                 messages.success(request, "You are now logged in")
                 return redirect("student:home")
@@ -49,7 +49,7 @@ class StaffLoginView(View):
                 return redirect("staff:home")
             else:
                 messages.error(request, "You are not allowed to login here")
-                return redirect("staff:login")
+                return redirect("accounts:staff_login")
         messages.error(request, "Invalid credentials")
         return redirect("accounts:staff_login")
 

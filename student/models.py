@@ -66,6 +66,9 @@ class Notifications(models.Model):
         return "Notification for {}".format(self.user.username)
 
 
+class Department(models.Model):
+    name = models.CharField(max_length=250, null=True, blank=True)
+
+
 class Faculty(models.Model):
     name = models.CharField(max_length=150)
-    department = models.CharField(max_length=150)
