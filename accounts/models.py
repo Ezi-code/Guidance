@@ -3,9 +3,6 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 import uuid
 
-# Create your models here.
-
-
 class UserManager(BaseUserManager):
     def get_queryset(self) -> models.QuerySet:
         return super().get_queryset()

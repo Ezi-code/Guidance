@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.utils import timezone
 from forms import CaseManagementPrgressForm as CMPF, ClientRefferalForm
 from accounts.models import User
-from staff.models import CaseManagementPrgressNotes
+from staff.models import CaseManagementPrgressNotes, ClientReferral
 
 
 class Home(LoginMixin, View):
@@ -41,6 +41,8 @@ class AppointmentsView(LoginMixin, View):
             professional__name=request.user.username, status="ACCEPTED"
         ).all()
         ctx = {"appointments": appointments}
+        print(request.user)
+        print(request.user.username)
         return render(request, "staff/appointments.html", ctx)
 
     def post(self, request):
@@ -146,15 +148,14 @@ class ClientReferralView(ListView, View):
         client_id = form.data["client_id"]
         appointment = Appointment.objects.get(
             user_id=client_id,
-            professional__name=request.user,
+            professional__name=request.user.username,
             status="ACCEPTED",
         )
 
         if form.is_valid():
-            form.instance.counsellor_id = request.user.id
             form.instance.client_id = form.data["client_id"]
             form.instance.reffered_by = request.user.username
-            form.instance.counsellor_id = request.user.id
+            form.instance.counsellor_id = request.user.index_number
             form.instance.name = appointment.full_name
             form.instance.phone = appointment.phone
             form.save()
@@ -194,3 +195,15 @@ class SinglePastSession(LoginMixin, View):
 
         ctx = {"appointment": appointment, "client": client}
         return render(request, "staff/past_single_client.html", ctx)
+
+
+class RefferedClients(LoginMixin, View):
+
+    def get(self, request):
+        reffered_clients = ClientReferral.objects.filter(
+            counsellor_id=request.user.index_number
+        )
+        return render(request, "staff/reffered_clients.html")
+
+    def post(self, request):
+        return

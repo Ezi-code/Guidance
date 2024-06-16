@@ -24,4 +24,5 @@ urlpatterns = [
         views.SinglePastSession.as_view(),
         name="detail_past_session",
     ),
+    path("reffered-clients", views.RefferedClients.as_view(), name="reffered_clients")
 ]

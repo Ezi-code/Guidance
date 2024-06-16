@@ -45,26 +45,6 @@ class Appointment(models.Model):
         return "Appointment for {}".format(self.full_name)
 
 
-class Notifications(models.Model):
-    class Status(models.TextChoices):
-        ACTIVE = ("ACTIVE", "Active")
-        READ = ("READ", "Read")
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_index=True
-    )
-    context = models.CharField(max_length=250)
-    time_stamp = models.DateTimeField(default=timezone.now)
-    status = models.CharField(
-        max_length=50, choices=Status.choices, default=Status.ACTIVE
-    )
-
-    class Meta:
-        ordering = ("-time_stamp",)
-
-    def __str__(self):
-        return "Notification for {}".format(self.user.username)
-
 
 class Department(models.Model):
     name = models.CharField(max_length=250, null=True, blank=True)

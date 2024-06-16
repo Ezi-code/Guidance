@@ -40,6 +40,6 @@ class ClientReferral(models.Model):
     phone_number = models.CharField(max_length=100)
     department = models.CharField(max_length=100)
     referred_by = models.CharField(max_length=100)
-    counsellor_id = models.UUIDField()
+    counsellor_id = models.IntegerField(max_length=10)
     reason = models.TextField(max_length=1000, blank=True, null=True)
     date = models.DateField(default=timezone.now)
