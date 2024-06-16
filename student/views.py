@@ -27,13 +27,13 @@ class BookView(LoginMixin, View):
         professionals = Professional.objects.all()
         faculty = Faculty.objects.all()
         department = Department.objects.all()
-        ctx = {
+        context = {
             "form": self.form_class,
             "professionals": professionals,
             "faculty": faculty,
             "department": department,
         }
-        return render(request, self.template, ctx)
+        return render(request, self.template, context)
 
     def post(self, request):
         form = BookingForm(request.POST)
@@ -51,10 +51,10 @@ class BookView(LoginMixin, View):
 class CompletedSessionsView(LoginMixin, View):
     def get(self, request):
         comp_sessions = Appointment.objects.filter(status="COMPLETED").all()
-        ctx = {
+        context = {
             "comp_sessions": comp_sessions,
         }
-        return render(request, "student/completed.html", ctx)
+        return render(request, "student/completed.html", context)
 
 
 class AppointmentsView(LoginMixin, View):
@@ -62,14 +62,14 @@ class AppointmentsView(LoginMixin, View):
         appointments = Appointment.objects.filter(
             status="ACCEPTED", user=request.user
         ).all()
-        ctx = {
+        context = {
             "appointments": appointments,
         }
-        return render(request, "student/appointments.html", ctx)
+        return render(request, "student/appointments.html", context)
 
 
 class RequestsView(LoginMixin, View):
     def get(self, request):
         requests = Appointment.objects.filter(status="DRAFT").all()
-        ctx = {"requests": requests}
-        return render(request, "student/requests.html", ctx)
+        context = {"requests": requests}
+        return render(request, "student/requests.html", context)
