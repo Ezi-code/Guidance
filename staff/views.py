@@ -15,8 +15,8 @@ class Home(LoginMixin, View):
         appointments = Appointment.objects.filter(
             professional__name=request.user.username, status="DRAFT"
         ).all()
-        ctx = {"appointments": appointments}
-        return render(request, "staff/index.html", ctx)
+        context = {"appointments": appointments}
+        return render(request, "staff/index.html", context)
 
     def post(self, request):
         #
@@ -40,10 +40,10 @@ class AppointmentsView(LoginMixin, View):
         appointments = Appointment.objects.filter(
             professional__name=request.user.username, status="ACCEPTED"
         ).all()
-        ctx = {"appointments": appointments}
+        context = {"appointments": appointments}
         print(request.user)
         print(request.user.username)
-        return render(request, "staff/appointments.html", ctx)
+        return render(request, "staff/appointments.html", context)
 
     def post(self, request):
         appointment_id = int(request.POST.get("id"))
@@ -72,8 +72,8 @@ class RequestsView(LoginMixin, View):
         requests = Appointment.objects.filter(
             professional__name=request.user.username, status="DRAFT"
         )
-        ctx = {"requests": requests}
-        return render(request, "staff/requests.html", ctx)
+        context = {"requests": requests}
+        return render(request, "staff/requests.html", context)
 
     def post(self, request):
         request_id = request.POST.get("request-id")
@@ -92,8 +92,12 @@ class ClientProgrssView(LoginMixin, View):
         form = CMPF()
         client_id = request.GET.get("client_id")
         appointment_id = request.GET.get("appointment_id")
-        ctx = {"form": form, "client_id": client_id, "appointment_id": appointment_id}
-        return render(request, "staff/progress_form.html", ctx)
+        context = {
+            "form": form,
+            "client_id": client_id,
+            "appointment_id": appointment_id,
+        }
+        return render(request, "staff/progress_form.html", context)
 
     def post(self, request):
         client_id = request.POST.get("client_id")
@@ -121,11 +125,11 @@ class SingeleRequests(LoginMixin, View):
         appointment = Appointment.objects.filter(
             id=appointment_id, user=client, status="ACCEPTED"
         ).first()
-        ctx = {
+        context = {
             "client": client,
             "appointment": appointment,
         }
-        return render(request, "staff/single_request.html", ctx)
+        return render(request, "staff/single_request.html", context)
 
 
 class CompletedSessions(LoginMixin, View):
@@ -138,8 +142,8 @@ class CompletedSessions(LoginMixin, View):
         past_sessions = Appointment.objects.filter(
             status="COMPLETED", professional__name=request.user, user__id=uuid
         )
-        ctx = {"past_sessions": past_sessions}
-        return render(request, "staff/previous_sessions.html", ctx)
+        context = {"past_sessions": past_sessions}
+        return render(request, "staff/previous_sessions.html", context)
 
 
 class ClientReferralView(ListView, View):
@@ -176,8 +180,8 @@ class PreviousNotes(LoginMixin, View):
             counsellor_name=request.user,
             appointment=appointment_id,
         )
-        ctx = {"notes": notes}
-        return render(request, "staff/previous_notes.html", ctx)
+        context = {"notes": notes}
+        return render(request, "staff/previous_notes.html", context)
 
 
 class CompleteTask(LoginMixin, View):
@@ -193,8 +197,8 @@ class SinglePastSession(LoginMixin, View):
         appointment = Appointment.objects.get(id=pk)
         client = appointment.user
 
-        ctx = {"appointment": appointment, "client": client}
-        return render(request, "staff/past_single_client.html", ctx)
+        context = {"appointment": appointment, "client": client}
+        return render(request, "staff/past_single_client.html", context)
 
 
 class RefferedClients(LoginMixin, View):
