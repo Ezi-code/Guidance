@@ -3,7 +3,7 @@
     {% for note in notes %}
     <div class="card my-2">
         <div class="card-body">
-        <h5 class="card-header"><b>Problem Identified:</b> {{note.problem_identity}}</h5>
+        <h5 class="card-header text-muted"><b>Problem Identified:</b> {{note.problem_identity}}</h5>
         <p class="card-text"><b>Counselling session:</b>b> {{note.counselling_session}}</p>
         <p class="card-text"><b>Appearance:</b> {{note.appearnace}}</p>
         <p class="card-text"><b>Interventions:</b> {{note.intervention}}</p>
@@ -17,6 +17,6 @@
         </div>
       </div>
       {% empty %}
-      <p>No notes were recorded for this session</p>
+      <p>No previous notes</p>
       {% endfor %}
 </html>

@@ -125,3 +125,12 @@ REQUEST_NEW_EMAIL_TEMPLATE = "email_verification/request_new_email.html"
 VERIFICATION_SUCCESS_TEMPLATE = "email_verification/email_verification_successful.html"
 HTML_MESSAGE_TEMPLATE = "email_verification/email_template.html"
 LINK_EXPIRED_TEMPLATE = "email_verification/link_expired.html"
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "cindygrey61@gmail.com"  # Enter your Gmail address
+EMAIL_HOST_PASSWORD = "fjhk isyu fjpu wyhw"  # Enter your Gmail password
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

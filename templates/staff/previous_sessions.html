@@ -1,8 +1,6 @@
 <html>
 
     {% for session in past_sessions %}
-      
-
     <div class="card my-2">
         <div class="card-body">
         <p class="card-text">{{session.reason}}</p>
@@ -13,5 +11,7 @@
         
         </div>
       </div>
+      {% empty %}
+        <p>No previous sessions</p>
       {% endfor %}
 </html>

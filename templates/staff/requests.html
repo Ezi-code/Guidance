@@ -16,7 +16,7 @@ Staff-Requests
                 <div class="card mb-4 box-shadow">
                     <img class="card-img-top" src="" alt="">
                     <div class="card-body">
-                        <h2 style="font-size:18px;font-weight:bold">Student Name: {{request.user}}</h2>
+                        <h2 style="font-size:18px;font-weight:bold">Student Name: {{request.user.username}}</h2>
                         <hr>
                         <p class="card-text">{{request.reason|truncatechars:50}}</p>
                         <div class="d-flex justify-content-between align-items-center">

@@ -41,6 +41,7 @@ class BookView(LoginMixin, View):
             form.instance.request_date = timezone.now()
             form.instance.user = request.user
             form.save()
+            print(form.instance.email)
             messages.success(request, "Appointment booked successfylly")
             return redirect("student:requests")
         else:

@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.core.mail import EmailMessage
+from django.conf import settings
 
 
 class LoginMixin(LoginRequiredMixin):
@@ -13,7 +14,8 @@ class SendEmailNotificatio:
         email = EmailMessage(
             subject="Appointment Accepted",
             body=f"Your appointment has been accepted by {appointment.professional.name}",
-            to=[appointment.user.email],
+            to=[appointment.email],
+            from_email=settings.EMAIL_HOST_USER,
         )
         email.send()
         return email
