@@ -1,4 +1,4 @@
-# Guidance and Councelling Session Booking App
+# Guidance and Councelling Booking App
 
 This project is designed to solve the problem of continuous check in witht the guidance and coucelling unit of aamusted for availability before one can have a conselling session with them.
 
