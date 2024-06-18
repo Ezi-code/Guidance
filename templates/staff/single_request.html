@@ -34,14 +34,14 @@ Staff- Single Requests
                         </div>
                         <div class="card-text">
                            <p>
-                                <a href="{% url 'staff:client_progress' %}&appointment_id={{appointment.id}}" class="user-link"
+                                <a href="{% url 'staff:client_progress' %}&appointment_id={{appointment.id}}" class="user-link  btn btn-success btn-sm"
                                 data-url="{% url 'staff:client_progress' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Session Notes</a>
                             </p>
                             <p>
-                                <a href="{% url 'staff:previous_notes' %}?appointment_id={{appointment.id}}" class="user-link" data-url="{% url 'staff:previous_notes' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Previous Notes</a>
+                                <a href="{% url 'staff:previous_notes' %}?appointment_id={{appointment.id}}" class="user-link btn btn-info btn-sm" data-url="{% url 'staff:previous_notes' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Previous Notes</a>
                             </p>
                             <p>
-                                <a href="{% url 'staff:past_sessions' client.id %}" class="user-link"
+                                <a href="{% url 'staff:past_sessions' client.id %}" class="user-link  btn btn-warning btn-sm"
                                 data-url="{% url 'staff:past_sessions' client.id %}">Previous Appointments</a>
                             </p>
                         </div> 

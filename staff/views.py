@@ -19,17 +19,17 @@ class Home(LoginMixin, View):
         return render(request, "staff/index.html", context)
 
     def post(self, request):
-        #
+        # Get data from html template
         ses_date = request.POST.get("session_date")
         ses_time = request.POST.get("session_time")
         appointment_id = int(request.POST.get("id"))
-        #
+        # Add data to the database schema
         appointment = Appointment.objects.get(id=appointment_id)
         appointment.status = "ACCEPTED"
         appointment.response_date = timezone.now()
         appointment.session_date = ses_date
         appointment.session_time = ses_time
-        #
+        # Commit changes to the schema
         appointment.save()
         messages.success(request, "Appointment Accepted")
         return redirect("staff:home")
@@ -54,7 +54,7 @@ class AppointmentsView(LoginMixin, View):
         return redirect("staff:appointments")
 
 
-class CompletedView(LoginMixin, ListView):
+class CompletedSessionsView(LoginMixin, ListView):
     template_name = "staff/completed.html"
     model = Appointment
     context_object_name = "completed_tasks"
@@ -67,7 +67,7 @@ class CompletedView(LoginMixin, ListView):
         return completed_tasks
 
 
-class RequestsView(LoginMixin, View):
+class AppointmentRequestView(LoginMixin, View):
     def get(self, request):
         requests = Appointment.objects.filter(
             professional__name=request.user.username, status="DRAFT"
@@ -84,6 +84,8 @@ class RequestsView(LoginMixin, View):
         appointment.session_time = time
         appointment.status = "ACCEPTED"
         appointment.save()
+        messages.success(request, "Request accepted")
+        send_email_notification.send_appointemt_accepted_email(appointment)
         return render(request, "staff/requests.html")
 
 
@@ -118,7 +120,7 @@ class ClientProgrssView(LoginMixin, View):
             )
 
 
-class SingeleRequests(LoginMixin, View):
+class IndividualRequestsView(LoginMixin, View):
     def get(self, request, uuid):
         appointment_id = request.GET.get("appointment_id")
         client = get_object_or_404(User, id=uuid)
@@ -162,6 +164,7 @@ class ClientReferralView(ListView, View):
             form.instance.counsellor_id = request.user.index_number
             form.instance.name = appointment.full_name
             form.instance.phone = appointment.phone
+            form.instance.status = "REFFERED"
             form.save()
             messages.success(request, "Client reffered")
             return redirect("staff:home")
@@ -169,7 +172,7 @@ class ClientReferralView(ListView, View):
         return redirect("staff:home")
 
 
-class PreviousNotes(LoginMixin, View):
+class PreviousNotesView(LoginMixin, View):
     def get(self, request):
 
         client_id = request.GET.get("client_id")
@@ -184,7 +187,7 @@ class PreviousNotes(LoginMixin, View):
         return render(request, "staff/previous_notes.html", context)
 
 
-class CompleteTask(LoginMixin, View):
+class CompleteTaskView(LoginMixin, View):
     def get(self, request, uuid):
         appointment = Appointment.objects.get(id=uuid)
         appointment.status = "COMPLETED"
@@ -192,7 +195,7 @@ class CompleteTask(LoginMixin, View):
         return redirect("staff:appointments")
 
 
-class SinglePastSession(LoginMixin, View):
+class SinglePastSessionView(LoginMixin, View):
     def get(self, request, pk):
         appointment = Appointment.objects.get(id=pk)
         client = appointment.user
@@ -201,7 +204,7 @@ class SinglePastSession(LoginMixin, View):
         return render(request, "staff/past_single_client.html", context)
 
 
-class RefferedClients(LoginMixin, View):
+class RefferedClientsView(LoginMixin, View):
 
     def get(self, request):
         reffered_clients = ClientReferral.objects.filter(

@@ -16,6 +16,7 @@ class Appointment(models.Model):
         ACCEPTED = ("ACCEPTED", "Accepted")
         DRAFT = ("DRAFT", "Draft")
         COMPLETED = ("COMPLETED", "Completed")
+        REFERRED = ("REFFERED", "Reffered")
 
     user = models.ForeignKey(User, on_delete=models.PROTECT, db_index=True, default=1)
     full_name = models.CharField(db_index=True, max_length=100, blank=False, null=False)
@@ -43,7 +44,6 @@ class Appointment(models.Model):
 
     def __str__(self) -> str:
         return "Appointment for {}".format(self.full_name)
-
 
 
 class Department(models.Model):

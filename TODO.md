@@ -1,16 +1,11 @@
 # **Backend**
 
-<!-- - Modify form view  -->
-<!-- - work on booking date -->
-<!-- - filter requests  -->
-
-- Mode of counselling session
-- Add index number to booking form/faculty.
+- Add email messages
 
 # **Front End**
 
 - Bootstrap icons
-
+- Footer
 <!-- - Redisign entire frontend with bootstrap -->
 
 # **Addons**

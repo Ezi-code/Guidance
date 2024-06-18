@@ -10,10 +10,17 @@ class LoginMixin(LoginRequiredMixin):
 
 
 class SendEmailNotificatio:
-    def send_appointemt_accepted_email(self, appointment):
+    def send_appointemt_accepted_email(self, appointment, request):
+        body = f"""Hello {appointment.full_name},
+        Your appointment request for {appointment.reason} has been successfully accepted by {appointment.professional}.
+        which will be on the {appointment.session_date} at {appointment.sesison_time}, at the guidance and counselling unit.
+
+        thank You
+        {request.user.username}
+        """
         email = EmailMessage(
             subject="Appointment Accepted",
-            body=f"Your appointment has been accepted by {appointment.professional.name}",
+            body=f"Your appointment requset '{appointment.reason}' has been accepted by {appointment.professional.name}",
             to=[appointment.email],
             from_email=settings.EMAIL_HOST_USER,
         )
@@ -23,8 +30,8 @@ class SendEmailNotificatio:
     def send_appointemt_completed_email(self, appointment):
         email = EmailMessage(
             subject="Appointment Completed",
-            body=f"Your appointment has been completed by {appointment.professional.name}",
-            to=[appointment.user.email],
+            body=f"""Your appointment '{appointment.reason}' has been completed by {appointment.professional.name}""",
+            to=[appointment.email],
         )
         email.send()
         return email
