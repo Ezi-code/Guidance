@@ -21,7 +21,7 @@ class SendEmailNotificatio:
         """
         email = EmailMessage(
             subject="Appointment Accepted",
-            body=f"Your appointment requset '{appointment.reason}' has been accepted by {appointment.professional.name}",
+            body=body,
             to=[appointment.email],
             from_email=settings.EMAIL_HOST_USER,
         )

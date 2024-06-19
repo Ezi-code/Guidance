@@ -28,7 +28,7 @@ def main(request, appointment):
     end_datetime = start_datetime + datetime.timedelta(hours=3)
 
     if "credentials" not in request.session:
-        redirect("main:initiate_auth")
+        redirect("api_service:initiate_auth")
 
     credentials = Credentials(**request.session["credentials"])
 
