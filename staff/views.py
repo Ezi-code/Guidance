@@ -8,6 +8,7 @@ from django.utils import timezone
 from forms import CaseManagementPrgressForm as CMPF, ClientRefferalForm
 from accounts.models import User
 from staff.models import CaseManagementPrgressNotes, ClientReferral
+from api_service.calendar import main
 
 
 class Home(LoginMixin, View):
@@ -17,22 +18,6 @@ class Home(LoginMixin, View):
         ).all()
         context = {"appointments": appointments}
         return render(request, "staff/index.html", context)
-
-    def post(self, request):
-        # Get data from html template
-        ses_date = request.POST.get("session_date")
-        ses_time = request.POST.get("session_time")
-        appointment_id = int(request.POST.get("id"))
-        # Add data to the database schema
-        appointment = Appointment.objects.get(id=appointment_id)
-        appointment.status = "ACCEPTED"
-        appointment.response_date = timezone.now()
-        appointment.session_date = ses_date
-        appointment.session_time = ses_time
-        # Commit changes to the schema
-        appointment.save()
-        messages.success(request, "Appointment Accepted")
-        return redirect("staff:home")
 
 
 class AppointmentsView(LoginMixin, View):
@@ -50,6 +35,7 @@ class AppointmentsView(LoginMixin, View):
         appointment = Appointment.objects.get(id=appointment_id)
         appointment.status = "COMPLETED"
         appointment.save()
+
         messages.success(request, "Appointment marked as Completed")
         return redirect("staff:appointments")
 
@@ -84,8 +70,8 @@ class AppointmentRequestView(LoginMixin, View):
         appointment.session_time = time
         appointment.status = "ACCEPTED"
         appointment.save()
+        main(request, appointment)
         messages.success(request, "Request accepted")
-        send_email_notification.send_appointemt_accepted_email(appointment)
         return render(request, "staff/requests.html")
 
 

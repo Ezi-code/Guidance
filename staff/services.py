@@ -10,11 +10,12 @@ class LoginMixin(LoginRequiredMixin):
 
 
 class SendEmailNotificatio:
-    def send_appointemt_accepted_email(self, appointment, request):
+    def send_appointemt_accepted_email(self, appointment, request, link):
         body = f"""Hello {appointment.full_name},
         Your appointment request for {appointment.reason} has been successfully accepted by {appointment.professional}.
-        which will be on the {appointment.session_date} at {appointment.sesison_time}, at the guidance and counselling unit.
+        which will be on the {appointment.session_date} at {appointment.session_time}, at the guidance and counselling unit.
 
+        Click on the link below to add this appointment to your google calendar {link}
         thank You
         {request.user.username}
         """

@@ -8,4 +8,5 @@ urlpatterns = [
     path("", include("student.urls", namespace="student")),
     path("staff/", include("staff.urls", namespace="staff")),
     path("accounts/", include("accounts.urls", namespace="accounts")),
+    path("api/", include("api_service.urls", namespace="api_service")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -28,10 +28,7 @@ INSTALLED_APPS = [
     "student",
     "staff",
     "accounts",
-    # Extemsions
-    # "crispy_forms",
-    # "widget_tweaks",
-    # "crispy_bootstrap4",
+    "api_service",
 ]
 
 MIDDLEWARE = [

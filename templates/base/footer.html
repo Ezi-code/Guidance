@@ -37,6 +37,9 @@
                     <li><a class="text-muted" href="#">Locations</a></li>
                     <li><a class="text-muted" href="#">Privacy</a></li>
                     <li><a class="text-muted" href="#">Terms</a></li>
+                    {% if request.user.is_staff %}
+                    <li><a href="{% url 'api_service:initiate_auth' %}">Configure Calendar</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
