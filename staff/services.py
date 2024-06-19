@@ -31,7 +31,15 @@ class SendEmailNotificatio:
     def send_appointemt_completed_email(self, appointment):
         email = EmailMessage(
             subject="Appointment Completed",
-            body=f"""Your appointment '{appointment.reason}' has been completed by {appointment.professional.name}""",
+            body=f"""Hello {appointment.full_name},
+            Thank you for your time.
+            Your appointment '{appointment.reason}' has been completed by {appointment.professional.name}.
+            We hope your issue has been resolved and you are feeling better.
+            Wish you all the best.
+            Thank You
+
+            {appointment.professional.name}
+            """,
             to=[appointment.email],
         )
         email.send()

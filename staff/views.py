@@ -35,7 +35,7 @@ class AppointmentsView(LoginMixin, View):
         appointment = Appointment.objects.get(id=appointment_id)
         appointment.status = "COMPLETED"
         appointment.save()
-
+        send_email_notification.send_appointemt_completed_email(appointment)
         messages.success(request, "Appointment marked as Completed")
         return redirect("staff:appointments")
 
