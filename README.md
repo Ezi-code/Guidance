@@ -41,4 +41,6 @@ and follow the prompts to create a superuser accoutns .
 
 # Note
 
+- The app is still under the stage of development
+- Anyone can contribute, following best practices of opensource contribution guidelines.
 - All tasks that needs to be done are stated in TODO.md file
