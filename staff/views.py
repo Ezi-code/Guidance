@@ -109,6 +109,7 @@ class IndividualRequestsView(LoginMixin, View):
         appointment_id = request.GET.get("appointment_id")
         client = get_object_or_404(User, id=uuid)
         print(client)
+        print(client.username)
         appointment = Appointment.objects.filter(
             id=appointment_id,
             user=client,

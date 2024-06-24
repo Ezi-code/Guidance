@@ -3,7 +3,7 @@
     Completed
 {% endblock title %}
 {% block navbar %}
-    {% include "html/navbar.html" %}
+    {% include "base/navbar.html" %}
 {% endblock navbar %}
 {% block content %}
     <div class="main-content">
@@ -18,34 +18,17 @@
             </div> -->
         </section>
         <section class="page-content">
+            {% for session in comp_sessions %}
             <div class="completed-box">
-                <p><strong>Student Name: George 121212</strong></p>
-                <p>adadada</p>
-                <p>Date: June 14, 2024 | 11:41 p.m.</p>
-                
-                <div class="actions">
-                    <button class="com-view">View</button>
-                </div>
+                <p><strong>Service type:</strong>{{session.service_type}}</p>
+                <p><strong>Reason: </strong>{{session.reason}}</p>
+                <p><strong>Professional: </strong>{{session.professional}}</p>
+                <p> <small>Date: {{session.session_date}} @ {{session.session_time}}</small>
+                </p>
+        
             </div>
-            <div class="completed-box">
-                <p><strong>Student Name: George 121212</strong></p>
-                <p>adadada</p>
-                <p>Date: June 14, 2024 | 11:41 p.m.</p>
+            {% endfor %}
             
-                <div class="actions">
-                    
-                    <button class="com-view">View</button>
-                </div>
-            </div>
-            <div class="completed-box">
-                <p><strong>Student Name: George 121212</strong></p>
-                <p>adadada</p>
-                <p>Date: June 14, 2024 | 11:41 p.m.</p>
-                
-                <div class="actions">
-                    <button class="com-view">View</button>
-                </div>
-            </div>
         </section>
         
     </div>

@@ -77,7 +77,8 @@
     <p class="h4">Staff Sign In</p>
 
     <label class="small font-weight-bold">Staff ID</label>
-    <input class="form-control" type="text" name="username" id="id_username" required>
+    <input  hx-post="{% url 'accounts:check_staff_username' %}" hx-target="#message" hx-swap="innerHTML" hx-trigger="keyup changed  delay:2s"  class="form-control" type="text" name="username" id="id_username" required>
+    <div id="message"></div>
 
     <label class="small font-weight-bold">Password</label>
     <input class="form-control" type="password" name="password" id="is_password" required>

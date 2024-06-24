@@ -22,17 +22,8 @@
         <div class="request-bx request-box">
             <p><strong>Student: {{request.user.username}}</strong></p>
             <p>{{request.reason|truncatechars:50}}</p>
-            <small>{{request.request_date}}</small>
-            <div>
-                <form class="acceptance-form" action="{% url 'staff:requests' %}"
-                    method="post">
-                    {% csrf_token %}
-                    <p><input id="r-date" type="date" name="date" required style="padding: 10px;"></p>
-                    <p><input id="r-time" type="time" name="time" required style="padding: 10px;"></p>
-                    <input type="text" value="{{request.id}}" hidden name="request-id">
-                    <p><input id="request-banner-btn" type="submit" value="Accept"></p>
-                </form>
-            </div>
+            <small>Counsellor: {{request.professional}}</small><br>
+            <small>Date: {{request.request_date}}</small>
         </div>
         {% endfor %}
     </section>
