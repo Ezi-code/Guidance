@@ -42,7 +42,6 @@ class CompletedSessionsView(LoginMixin, ListView):
     template_name = "staff/completed.html"
     model = Appointment
     context_object_name = "completed_tasks"
-    paginate_by = 10
 
     def get_queryset(self):
         completed_tasks = Appointment.objects.filter(
@@ -70,7 +69,7 @@ class AppointmentRequestView(LoginMixin, View):
         appointment.save()
         # main(request, appointment)
         messages.success(request, "Request accepted")
-        return render(request, "staff/requests.html")
+        return redirect("staff:requests")
 
 
 class ClientProgrssView(LoginMixin, View):
@@ -83,11 +82,12 @@ class ClientProgrssView(LoginMixin, View):
             "client_id": client_id,
             "appointment_id": appointment_id,
         }
+        print(appointment_id)
         return render(request, "staff/progress_form.html", context)
 
     def post(self, request):
         client_id = request.POST.get("client_id")
-        appointment_id = request.GET.get("appointment_id")
+        appointment_id = request.POST.get("appointment_id")
         appointment = Appointment.objects.get(id=appointment_id)
         client = get_object_or_404(User, id=client_id)
         form = CMPF(request.POST)
@@ -102,14 +102,18 @@ class ClientProgrssView(LoginMixin, View):
                 "staff:single_request",
                 uuid=client_id,
             )
+        messages.error(request, "Error saving notes")
+        return redirect("staff:single_request", uuid=client_id)
 
 
 class IndividualRequestsView(LoginMixin, View):
     def get(self, request, uuid):
         appointment_id = request.GET.get("appointment_id")
         client = get_object_or_404(User, id=uuid)
+
         print(client)
-        print(client.username)
+        print(appointment_id)
+
         appointment = Appointment.objects.filter(
             id=appointment_id,
             user=client,
@@ -120,20 +124,21 @@ class IndividualRequestsView(LoginMixin, View):
             "client": client,
             "appointment": appointment,
         }
-        print(appointment)
         return render(request, "staff/single_requests.html", context)
 
 
 class CompletedSessions(LoginMixin, View):
     def get(self, request, uuid):
         appointment_id = request.GET.get("appointment_id")
+        print(appointment_id)
         if appointment_id:
             compt_apmt = Appointment.objects.get(id=appointment_id)
             compt_apmt.status = "COMPLETED"
             compt_apmt.sav()
         past_sessions = Appointment.objects.filter(
-            status="COMPLETED", professional__name=request.user, user__id=uuid
+            status="COMPLETED", professional__name=request.user.username
         )
+        print(past_sessions)
         context = {"past_sessions": past_sessions}
         return render(request, "staff/previous_sessions.html", context)
 
@@ -141,7 +146,8 @@ class CompletedSessions(LoginMixin, View):
 class ClientReferralView(ListView, View):
     def post(self, request):
         form = ClientRefferalForm(request.POST)
-        client_id = form.data["client_id"]
+        client_id = request.POST.get("client_id")
+        # print(client_id)
         appointment = Appointment.objects.get(
             user_id=client_id,
             professional__name=request.user.username,
@@ -178,20 +184,28 @@ class PreviousNotesView(LoginMixin, View):
 
 
 class CompleteTaskView(LoginMixin, View):
-    def get(self, request, uuid):
-        appointment = Appointment.objects.get(id=uuid)
-        appointment.status = "COMPLETED"
-        appointment.save()
-        return redirect("staff:appointments")
+    def get(self, request):
+        try:
+            uuid = request.GET.get("appointment_id")
+            appointment = Appointment.objects.get(id=uuid)
+            appointment.status = "COMPLETED"
+            appointment.save()
+            return redirect("staff:appointments")
+        except Exception as e:
+            messages.error(request, "An error occured saving data!")
+            return redirect("staff:apppointments")
 
 
 class SinglePastSessionView(LoginMixin, View):
     def get(self, request, pk):
-        appointment = Appointment.objects.get(id=pk)
-        client = appointment.user
-
-        context = {"appointment": appointment, "client": client}
-        return render(request, "staff/past_single_client.html", context)
+        try:
+            appointment = Appointment.objects.get(id=pk)
+            client = appointment.user
+            context = {"appointment": appointment, "client": client}
+            return render(request, "staff/past_single_client.html", context)
+        except Exception as e:
+            messages.error(request, "An error occured!")
+            return redirect("staff:appointments")
 
 
 class RefferedClientsView(LoginMixin, View):
@@ -202,10 +216,9 @@ class RefferedClientsView(LoginMixin, View):
         )
         return render(request, "staff/reffered_clients.html")
 
-    def post(self, request):
-        return
-
 
 class RefferedClientView(LoginMixin, View):
-    def get(self, request):
-        return render(request, "staff/client_referral_form.html")
+    def get(self, request, uuid):
+        client_id = uuid
+        ctx = {"client_id": client_id}
+        return render(request, "staff/client_referral_form.html", ctx)

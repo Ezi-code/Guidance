@@ -27,8 +27,8 @@
                     <form class="acceptance-form" action="{% url 'staff:requests' %}"
                         method="post">
                         {% csrf_token %}
-                        <p><input id="r-date" type="date" name="date" required style="padding: 10px;"></p>
-                        <p><input id="r-time" type="time" name="time" required style="padding: 10px;"></p>
+                        <p><input id="r-date" type="date" name="date" required style="padding: 7px;"></p>
+                        <p><input id="r-time" type="time" name="time" required style="padding: 7px;"></p>
                         <input type="text" value="{{request.id}}" hidden name="request-id">
                         <p><input id="request-banner-btn" type="submit" value="Accept"></p>
                     </form>

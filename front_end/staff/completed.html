@@ -18,34 +18,18 @@
             </div> -->
         </section>
         <section class="page-content">
+            {% for session in completed_tasks %}
             <div class="completed-box">
-                <p><strong>Student Name: George 121212</strong></p>
-                <p>adadada</p>
-                <p>Date: June 14, 2024 | 11:41 p.m.</p>
-                
+                <p><strong>Student Name: {{session.full_name}}</strong></p>
+                <p><strong>Reason:</strong>{{session.session}}</p>
+                <p><small>Date: {{session.session_date}} @ {{session.session_time}}</small>
+                </p>
                 <div class="actions">
-                    <button class="com-view">View</button>
+                    <a href="{% url 'staff:detail_past_session' session.pk %}"><button class="com-view">View</button></a>
                 </div>
             </div>
-            <div class="completed-box">
-                <p><strong>Student Name: George 121212</strong></p>
-                <p>adadada</p>
-                <p>Date: June 14, 2024 | 11:41 p.m.</p>
+            {% endfor %}
             
-                <div class="actions">
-                    
-                    <button class="com-view">View</button>
-                </div>
-            </div>
-            <div class="completed-box">
-                <p><strong>Student Name: George 121212</strong></p>
-                <p>adadada</p>
-                <p>Date: June 14, 2024 | 11:41 p.m.</p>
-                
-                <div class="actions">
-                    <button class="com-view">View</button>
-                </div>
-            </div>
         </section>
         
     </div>

@@ -180,6 +180,7 @@ body {
     margin-top: 20px;
     max-width: 23vw;
     min-width: 20vw;
+    width: fit-content;
     margin-left: 1rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
@@ -242,6 +243,7 @@ body {
     margin-top: 20px;
     max-width: 23vw;
     min-width: 20vw;
+    text-wrap: wrap;
     margin-left: 1rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
@@ -310,7 +312,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     margin: 2.5rem;
 }
 
@@ -320,6 +322,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    text-wrap: wrap;
     width: 30%;
 }
 .card img {
@@ -382,6 +385,8 @@ body {
     text-align: center;
     
 }
+
+
 .right-column {
     background-color: white;
     padding: 10px;
@@ -389,8 +394,8 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 60%;
-   height: fit-content;
-    /* margin-top: 17px; */
+    height: fit-content;
+    margin-top: 17px;
 }
 /* END OF SINGLE REQUEST PAGE CSS */
 
@@ -400,8 +405,6 @@ body {
 @media screen and (max-width:760px){
 
     .header{
-        /* display: flex;
-        flex-wrap: wrap; */
         justify-content: center;
         padding: 1rem 3rem;
     }
@@ -417,9 +420,7 @@ body {
     .banner, .request-bn, .appmt-banner, .completed-banner{
         margin-left: 0.5rem;
         padding: 1rem;
-        /* display: flex; */
         flex-wrap: wrap;
-        /* margin-bottom: 2rem; */
         background-position: right;
         background-repeat: no-repeat;
         height: 70vh;
@@ -452,7 +453,6 @@ body {
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         text-align: center;
-        /* height: 90vh; */
         margin: 1rem auto;
         width: 90%;
     }

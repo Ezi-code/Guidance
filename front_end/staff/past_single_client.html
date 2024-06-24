@@ -1,65 +1,25 @@
 {% extends "../base/base.html" %}
 {% block title %}
-Staff- Past-Client
+Staff- Past Requests
 {% endblock %}
 {% block content %}
-{% include "staff/nav-main.html" %}
-<main>
-    <div class="container-fluid mt-3">
-        <div class="row">
-            <!-- Left column for user profile -->
-            <div class="col-md-4 bg-light fixed-left-column">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <img src="https://via.placeholder.com/150" class="rounded-circle img-fluid mb-3"
-                            alt="User Image">
-                        <h3 class="card-title">{{client.username}}</h3>
-                        <div class="card-text">
-                            <p><small class="text-muted">Level: {{appointment.level}} || Dept:
-                                    {{appointment.department}}</small></p>
-                            <p><small class="text-muted">{{client.phone}} || {{client.email}}</small></p>
-                        </div>
-                        <div class="card-text">
-                            <h5>Reason:</h5>
-                            <p><small class="text-muted">{{appointment.reason}}</small></p>
-                        </div>
-                        <div class="card-text">
-                            <p>
-                                <a href="{% url 'staff:previous_notes' %}?appointment_id={{appointment.id}}" class="user-link btn btn-dark btn-sm" data-url="{% url 'staff:previous_notes' %}?client_id={{client.id}}&appointment_id={{appointment.id}}">Previous Notes</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                           
-            <!-- Right column for additional details -->
-            <div class="col-md-8" id="right-column">
-                <!-- Content will be dynamically loaded here -->
-            </div>
+{% include "base/navbar.html" %}
+{% load static %}
+<div class="single-main-content">
+    <div class="card">
+        <img src="{% static 'images/profile.png' %}" alt="Profile Picture">
+        <h1>{{client.username}}</h1>
+        <div><small>{{appointment.status}}</small></div> <br>
+       <p> <small>Level: {{appointment.level}} || Dept:
+        {{appointment.department}}</small></p>
+        <p><small>{{client.phone}} || {{client.email}}</small></p>
+        <div class="reason">
+            <strong>Reason:</strong> {{appointment.reason}}
         </div>
+        <a hx-get="{% url 'staff:previous_notes' %}?appointment_id={{appointment.id}}&client_id={{client.id}}"  hx-target="#right-column" hx-trigger="click" hx-swap="innerHTML" class="button blue">Previous Notes</a>
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            console.log("Document ready!");
-
-            // Event listener for user profile links
-            $(".user-link").click(function (e) {
-                e.preventDefault();
-                console.log("Link clicked!");
-
-                var url = $(this).data("url");
-                console.log("URL:", url);
-
-                // Fetch content using AJAX
-                $.get(url, function (data) {
-                    console.log("Data fetched:", data);
-                    $("#right-column").html(data);
-                });
-            });
-        });
-    </script>
-</main>
-{% include "base/footer.html" %}
+    <div class="right-column" id="right-column">
+        <!-- Content will be dynamically loaded here -->
+    </div>
+</div>
 {% endblock %}

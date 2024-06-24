@@ -7,12 +7,13 @@
     gap: 5px; /* Adjust the space between checkboxes as needed */
 }
 .form {
-    width: auto;
-    margin: 0 auto;
-    padding: 20px;
+    /* width: auto; */
+    /* margin: 1rem; */
+    /* padding: 20px; */
     background-color: #f7f7f7;
     border: 1px solid #ddd;
     border-radius: 5px;
+    padding-bottom: 20px;
 }
 
 .form h3.head {
@@ -45,11 +46,12 @@
 .form input[type="text"],
 .form textarea,
 .form select {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
+    margin-right: 1rem;
 }
 
 .form input[type="date"],
@@ -60,14 +62,16 @@
 
 .btn{
     display: block;
-    width: 100%;
+    width: 85%;
     padding: 10px;
     border: none;
     border-radius: 5px;
     text-align: center;
+    align-items: center;
     font-size: 16px;
     text-decoration: none;
     cursor: pointer;
+    margin: auto;
 
 }
 
@@ -88,14 +92,14 @@
 
     .form input[type="date"],
     .form input[type="time"] {
-        width: 100%;
+        width: 50%;
     }
 }
 
 </style>
 
 <main>
-    <form class="form" style="width: 100%;" action="{% url 'staff:client_progress' %}?appointment_id={{appointment_id}}"
+    <form class="form" style="width: 100%;" action="{% url 'staff:client_progress'%}"
         method="post">
         {% csrf_token %}
 
@@ -104,22 +108,23 @@
         <hr><br>
 
         <p>
-            <label class="small font-weight-bold">Counselling Session</label>
-            {{ form.counselling_session }}
+            <label class="small font-weight-bold">Counselling Session</label><textarea name="counrselling_session" id=""></textarea>
+            <!-- {{ form.counselling_session }} -->
         </p>
         <p>
-            <label class="small font-weight-bold">Client Appearance</label>
-            {{ form.client_appearance }}
+            <label class="small font-weight-bold">Client Appearance</label><textarea name="client_appearance" id=""></textarea>
+            <!-- {{ form.client_appearance }} -->
         </p>
         <p>
-            <label class="small font-weight-bold">Problem Identity</label>
-            {{ form.problem_identity }}
+            <label class="small font-weight-bold">Problem Identity</label><textarea name="problem_identity" id=""></textarea>
+            <!-- {{ form.problem_identity }} -->
         </p>
         <p>
-            <label class="small font-weight-bold">Interventions</label>{{ form.intervention }}
+            <label class="small font-weight-bold">Interventions</label><textarea name="intervention" id=""></textarea><!-- {{ form.intervention }} -->
         </p>
         <p>
-            <label class="small font-weight-bold">Recomendation/Assignment</label>{{ form.recomendation }}
+            <label class="small font-weight-bold">Recomendation/Assignment</label><textarea name="recomendation" id=""></textarea>
+            <!-- {{ form.recomendation }} -->
         </p>
         <p>
             <label class="small font-weight-bold">Next date and time </label>
@@ -128,10 +133,10 @@
         </p>
 
         <p>
-            <a hx-get="{% url 'staff:reffered_client'%}"  hx-target="#referralModal" hx-trigger="click" hx-swap="innerHTML" class="btn btn-primary mt-3">Refer Client</a>
+            <a hx-get="{% url 'staff:reffered_client' client_id %}"  hx-target="#referralModal" hx-trigger="click" hx-swap="innerHTML" class="btn btn-primary mt-3">Refer Client</a>
         </p>
         <input type="text" value="{{client_id}}" name="client_id" hidden>
-        <input type="text" value="{{appointment.id}}" name="appointment_id" hidden>
+        <input type="text" value="{{appointment_id}}" name="appointment_id" hidden>
         <button class="btn save-btn" type="submit"
             value="Log-in">Save</button>
 
