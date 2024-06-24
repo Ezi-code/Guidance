@@ -1,0 +1,96 @@
+{% extends "../base/base.html" %}
+
+{% block title %}
+  Home Page
+{% endblock title %}
+
+{% block navbar %}
+  {% include "base/navbar.html" %}
+{% endblock navbar %}
+
+{% block content %}
+
+<style>
+  .account-form {
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .account-form .h4 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .account-form small {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .account-form hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+  }
+
+  .account-form p {
+    margin-bottom: 15px;
+  }
+
+  .account-form label.small {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .account-form input[type="text"],
+  .account-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 1rem auto;
+  }
+
+  .login-button{
+    display: block;
+    width: 60%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    margin: 1rem auto;
+  }
+</style>
+
+
+
+<form class="account-form p-4 rounded" action="{% url 'accounts:staff_login' %}" method="post">
+
+  {% csrf_token %}
+    <p class="h4">Staff Sign In</p>
+
+    <label class="small font-weight-bold">Staff ID</label>
+    <input class="form-control" type="text" name="username" id="id_username" required>
+
+    <label class="small font-weight-bold">Password</label>
+    <input class="form-control" type="password" name="password" id="is_password" required>
+
+    <button class="login-button" type="submit">Sign In</button>
+
+    <p class="small font-weight-bold text-center pb-3">
+
+    </p>
+
+    <hr class="mb-3">
+    <p class="small text-center">By signing in to your account, you agree to Blog
+       <a href="">Terms of Service</a> and consent to our <a href="">Cookie Policy</a> and <a href="">Privacy Policy</a>. This site is not protected by reCAPTCHA and is a demonstration website for learning purposes only.
+    </p>
+</form>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "../base/base.html" %}
+
+{% block title %}
+  Home Page
+{% endblock title %}
+
+{% block navbar %}
+  {% include "base/navbar.html" %}
+{% endblock navbar %}
+
+{% block content %}
+
+<form class="account-form p-4 rounded" action="{% url 'accounts:student_login' %}" method="post">
+
+        {% csrf_token %}
+        <p class="h4 mb-4 font-weight-bold">Student Sign In</p>
+
+        <label class="small font-weight-bold">Index Number</label>
+        <input class="form-control" type="text" name="username" id="id_username" required>
+
+        <label class="small font-weight-bold">Password</label>
+        <input class="form-control" type="password" name="password" id="is_password" required>
+
+        <button class="btn btn-dark btn-block py-2 mb-4 mt-5 font-weight-bold" type="submit" value="Log-in">Sign in
+        </button>
+
+        <hr class="mb-3">
+        
+        <p class="small text-center">By signing in to your account, you agree to Blog <a
+                href="">Terms of
+                Service</a> and
+            consent to
+            our <a href="">Cookie Policy</a> and <a href="">Privacy Policy</a>. This site is not
+            protected
+            by reCAPTCHA and
+            is a demonstration website
+            for learning purposes only.
+        </p>
+    </form>
+{% endblock %}

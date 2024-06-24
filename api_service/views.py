@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 from google_auth_oauthlib.flow import Flow
 import os
 
@@ -16,7 +17,7 @@ def credentials_to_dict(credentials):
     }
 
 
-@login_required
+# @login_required(login_url=reverse_lazy("accounts:staff_login"))
 def oauth_callback(request):
     flow = Flow.from_client_secrets_file(
         "C:\\Users\\Ezi\\Documents\\code\\Guidance\\api_service\\creds.json",
@@ -31,7 +32,7 @@ def oauth_callback(request):
     return redirect("staff:home")
 
 
-@login_required
+# @login_required(login_url=reverse_lazy("accounts:staff_login"))
 def initiate_auth(request):
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
     flow = Flow.from_client_secrets_file(

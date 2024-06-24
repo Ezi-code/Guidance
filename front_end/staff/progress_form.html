@@ -1,0 +1,145 @@
+{% block content %}
+
+<style>
+    .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px; /* Adjust the space between checkboxes as needed */
+}
+.form {
+    width: auto;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form h3.head {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.form small.text-muted {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+.form p {
+    margin-bottom: 15px;
+}
+
+.form label.small {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form input[type="text"],
+.form textarea,
+.form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form input[type="date"],
+.form input[type="time"] {
+    width: 50%;
+    padding: 10px;
+}
+
+.btn{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+.form .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .form {
+        max-width: 100%;
+    }
+
+    .form input[type="date"],
+    .form input[type="time"] {
+        width: 100%;
+    }
+}
+
+</style>
+
+<main>
+    <form class="form" style="width: 100%;" action="{% url 'staff:client_progress' %}?appointment_id={{appointment_id}}"
+        method="post">
+        {% csrf_token %}
+
+        <h3 class="head text-center">Case Management Progress Note</h3>
+        <small class="text-muted text-center">summary notes for a session</small>
+        <hr><br>
+
+        <p>
+            <label class="small font-weight-bold">Counselling Session</label>
+            {{ form.counselling_session }}
+        </p>
+        <p>
+            <label class="small font-weight-bold">Client Appearance</label>
+            {{ form.client_appearance }}
+        </p>
+        <p>
+            <label class="small font-weight-bold">Problem Identity</label>
+            {{ form.problem_identity }}
+        </p>
+        <p>
+            <label class="small font-weight-bold">Interventions</label>{{ form.intervention }}
+        </p>
+        <p>
+            <label class="small font-weight-bold">Recomendation/Assignment</label>{{ form.recomendation }}
+        </p>
+        <p>
+            <label class="small font-weight-bold">Next date and time </label>
+        <p><input type="date" name="next_date" required></p>
+        </label><input type="time" name="next_time" required>
+        </p>
+
+        <p>
+            <a hx-get="{% url 'staff:reffered_client'%}"  hx-target="#referralModal" hx-trigger="click" hx-swap="innerHTML" class="btn btn-primary mt-3">Refer Client</a>
+        </p>
+        <input type="text" value="{{client_id}}" name="client_id" hidden>
+        <input type="text" value="{{appointment.id}}" name="appointment_id" hidden>
+        <button class="btn save-btn" type="submit"
+            value="Log-in">Save</button>
+
+    </form>
+
+   
+    <div class="modal fade" id="referralModal" tabindex="-1" role="dialog">
+
+    </div>    
+</main>
+{% endblock content %}

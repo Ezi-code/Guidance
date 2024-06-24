@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.views.generic import View
 from django.contrib import messages
+from staff.services import LoginMixin
 
 
 class StudentLoginView(View):
@@ -39,9 +40,13 @@ class StaffLoginView(View):
         return render(request, "accounts/staff_signin.html")
 
     def post(self, request):
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        user = authenticate(request, username=username, password=password)
+        try:
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            user = authenticate(request, username=username, password=password)
+        except Exception as e:
+            messages.error(request, "Invalid credentials")
+            return redirect("accounts:staff_login")
         if user is not None:
             if user.is_staff:
                 login(request, user)
@@ -54,8 +59,8 @@ class StaffLoginView(View):
         return redirect("accounts:staff_login")
 
 
-class LogoutView(View):
+class LogoutView(LoginMixin, View):
     def get(self, request):
         logout(request)
         messages.success(request, "You are now logged out")
-        return render(request, "registration/logged_out.html")
+        return redirect("main:homepage")

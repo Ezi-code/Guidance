@@ -1,0 +1,41 @@
+{% extends "../base/base.html" %}
+
+{% block title %}
+  Appointments
+{% endblock title %}
+
+{% block navbar %}
+  {% include "base/navbar.html" %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="request-main main-content">
+    <section class="request-bn">
+        <div class="request-txt-c text-content">
+            <h1>Requests</h1>
+            <p>Schedule appointment requests Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique distinctio cum perferendis quia aut sint, quasi pariatur officiis dolor aliquid praesentium hic vel dolorem tempore! Vel est facilis sit eligendi.</p>
+            <button id="request-banner-btn">See Pending Requests</button>
+        </div>
+    </section>
+    <section class="request-ct-page page-content">
+        {% for request in requests %}
+        <div class="request-bx request-box">
+            <p><strong>Student: {{request.user.username}}</strong></p>
+            <p>{{request.reason|truncatechars:50}}</p>
+            <small>{{request.request_date}}</small>
+            <div>
+                <form class="acceptance-form" action="{% url 'staff:requests' %}"
+                    method="post">
+                    {% csrf_token %}
+                    <p><input id="r-date" type="date" name="date" required style="padding: 10px;"></p>
+                    <p><input id="r-time" type="time" name="time" required style="padding: 10px;"></p>
+                    <input type="text" value="{{request.id}}" hidden name="request-id">
+                    <p><input id="request-banner-btn" type="submit" value="Accept"></p>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+</div>
+
+{% endblock content %}

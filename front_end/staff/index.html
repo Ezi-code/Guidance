@@ -1,0 +1,41 @@
+{% extends "../base/base.html" %}
+
+{% block title %}
+  Home Page
+{% endblock title %}
+
+{% block navbar %}
+  {% include "base/navbar.html" %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="main-content">
+    <section class="banner">
+        <div class="text-content">
+            <h1>E-Counselling App</h1>
+            <p>Schedule appointment requests Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique distinctio cum perferendis quia aut sint, quasi pariatur officiis dolor aliquid praesentium hic vel dolorem tempore! Vel est facilis sit eligendi.</p>
+            <button id="banner-txt-btn">See Pending Requests</button>
+        </div>
+        <!-- <div class="illustration">
+            <img src="C:\Users\Ezi\Downloads\counselling_app\c1.jpg" alt="Illustration" width="400">
+        </div> -->
+    </section>
+    <section class="page-content">
+        <div class="info-box">
+            <p id="info-header"><strong>Student Name</strong></p>
+            <p id="info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. A provident consectetur quas maxime. Beatae, expedita voluptatum tempora dolore id commodi inventore adipisci repudiandae, harum sed odio sequi. Debitis, porro similique.</p>
+            
+        </div>
+        <div class="info-box">
+            <p id="info-header"><strong>Student Name</strong></p>
+            <p id="info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit blanditiis nulla praesentium porro, optio obcaecati repudiandae distinctio eligendi reiciendis corporis similique sapiente beatae neque consequuntur dolor id, quam quos eum?</p>
+            
+        </div>
+        <div class="info-box">
+            <p id="info-header"><strong>Student Name</strong></p>
+            <p id="info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae dolorem, molestiae modi, recusandae ducimus amet placeat sapiente beatae quidem quos blanditiis, eligendi enim deserunt dolores iusto pariatur! Commodi, quod natus?</p>
+            
+        </div>
+    </section>
+</div>
+{% endblock content %}

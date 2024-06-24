@@ -17,7 +17,7 @@ class Home(LoginMixin, View):
             professional__name=request.user.username, status="DRAFT"
         ).all()
         context = {"appointments": appointments}
-        return render(request, "staff/index.html", context)
+        return render(request, "staff/requests.html", context)
 
 
 class AppointmentsView(LoginMixin, View):
@@ -26,8 +26,6 @@ class AppointmentsView(LoginMixin, View):
             professional__name=request.user.username, status="ACCEPTED"
         ).all()
         context = {"appointments": appointments}
-        print(request.user)
-        print(request.user.username)
         return render(request, "staff/appointments.html", context)
 
     def post(self, request):
@@ -70,7 +68,7 @@ class AppointmentRequestView(LoginMixin, View):
         appointment.session_time = time
         appointment.status = "ACCEPTED"
         appointment.save()
-        main(request, appointment)
+        # main(request, appointment)
         messages.success(request, "Request accepted")
         return render(request, "staff/requests.html")
 
@@ -110,14 +108,19 @@ class IndividualRequestsView(LoginMixin, View):
     def get(self, request, uuid):
         appointment_id = request.GET.get("appointment_id")
         client = get_object_or_404(User, id=uuid)
+        print(client)
         appointment = Appointment.objects.filter(
-            id=appointment_id, user=client, status="ACCEPTED"
+            id=appointment_id,
+            user=client,
+            status="ACCEPTED",
+            professional__name=request.user.username,
         ).first()
         context = {
             "client": client,
             "appointment": appointment,
         }
-        return render(request, "staff/single_request.html", context)
+        print(appointment)
+        return render(request, "staff/single_requests.html", context)
 
 
 class CompletedSessions(LoginMixin, View):
@@ -200,3 +203,8 @@ class RefferedClientsView(LoginMixin, View):
 
     def post(self, request):
         return
+
+
+class RefferedClientView(LoginMixin, View):
+    def get(self, request):
+        return render(request, "staff/client_referral_form.html")

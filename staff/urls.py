@@ -31,4 +31,5 @@ urlpatterns = [
     path(
         "reffered-clients", views.RefferedClientsView.as_view(), name="reffered_clients"
     ),
+    path("reffered-client", views.RefferedClientView.as_view(), name="reffered_client"),
 ]

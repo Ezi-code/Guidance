@@ -12,10 +12,10 @@ class HomeView(View):
     def get(self, request):
         if request.user.is_authenticated:
             if request.user.is_student:
-                return render(request, "student/index.html")
+                return render(request, "index.html")
             if request.user.is_staff:
                 return redirect("staff:home")
-        return render(request, "student/index.html")
+        return render(request, "staff/index.html")
 
 
 class BookView(LoginMixin, View):
