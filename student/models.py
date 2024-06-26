@@ -31,6 +31,8 @@ class Appointment(models.Model):
         max_length=50, blank=False, null=False, db_index=True
     )
     reason = models.TextField(null=False, blank=False, db_index=True)
+    refferal_reason = models.TextField(blank=True, null=True)
+    reffered_counsellor = models.IntegerField(null=True, blank=True)
     professional = models.ForeignKey(Professional, on_delete=models.CASCADE, default=1)
     request_date = models.DateTimeField(blank=True, null=True)
     session_date = models.DateField(

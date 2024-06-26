@@ -178,7 +178,7 @@ body {
     background-color: white;
     border: 1px solid #ddd;
     margin-top: 20px;
-    max-width: 23vw;
+    /* max-width: 23vw; */
     min-width: 20vw;
     width: fit-content;
     margin-left: 1rem;
@@ -397,9 +397,33 @@ body {
     height: fit-content;
     margin-top: 17px;
 }
+
 /* END OF SINGLE REQUEST PAGE CSS */
 
 
+/* REFFERALS CSS */
+.refferals-banner{
+    margin-left: 5rem;
+    padding: 2.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+    background-image: url("../images/homepage.svg");
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 60vh;
+}
+
+#refferals-banner-btn{
+    background-color: #8C013C;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius:40px;
+}
+
+/* END */
 
 /* START OF MEDIA QUERY */
 @media screen and (max-width:760px){

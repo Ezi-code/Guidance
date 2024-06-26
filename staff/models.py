@@ -20,7 +20,7 @@ class CaseManagementPrgressNotes(models.Model):
         User, on_delete=models.CASCADE, related_name="client", default=None
     )
     appointment = models.ForeignKey(
-        "student.Appointment", on_delete=models.CASCADE, default=None
+        "student.Appointment", on_delete=models.CASCADE, default=None, related_name="appointment_notes"
     )
     counselling_session = models.TextField(blank=True, null=True)
     client_appearance = models.TextField()
@@ -28,8 +28,8 @@ class CaseManagementPrgressNotes(models.Model):
     intervention = models.TextField()
     recomendation = models.TextField()
     assignments = models.TextField()
-    next_date = models.DateField(default=timezone.now)
-    next_time = models.TimeField(default=timezone.now)
+    next_date = models.DateField(blank=True, null=True)
+    next_time = models.TimeField(blank=True, null=True)
     session_date = models.DateTimeField(default=timezone.now, editable=False)
     counsellor_name = models.CharField(max_length=100, blank=False)
 

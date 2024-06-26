@@ -43,7 +43,7 @@
     background-color: #ff9800;
 }
 
-.alert-danger {
+.alert-error {
     background-color: #f44336;
 }
 
@@ -90,7 +90,9 @@
         <a href="#">Team</a>
         <a href="#">Locations</a>
         <a href="#">Privacy</a>
-        <a href="#">Terms</a>
+        {% if request.user.is_staff %}
+        <a href="{% url 'api_service:initiate_auth' %}">Calendar Auth</a>
+        {% endif %}
     </div>
 </footer>
 <div class="bottom-color"></div>

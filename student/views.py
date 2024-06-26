@@ -6,6 +6,7 @@ from student.services import LoginMixin
 from forms import BookingForm
 from django.contrib import messages
 from django.utils import timezone
+from api_service.calendar import main
 
 
 class HomeView(View):
@@ -42,6 +43,7 @@ class BookView(LoginMixin, View):
             form.instance.user = request.user
             form.save()
             print(form.instance.email)
+            # min(request, form.instance)
             messages.success(request, "Appointment booked successfylly")
             return redirect("student:requests")
         else:

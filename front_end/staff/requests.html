@@ -10,7 +10,8 @@
         <section class="request-bn">
             <div class="request-txt-c text-content">
                 <h1>Requests</h1>
-                <p>Schedule appointment requests Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique distinctio cum perferendis quia aut sint, quasi pariatur officiis dolor aliquid praesentium hic vel dolorem tempore! Vel est facilis sit eligendi.</p>
+                <p> Clients are waiting your approval to begin counselling with them.
+                </p>
                 <button id="request-banner-btn">See Pending Requests</button>
             </div>
             <!-- <div class="illustration">
@@ -21,7 +22,7 @@
             {% for request in requests %}
             <div class="request-bx request-box">
                 <p><strong>Student: {{request.user.username}}</strong></p>
-                <p>{{request.reason|truncatechars:50}}</p>
+                <p style="width: fit-content;">{{request.reason|truncatechars:50}}</p>
                 <small>{{request.request_date}}</small>
                 <div>
                     <form class="acceptance-form" action="{% url 'staff:requests' %}"

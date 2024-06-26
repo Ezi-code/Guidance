@@ -108,29 +108,39 @@
         <hr><br>
 
         <p>
-            <label class="small font-weight-bold">Counselling Session</label><textarea name="counrselling_session" id=""></textarea>
-            <!-- {{ form.counselling_session }} -->
+            <!-- <label class="small font-weight-bold">Counselling Session</label>
+            <textarea name="counselling_session" id=""></textarea> -->
+            {{ form.counselling_session }}
         </p>
         <p>
-            <label class="small font-weight-bold">Client Appearance</label><textarea name="client_appearance" id=""></textarea>
-            <!-- {{ form.client_appearance }} -->
+            <!-- <label class="small font-weight-bold">Client Appearance</label>
+            <textarea name="client_appearance" id=""></textarea> -->
+            {{ form.client_appearance }}
         </p>
         <p>
-            <label class="small font-weight-bold">Problem Identity</label><textarea name="problem_identity" id=""></textarea>
-            <!-- {{ form.problem_identity }} -->
+            <!-- <label class="small font-weight-bold">Problem Identity</label>
+            <textarea name="problem_identity" id=""></textarea> -->
+            {{ form.problem_identity }}
         </p>
         <p>
-            <label class="small font-weight-bold">Interventions</label><textarea name="intervention" id=""></textarea><!-- {{ form.intervention }} -->
+            <!-- <label class="small font-weight-bold">Interventions</label>
+            <textarea name="intervention" id=""></textarea> -->
+            {{ form.intervention }}
         </p>
         <p>
-            <label class="small font-weight-bold">Recomendation/Assignment</label><textarea name="recomendation" id=""></textarea>
-            <!-- {{ form.recomendation }} -->
+            <!-- <label class="small font-weight-bold">Recomendation/Assignment</label>
+            <textarea name="assignments" id=""></textarea> -->
+            {{ form.recomendation }}
+        </p>
+        <p>
+            <!-- <label class="small font-weight-bold">Recomendation/Assignment</label>
+            <textarea name="assignments" id=""></textarea> -->
+            {{ form.assignments }}
         </p>
         <p>
             <label class="small font-weight-bold">Next date and time </label>
-        <p><input type="date" name="next_date" required></p>
-        </label><input type="time" name="next_time" required>
-        </p>
+        <p><input type="date" name="next_date"></p>
+        <p><input type="time" name="next_time"></p>
 
         <p>
             <a hx-get="{% url 'staff:reffered_client' client_id %}"  hx-target="#referralModal" hx-trigger="click" hx-swap="innerHTML" class="btn btn-primary mt-3">Refer Client</a>

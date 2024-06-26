@@ -9,6 +9,7 @@ from forms import CaseManagementPrgressForm as CMPF, ClientRefferalForm
 from accounts.models import User
 from staff.models import CaseManagementPrgressNotes, ClientReferral
 from api_service.calendar import main
+from django.contrib.auth import get_user_model
 
 
 class Home(LoginMixin, View):
@@ -63,11 +64,18 @@ class AppointmentRequestView(LoginMixin, View):
         date = request.POST.get("date")
         time = request.POST.get("time")
         appointment = Appointment.objects.get(id=request_id)
+        if Appointment.objects.filter(
+            user=appointment.user,
+            professional__name=request.user.username,
+            status="ACCEPTED",
+        ).exists():
+            messages.error(request, "An appointment with this client already exist!")
+            return redirect("staff:requests")
         appointment.session_date = date
         appointment.session_time = time
         appointment.status = "ACCEPTED"
         appointment.save()
-        # main(request, appointment)
+        main(request, appointment)
         messages.success(request, "Request accepted")
         return redirect("staff:requests")
 
@@ -82,44 +90,39 @@ class ClientProgrssView(LoginMixin, View):
             "client_id": client_id,
             "appointment_id": appointment_id,
         }
-        print(appointment_id)
         return render(request, "staff/progress_form.html", context)
 
     def post(self, request):
         client_id = request.POST.get("client_id")
         appointment_id = request.POST.get("appointment_id")
+        next_date = request.POST.get("date")
+        next_time = request.POST.get("time")
         appointment = Appointment.objects.get(id=appointment_id)
         client = get_object_or_404(User, id=client_id)
         form = CMPF(request.POST)
+        print("validating form...")
         if form.is_valid():
+            print("form calidation started...")
             form.instance.client = client
             form.instance.counsellor_name = request.user
             form.instance.appointment = appointment
+            if next_date and next_time:
+                form.instance.next_date = next_date
+                form.instance.next_time = next_time
             form.full_clean()
             form.save()
+            print("form validation successful...")
             messages.success(request, "Session notes saved! ")
-            return redirect(
-                "staff:single_request",
-                uuid=client_id,
-            )
+            return redirect("staff:single_request", pk=appointment_id)
+        print("form validation failed...")
         messages.error(request, "Error saving notes")
-        return redirect("staff:single_request", uuid=client_id)
+        return redirect("staff:single_request", pk=appointment_id)
 
 
 class IndividualRequestsView(LoginMixin, View):
-    def get(self, request, uuid):
-        appointment_id = request.GET.get("appointment_id")
-        client = get_object_or_404(User, id=uuid)
-
-        print(client)
-        print(appointment_id)
-
-        appointment = Appointment.objects.filter(
-            id=appointment_id,
-            user=client,
-            status="ACCEPTED",
-            professional__name=request.user.username,
-        ).first()
+    def get(self, request, pk):
+        appointment = Appointment.objects.get(id=pk)
+        client = appointment.user
         context = {
             "client": client,
             "appointment": appointment,
@@ -130,7 +133,6 @@ class IndividualRequestsView(LoginMixin, View):
 class CompletedSessions(LoginMixin, View):
     def get(self, request, uuid):
         appointment_id = request.GET.get("appointment_id")
-        print(appointment_id)
         if appointment_id:
             compt_apmt = Appointment.objects.get(id=appointment_id)
             compt_apmt.status = "COMPLETED"
@@ -138,7 +140,6 @@ class CompletedSessions(LoginMixin, View):
         past_sessions = Appointment.objects.filter(
             status="COMPLETED", professional__name=request.user.username
         )
-        print(past_sessions)
         context = {"past_sessions": past_sessions}
         return render(request, "staff/previous_sessions.html", context)
 
@@ -147,23 +148,18 @@ class ClientReferralView(ListView, View):
     def post(self, request):
         form = ClientRefferalForm(request.POST)
         client_id = request.POST.get("client_id")
-        # print(client_id)
-        appointment = Appointment.objects.get(
-            user_id=client_id,
-            professional__name=request.user.username,
-            status="ACCEPTED",
-        )
+        user = User.objects.get(id=client_id)
 
         if form.is_valid():
-            form.instance.client_id = form.data["client_id"]
-            form.instance.reffered_by = request.user.username
-            form.instance.counsellor_id = request.user.index_number
-            form.instance.name = appointment.full_name
-            form.instance.phone = appointment.phone
-            form.instance.status = "REFFERED"
-            form.save()
+            appointment = Appointment.objects.get(
+                user=user, status="ACCEPTED", professional__name=request.user.username
+            )
+            appointment.status = "REFFERED"
+            appointment.refferal_reason = form.data["reason"]
+            appointment.reffered_counsellor = form.data["reffered_counsellor"]
+            appointment.save()
             messages.success(request, "Client reffered")
-            return redirect("staff:home")
+            return redirect("staff:appointments")
 
         return redirect("staff:home")
 
@@ -208,16 +204,33 @@ class SinglePastSessionView(LoginMixin, View):
             return redirect("staff:appointments")
 
 
-class RefferedClientsView(LoginMixin, View):
+class RefferalsView(LoginMixin, ListView):
+    template_name = "staff/refferals.html"
+    model = Appointment
+    context_object_name = "reffered_clients"
 
-    def get(self, request):
-        reffered_clients = ClientReferral.objects.filter(
-            counsellor_id=request.user.index_number
+    def get_queryset(self):
+        reffered_clients = Appointment.objects.filter(
+            professional__name=self.request.user.username, status="REFFERED"
         )
-        return render(request, "staff/reffered_clients.html")
+        return reffered_clients
 
 
-class RefferedClientView(LoginMixin, View):
+class AcceptRefferal(LoginMixin, View):
+    def get(self, request):
+        id = request.GET.get("client_id")
+        if id:
+            appointment = Appointment.objects.get(id=id)
+            appointment.status = "ACCEPTED"
+            appointment.professional__name = request.user.username
+            appointment.save()
+            messages.success(request, "Refferal accepted")
+            return redirect("staff:refferals")
+        messages.error(request, "An error occured")
+        return redirect("staff:refferals")
+
+
+class ReffereClientView(LoginMixin, View):
     def get(self, request, uuid):
         client_id = uuid
         ctx = {"client_id": client_id}
