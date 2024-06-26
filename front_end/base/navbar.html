@@ -1,0 +1,29 @@
+<header class="header">
+    <div class="title">E-Counselling App</div>
+    <nav class="navbar">
+        <a href="{% url 'main:homepage' %}">Home</a>
+        {% if request.user.is_authenticated %}
+          {% if request.user.is_staff %}
+          <a href="{% url 'staff:requests' %}">Requests</a>
+          <a href="{% url 'staff:appointments' %}">Appointments</a>
+          <a href="{% url 'staff:completed' %}">Completed</a>
+          <a href="{% url 'staff:refferals' %}">Refferals</a>
+          <a href="{% url 'accounts:logout' %}">Logout</a>
+          <a href="#">{{request.user.username}}</a>
+          {% endif %}
+          {% if request.user.is_student %}
+          <a href="{% url 'student:book' %}">Book</a>
+          <a href="{% url 'student:requests' %}">Requests</a>
+          <a href="{% url 'student:appointments' %}">Appointments</a>
+          <a href="{% url 'student:completed' %}">Completed</a>
+          <a href="{% url 'accounts:logout' %}">Logout</a>
+          <a href="#">{{request.user.username}}</a>
+          {% endif %}
+        {% else %}
+        <a href="{% url 'accounts:student_login' %}">Student</a>
+        <a href="{% url 'accounts:staff_login' %}">Counsellor</a>
+        {% endif %}
+       
+        
+    </nav>
+</header>

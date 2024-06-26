@@ -1,0 +1,51 @@
+{% extends "../base/base.html" %}
+
+{% block title %}
+  Home Page
+{% endblock title %}
+
+{% block navbar %}
+  {% include "base/navbar.html" %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="main-content">
+    <section class="banner">
+        <div class="text-content">
+            {% if request.user.is_authenticated %}
+                {% if request.user.is_staff %}
+                <h1>E-Counselling App</h1>
+                <p>Hello there, you are a step away from approving the requests of your clients and managing their database, Ready!</p>
+                <a href="{% url 'staff:requests' %}"><button id="banner-txt-btn">See Pending Requests</button></a>
+                {% endif %}
+                {% if request.user.is_student %}
+                <h1>E-Counselling App</h1>
+                <p>Seemlessly book an appoint with your preferred counsellor to help address your challenges faster!.</p>
+                <a href="{% url 'student:appointments' %}"> <button id="banner-txt-btn">See Active Appointments</button></a>
+                {% endif %}
+            {% else %}
+                <h1>E-Cunselling App</h1>
+                <p>Welcome, have convinient counselling session with seasoned professionals. Login to continue!</p>
+                <a href="{% url 'accounts:student_login' %}"><button id="banner-txt-btn">Book an appointment</button></a>
+            {% endif %}
+        </div>
+    </section>
+    <section class="page-content">
+        <div class="info-box">
+            <p id="info-header"><strong>Student Name</strong></p>
+            <p id="info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. A provident consectetur quas maxime. Beatae, expedita voluptatum tempora dolore id commodi inventore adipisci repudiandae, harum sed odio sequi. Debitis, porro similique.</p>
+            
+        </div>
+        <div class="info-box">
+            <p id="info-header"><strong>Student Name</strong></p>
+            <p id="info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit blanditiis nulla praesentium porro, optio obcaecati repudiandae distinctio eligendi reiciendis corporis similique sapiente beatae neque consequuntur dolor id, quam quos eum?</p>
+            
+        </div>
+        <div class="info-box">
+            <p id="info-header"><strong>Student Name</strong></p>
+            <p id="info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae dolorem, molestiae modi, recusandae ducimus amet placeat sapiente beatae quidem quos blanditiis, eligendi enim deserunt dolores iusto pariatur! Commodi, quod natus?</p>
+            
+        </div>
+    </section>
+</div>
+{% endblock content %}

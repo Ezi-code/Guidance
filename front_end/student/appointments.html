@@ -1,0 +1,32 @@
+{% extends "../base/base.html" %}
+
+{% block title %}
+  Appointments
+{% endblock title %}
+
+{% block navbar %}
+  {% include "base/navbar.html" %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="main-content">
+    <section class="appmt-banner">
+        <div class="text-content">
+            <h1>Appointments</h1>
+            <p> Here are your approved appointment dates and their respective times to meet the counsellor.</p>
+            <a href="{% url 'student:book' %}"><button id="appmt-banner-btn">Book A Session</button></a>
+        </div>
+    </section>
+    <section class="page-content">
+        {% for appointment in appointments %}
+        <div class="appointment-box">
+            <p><strong>Service type: {{appointment.service_type}}</strong></p>
+            <p><strong>REason: </strong>{{appointment.reason}}</p>
+            <p><small>Date: {{appointment.session_date}} | {{appointment.session_time}}</small></p>
+        </div>
+        {% endfor %}
+       
+        
+    </section>
+</div>
+{% endblock content %}

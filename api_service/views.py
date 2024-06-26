@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 from google_auth_oauthlib.flow import Flow
 import os
 
@@ -16,10 +17,10 @@ def credentials_to_dict(credentials):
     }
 
 
-@login_required
+# @login_required(login_url=reverse_lazy("accounts:staff_login"))
 def oauth_callback(request):
     flow = Flow.from_client_secrets_file(
-        "C:\\Users\\Ezi\\Documents\\code\\Guidance\\api_service\\creds.json",
+        "C:\\Users\\USER\\Documents\\code\\Guidance\\api_service\\creds.json",
         scopes=["https://www.googleapis.com/auth/calendar.events"],
         redirect_uri="http://localhost:8000/api/oauth2callback/",
     )
@@ -28,14 +29,14 @@ def oauth_callback(request):
     credentials = flow.credentials
     request.session["credentials"] = credentials_to_dict(credentials)
 
-    return redirect("staff:home")
+    return redirect("staff:requests")
 
 
-@login_required
+# @login_required(login_url=reverse_lazy("accounts:staff_login"))
 def initiate_auth(request):
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
     flow = Flow.from_client_secrets_file(
-        "C:\\Users\\Ezi\\Documents\\code\\Guidance\\api_service\\creds.json",
+        "C:\\Users\\USER\\Documents\\code\\Guidance\\api_service\\creds.json",
         scopes=["https://www.googleapis.com/auth/calendar.events"],
         redirect_uri="http://localhost:8000/api/oauth2callback/",
     )

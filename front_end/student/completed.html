@@ -1,0 +1,35 @@
+{% extends "../base/base.html" %}
+{% block title %}
+    Completed
+{% endblock title %}
+{% block navbar %}
+    {% include "base/navbar.html" %}
+{% endblock navbar %}
+{% block content %}
+    <div class="main-content">
+        <section class="completed-banner">
+            <div class="text-content">
+                <h1>Completed</h1>
+                <p> Congratulations, you have successfully undergone and completed your scheduled appointments with the counsellor. We hope your needs have been addressed.</p>
+               <a href="{% url 'student:requests' %}"> <button id="comp-banner-btn">See Pending Requests</button></a>
+            </div>
+            <!-- <div class="illustration">
+                <img src="C:\Users\Ezi\Downloads\counselling_app\c1.jpg" alt="Illustration" width="400">
+            </div> -->
+        </section>
+        <section class="page-content">
+            {% for session in comp_sessions %}
+            <div class="completed-box">
+                <p><strong>Service type:</strong>{{session.service_type}}</p>
+                <p><strong>Reason: </strong>{{session.reason}}</p>
+                <p><strong>Professional: </strong>{{session.professional}}</p>
+                <p> <small>Date: {{session.session_date}} @ {{session.session_time}}</small>
+                </p>
+        
+            </div>
+            {% endfor %}
+            
+        </section>
+        
+    </div>
+{% endblock content %}

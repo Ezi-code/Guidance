@@ -1,0 +1,514 @@
+body {
+    margin: 0;
+    font-family: "Ubuntu", sans-serif;
+    color: #606060;
+    background-color: #fff;
+}
+.header {
+    background-color: #8C013C;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.header .title {
+    font-size: 16px;
+    font-weight: bold;
+}
+.header nav{
+    padding: 0.5rem;
+}
+.header nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+}
+.header nav a:hover{
+    color: gold;
+}
+
+.navbar a.active{
+    color: gold;
+
+}
+
+/* BAANNER CSS */
+.banner{
+    margin-left: 5rem;
+    padding: 2.5rem;
+    flex-wrap: wrap;
+    background-image: url("../images/homepage.svg");
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 60vh;
+}
+#banner-txt-btn{
+    background-color: #8C013C;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius:40px ;
+    border: 2px solid #004500;
+}
+
+.text-content{
+    width: 55%;
+}
+/* END OF CSS */
+
+
+/* START OF PAGE CONTENT STYLING */
+.page-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 0 4rem;
+}
+/* END OF STYLING  */
+
+
+ .info-box {
+    background-color: white;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    max-width: 23vw;
+    min-width: 20vw;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    padding: 1rem;
+}
+
+
+#info-text,#info-header{
+     
+    align-items: center;
+    text-align: left;
+}
+
+/* START OF FOOTER CSS */
+
+.footer {
+    background-color: #8C013C;
+    color: white;
+    font-size: small;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.footer div {
+    max-width: 33%;
+}
+.footer a {
+    color: rgb(234, 234, 234);
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+} 
+#section-headers{
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+
+}
+.bottom-color{
+    background-color: #F9D525;
+    height: 1rem;
+}
+.footer a:hover{
+    color: #F9D525;
+}
+/* END OF FOOTER CSS */
+
+
+/* REQUESTS PAGE CSS */
+
+/* start of banner css */
+.request-bn{
+    margin-left: 5rem;
+    padding: 2.5rem;
+    flex-wrap: wrap;
+    background-image: url("../images/requests.svg");
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 60vh;
+}
+
+#request-banner-btn{
+    background-color: #FFF7D4;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius:40px ;
+}
+
+
+ .request-box button{
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+.accept{
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    /* margin-top: 10px; */
+    border-radius: 5px;
+}
+/* end of banner css */
+
+.request-bx{
+    border: 1px solid rgba(0, 128, 30, 0.165);
+}
+/* request card */
+.request-box {
+    background-color: white;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    /* max-width: 23vw; */
+    min-width: 20vw;
+    width: fit-content;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    padding: 1rem;
+}
+.accept{
+    background-color: #EBF3FA;
+    
+}
+.request-box button{
+    color: rgb(0, 0, 0);
+}
+
+.acceptance-form{
+    margin-top: 2rem;
+}
+#r-date, #r-time{
+    width: 30%;
+}
+
+/* END OF REQUEST FILE CSS */
+
+
+/* START OF APPOINTMENT PAGE CSS */
+/* appointment banner css */
+.appmt-banner{
+    margin-left: 5rem;
+    padding: 2.5rem;
+    flex-wrap: wrap;
+    background-image: url("../images/appointments.svg");
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 60vh;
+}
+#appmt-banner-btn{
+    background-color: #004500;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius:40px ;
+}
+
+.view{
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: #004500;
+    text-decoration: none;
+}
+/* appointment card */
+.appointment-box {
+    background-color: white;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    max-width: 23vw;
+    min-width: 20vw;
+    text-wrap: wrap;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    padding: 1rem;
+}
+.appointment-action{
+    margin-top: 1.5rem;
+}
+
+/* END OF APPOINTMENT PAGE CSS */
+
+
+/* START OF COMPLETED CSS */
+
+.completed-banner{
+    margin-left: 5rem;
+    padding: 2.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+    background-image: url("../images/completed.svg");
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 60vh;
+}
+#comp-banner-btn{
+    background-color: #8C013C;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius:40px ;
+}
+
+.com-view{
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: rgb(163, 172, 171);
+}
+/* appointment card */
+.completed-box {
+    background-color: white;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    max-width: 23vw;
+    min-width: 20vw;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    padding: 1rem;
+}
+
+
+/* END OF COMPLETED CSS */
+
+
+/* START OF SINGLE REQUEST PAGE CSS */
+.single-main-content {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 2.5rem;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-wrap: wrap;
+    width: 30%;
+}
+.card img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    background-color: #dcdcdc;
+    display: inline-block;
+}
+
+.card h1 {
+    font-size: 24px;
+    margin: 20px 0 10px;
+}
+
+.card p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.card .reason {
+    margin: 20px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.card .button {
+    display: block;
+    margin: 3px auto;
+    padding: 10px;
+    align-items: center;
+    align-content: center;
+
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    width: 50%;
+    text-align: center;
+}
+
+.card .button.green {
+    background-color: #28a745;
+}
+
+.card .button.blue {
+    background-color: #17a2b8;
+}
+.card .button.yellow {
+    background-color: #ffc107;
+}
+.card .completed {
+    background-color: #343a40;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 1.5rem auto;
+    width: 50%;
+    text-align: center;
+    
+}
+
+
+.right-column {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 60%;
+    height: fit-content;
+    margin-top: 17px;
+}
+
+/* END OF SINGLE REQUEST PAGE CSS */
+
+
+/* REFFERALS CSS */
+.refferals-banner{
+    margin-left: 5rem;
+    padding: 2.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+    background-image: url("../images/homepage.svg");
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 60vh;
+}
+
+#refferals-banner-btn{
+    background-color: #8C013C;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius:40px;
+}
+
+/* END */
+
+/* START OF MEDIA QUERY */
+@media screen and (max-width:760px){
+
+    .header{
+        justify-content: center;
+        padding: 1rem 3rem;
+    }
+    .header nav a::after{
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background: white;
+        transition: width 0.3s;
+    }
+
+    .banner, .request-bn, .appmt-banner, .completed-banner{
+        margin-left: 0.5rem;
+        padding: 1rem;
+        flex-wrap: wrap;
+        background-position: right;
+        background-repeat: no-repeat;
+        height: 70vh;
+    }
+    .text-content{
+        width: 90%;
+    }
+    .request-box,.completed-box,.appointment-box,.info-box {
+        background-color: white;
+        border: 1px solid #ddd;
+        min-width: 95%;
+        margin: 0.5rem;
+        border-radius: 5px;
+        padding: 0.5rem;
+    }
+    .appointment-actions{
+        margin: 2rem 0 10px 3px;
+    }
+
+    /* single request paage */
+    .single-main-content {
+        font-family: Arial, sans-serif;
+        display: inline;
+        margin: 2.5rem;
+        height: 100vh;
+    }
+    .card {
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin: 1rem auto;
+        width: 90%;
+    }
+    .right-column {
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 90%;
+        height: fit-content;
+        margin: 1rem auto;
+    }
+    /* end */
+    .view{
+        margin: 1rem auto;
+    }
+
+    .footer{
+        padding: 0.1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        padding: 1rem;
+
+        
+    }
+    .footer div{
+        max-width: 100%;
+
+    }
+    .footer a{
+        margin: 0.5rem;
+    }
+}

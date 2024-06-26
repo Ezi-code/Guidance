@@ -98,8 +98,7 @@ class CaseManagementPrgressForm(forms.ModelForm):
             "problem_identity",
             "intervention",
             "recomendation",
-            "next_date",
-            "next_time",
+            "assignments",
         ]
 
         widgets = {
@@ -143,22 +142,20 @@ class CaseManagementPrgressForm(forms.ModelForm):
                     "rows": 4,
                 }
             ),
-            "assignments": forms.Textarea(
+            "recomendation": forms.Textarea(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "A",
+                    "placeholder": "Recomendation",
                     "cols": 5,
                     "rows": 4,
                 }
             ),
-            "next_date": forms.DateInput(
+            "assignments": forms.Textarea(
                 attrs={
                     "class": "form-control",
-                }
-            ),
-            "next_time": forms.TimeInput(
-                attrs={
-                    "class": "form-control",
+                    "placeholder": "Assignment",
+                    "cols": 5,
+                    "rows": 4,
                 }
             ),
         }
@@ -166,5 +163,5 @@ class CaseManagementPrgressForm(forms.ModelForm):
 
 class ClientRefferalForm(forms.ModelForm):
     class Meta:
-        model = ClientReferral
-        fields = ["reason"]
+        model = Appointment
+        fields = ["reffered_counsellor", "refferal_reason"]

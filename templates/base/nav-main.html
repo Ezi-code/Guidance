@@ -7,16 +7,25 @@
         display: inline-block;
 
     }
+    .header {
+        background-color: #8C013C;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
 </style>
 
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+<div class="header d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal"><a class="text-dark" href="/"
             style="text-decoration: none;">E-counselling App</a></h5>
     {% if request.user.is_authenticated %}
     <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="#">Requests</a>
-        <a class="p-2 text-dark" href="#">Book</a>
-        <a class="p-2 text-dark" href="#">Appointments</a>
+        <a class="p-2" href="#">Requests</a>
+        <a class="p-2" href="#">Book</a>
+        <a class="p-2" href="#">Appointments</a>
     </nav>
 
 
@@ -44,8 +53,8 @@
     </ul>
     {% else %}
     <nav>
-        <a class="p-2 text-dark" href="{% url 'accounts:student_login' %}">Student</a>
-        <a class="p-2 text-dark" href="{% url 'accounts:staff_login' %}">Staff</a>
+        <a class="p-2" href="{% url 'accounts:student_login' %}">Student</a>
+        <a class="p-2" href="{% url 'accounts:staff_login' %}">Staff</a>
     </nav>
     {% endif %}
 </div>

@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index_styles.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+
+    <title>
+        {% block title %}
+          
+        {% endblock title %}
+    </title>
+    {% block navbar %}
+      
+    {% endblock navbar %}
+</head>
+
+<style>
+.small {
+    font-size: 0.875rem;
+    color: #4b4b4b;
+}
+
+.alert {
+    padding: 15px;
+    background-color: #36c9b6;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.alert-success {
+    background-color: #A8D29F;
+}
+
+.alert-info {
+    background-color: #2196F3;
+}
+
+.alert-warning {
+    background-color: #ff9800;
+}
+
+.alert-error {
+    background-color: #f44336;
+}
+
+.alert-primary {
+    background-color: #4CAF50;
+}
+</style>
+
+<body>
+
+    {% for message in messages %}
+    {% if message %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    {% block content %}
+      
+    {% endblock content %}
+<footer class="footer">
+    <div>
+        <p id="section-headers">ECA © 2017-2020</p>
+    </div>
+    <div>
+        <p id="section-headers">Features</p>
+        <a href="#">Cool stuff</a>
+        <a href="#">Random feature</a>
+        <a href="#">Team feature</a>
+        <a href="#">Stuff for developers</a>
+        <a href="#">Another one</a>
+        <a href="#">Last time</a>
+    </div>
+    <div>
+        <p id="section-headers">Resources</p>
+        <a href="#">Resource</a>
+        <a href="#">Resource name</a>
+        <a href="#">Another resource</a>
+        <a href="#">Final resource</a>
+    </div>
+    <div>
+        <p id="section-headers">About</p>
+        <a href="#">Team</a>
+        <a href="#">Locations</a>
+        <a href="#">Privacy</a>
+        {% if request.user.is_staff %}
+        <a href="{% url 'api_service:initiate_auth' %}">Calendar Auth</a>
+        {% endif %}
+    </div>
+</footer>
+<div class="bottom-color"></div>
+<script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/htmx.min.js' %}"></script>
+
+<script>
+    setTimeout(function () {
+      var alerts = document.getElementsByClassName('alert');
+      for (var i = 0; i < alerts.length; i++) {
+        alerts[i].style.display = 'none';
+      }
+    }, 3000);
+  </script>
+</body>
+</html>
