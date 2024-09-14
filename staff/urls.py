@@ -10,16 +10,18 @@ urlpatterns = [
     path("completed", views.CompletedSessionsView.as_view(), name="completed"),
     path("requests", views.AppointmentRequestView.as_view(), name="requests"),
     path("client-progress", views.ClientProgrssView.as_view(), name="client_progress"),
-    path(
-        "request/<uuid>", views.IndividualRequestsView.as_view(), name="single_request"
-    ),
+    path("request/<pk>", views.IndividualRequestsView.as_view(), name="single_request"),
     path(
         "past-session/<uuid>", views.CompletedSessions.as_view(), name="past_sessions"
     ),
     path("previous-notes", views.PreviousNotesView.as_view(), name="previous_notes"),
-    path("client-referal", views.ClientReferralView.as_view(), name="client_referral"),
     path(
-        "complete-session/<uuid>",
+        "client-referal/",
+        views.ClientReferralView.as_view(),
+        name="client_referral",
+    ),
+    path(
+        "complete-session/",
         views.CompleteTaskView.as_view(),
         name="complete_session",
     ),
@@ -28,7 +30,11 @@ urlpatterns = [
         views.SinglePastSessionView.as_view(),
         name="detail_past_session",
     ),
+    path("refferals", views.RefferalsView.as_view(), name="refferals"),
     path(
-        "reffered-clients", views.RefferedClientsView.as_view(), name="reffered_clients"
+        "reffered-client/<uuid>",
+        views.ReffereClientView.as_view(),
+        name="reffered_client",
     ),
+    path("accept-refferals/", views.AcceptRefferal.as_view(), name="accept_refferal"),
 ]

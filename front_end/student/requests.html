@@ -1,0 +1,33 @@
+{% extends "../base/base.html" %}
+
+{% block title %}
+  Appointments
+{% endblock title %}
+
+{% block navbar %}
+  {% include "base/navbar.html" %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="request-main main-content">
+    <section class="request-bn">
+        <div class="request-txt-c text-content">
+            <h1>Requests</h1>
+            <p>View all your pending requests made earlier to meet your counsellor.
+            </p>
+          <a href="{% url 'student:completed' %}"><button id="request-banner-btn">See Completed Appointmens</button></a>
+        </div>
+    </section>
+    <section class="request-ct-page page-content">
+        {% for request in requests %}
+        <div class="request-bx request-box">
+            <p><strong>Student: {{request.user.username}}</strong></p>
+            <p>{{request.reason|truncatechars:50}}</p>
+            <small>Counsellor: {{request.professional}}</small><br>
+            <small>Date: {{request.request_date}}</small>
+        </div>
+        {% endfor %}
+    </section>
+</div>
+
+{% endblock content %}

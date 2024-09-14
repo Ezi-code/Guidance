@@ -1,0 +1,32 @@
+{% extends "../base/base.html" %}
+{% block title %}
+Staff- Single Requests
+{% endblock %}
+{% block content %}
+{% include "base/navbar.html" %}
+{% load static %}
+<div class="single-main-content">
+    <div class="card">
+        <img src="{% static 'images/profile.png' %}" alt="Profile Picture">
+        <h1>{{client.username}}</h1>
+       <p> <small>Level: {{appointment.level}} || Dept:
+        {{appointment.department}}</small></p>
+        <p><small>{{client.phone}} || {{client.email}}</small></p>
+        <div class="reason">
+            <strong>Reason:</strong> {{appointment.reason}}
+        </div>
+        <a hx-get="{% url 'staff:client_progress' %}?client_id={{client.id}}&appointment_id={{appointment.id}}"         hx-target="#right-column" hx-trigger="click" 
+        hx-swap="innerHTML" class="button green">
+        Session Notes
+        </a>
+        <a hx-get="{% url 'staff:previous_notes' %}?appointment_id={{appointment.id}}&client_id={{client.id}}"  hx-target="#right-column" hx-trigger="click" hx-swap="innerHTML" class="button blue">Previous Notes</a>
+
+        <a  hx-get="{% url 'staff:past_sessions' client.id %}" hx-target="#right-column" hx-trigger="click" hx-swap="innerHTML" class="button yellow">Previous Appointments</a>
+
+        <a href="{% url 'staff:complete_session'%}?appointment_id={{appointment.id}}" class="button completed">Completed</a>
+    </div>
+    <div class="right-column" id="right-column">
+        <!-- Content will be dynamically loaded here -->
+    </div>
+</div>
+{% endblock %}

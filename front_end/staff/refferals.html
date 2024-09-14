@@ -1,0 +1,33 @@
+{% extends "../base/base.html" %}
+{% block title %}
+    Reffered clients
+{% endblock title %}
+{% block navbar %}
+    {% include "base/navbar.html" %}
+{% endblock navbar %}
+{% block content %}
+    <div class="main-content">
+        <section class="refferals-banner">
+            <div class="text-content">
+                <h1>Refferals</h1>
+                <p>Clients Reffered to you!</p>
+                <a href="{% url 'staff:requests' %}"><button id="refferals-banner-btn">Appointments</button></a>
+            </div>
+        </section>
+
+        <section class="page-content">
+            {% for session in reffered_clients %}
+            <div class="completed-box">
+                <p><strong>Student Name: {{session.full_name}}</strong></p>
+                <p><strong>Reason:</strong>{{session.reason}}</p>
+                <p><small>Reffered By: {{session.professional}}</small>
+                <p><small>Date: {{session.session_date}}</small>
+                </p>
+                <div class="actions">
+                    <a href="{% url 'staff:accept_refferal' %}?client_id={{session.id}}"><button class="com-view">Accept</button></a>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock content %}

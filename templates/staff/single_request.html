@@ -46,7 +46,7 @@ Staff- Single Requests
                             </p>
                         </div> 
                         <a
-                            href="{% url 'staff:complete_session' appointment.id %}"
+                            href="{% url 'staff:complete_session'%}?appointment_id={{appointment.id}}"
                             class="btn btn-dark btn-sm mt-3">completed
                         </a>
                             

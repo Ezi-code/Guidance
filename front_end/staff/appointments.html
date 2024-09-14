@@ -1,0 +1,34 @@
+{% extends "../base/base.html" %}
+
+{% block title %}
+  Appointments
+{% endblock title %}
+
+{% block navbar %}
+  {% include "base/navbar.html" %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="main-content">
+    <section class="appmt-banner">
+        <div class="text-content">
+            <h1>Appointmens</h1>
+            <p>Do not miss any appointment with your clients. Find below the sessions you have approved to have with your clients.</p>
+            <button id="appmt-banner-btn">See Pending Requests</button>
+        </div>
+    </section>
+    <section class="page-content">
+        {% for appointment in appointments %}
+            <div class="appointment-box">
+                <p><strong>Student Name: {{appointment.full_name}}</strong></p>
+                <p>{{appointment.reason}}</p>
+                <small>{{appointment.session_date}} @ {{appointment.session_time}}</small>
+                <div class="appointment-action">
+                    <a href="{% url 'staff:single_request' appointment.id %}" class="view">View</a>
+                </div>
+            </div>
+        {% endfor %}
+        
+    </section>
+</div>
+{% endblock content %}

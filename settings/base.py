@@ -50,7 +50,7 @@ ROOT_URLCONF = "GuidanceUnit.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR, "templates"],
+        "DIRS": [BASE_DIR, "front_end"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -110,8 +110,10 @@ AUTH_USER_MODEL = "accounts.User"
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR,
+    "static",
 ]
+STATIC_ROOT = "static_files"
 # STATIC_FILES_DIR = [os.path.join(BASE_DIR / "static")]
 # STATIC_ROOT = "static_files"
 

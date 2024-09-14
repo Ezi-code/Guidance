@@ -1,0 +1,26 @@
+<html>
+  <style>
+    #card{
+      border: 1px solid black;
+      margin: 0.5rem auto;
+    }
+  </style>
+
+
+
+
+    {% for session in past_sessions %}
+    <div class="" style="border: 1px solid rgb(211, 211, 211); margin: 0.5rem auto; text-align: left; padding: 0.5rem; border-radius: 5px;">
+        <div class="">
+        <p class="">{{session.reason}}</p>
+        <div class="">
+            <small class=""> --{{session.session_date}}</small>
+            <p><input class="" type="submit" value="check notes" style="padding: 0.5rem; background-color: #ddd; border: none; border-radius: 5px;"></p>
+        </div>
+        
+        </div>
+      </div>
+      {% empty %}
+        <p>No previous sessions</p>
+      {% endfor %}
+</html>
