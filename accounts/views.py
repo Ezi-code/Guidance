@@ -7,6 +7,28 @@ from staff.services import LoginMixin
 from django.contrib.auth import get_user_model
 
 
+class StudentRegisterView(View):
+
+    def get(self, request):
+        return render(request, "accounts/student_signup.html")
+    
+    def post(self, request):
+        try:
+            index_number = request.POST.get("index_number")
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            password1 = request.POST.get("password1")
+            if password != password1:
+                messages.error(request, "Passwords do not match")
+                return redirect("accounts:student_signup")
+            get_user_model().objects.create(index_number=index_number, username=username,password=password, is_student=True)
+            messages.success(request, "You are now registered")
+            return redirect("accounts:student_login")
+        except Exception as e:
+            messages.error(request, f"Error: {str(e)}")
+            return redirect("accounts:student_signup")
+
+
 class StudentLoginView(View):
     template_name = "accounts/student_signin.html"
 
@@ -28,7 +50,7 @@ class StudentLoginView(View):
                 return redirect("student:requests")
             else:
                 messages.error(request, "You are not allowed to login here")
-                return redirect("accounts:login")
+                return redirect("accounts:student_login")
         else:
             messages.error(request, "Invalid credentials")
             return render(request, self.template_name)

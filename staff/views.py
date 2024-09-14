@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.views.generic.list import ListView
 from student.models import Appointment
-from staff.services import LoginMixin, send_email_notification
+from staff.services import LoginMixin, SendEmailNotification
 from django.contrib import messages
 from django.utils import timezone
 from forms import CaseManagementPrgressForm as CMPF, ClientRefferalForm
@@ -34,7 +34,7 @@ class AppointmentsView(LoginMixin, View):
         appointment = Appointment.objects.get(id=appointment_id)
         appointment.status = "COMPLETED"
         appointment.save()
-        send_email_notification.send_appointemt_completed_email(appointment)
+        SendEmailNotification.send_appointemt_completed_email(appointment)
         messages.success(request, "Appointment marked as Completed")
         return redirect("staff:appointments")
 

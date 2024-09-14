@@ -7,10 +7,21 @@ import uuid
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
+    
+    def create_user(self, index_number, username, password, **extra_fields):
+        if not index_number:
+            raise ValueError("Index number field cannot be empty!")
+        if not password:
+            raise ValueError("Password field cannot be empty")
+        user = self.model(index_number=index_number, username=username, **extra_fields)
+        user.set_password(password)
+        user.save()
+        return user
+    
     def get_queryset(self) -> models.QuerySet:
         return super().get_queryset()
 
-    def create(self, index_number, username, password, **kwargs: Any):
+    def create(self, index_number:int, username:str, password:str, **kwargs: Any) -> Any:
         if not index_number:
             raise ValueError("Index number field cannot be empty!")
         if not password:
@@ -30,15 +41,6 @@ class UserManager(BaseUserManager):
             raise ValueError("User must be active")
         return self.create_user(index_number, username, password, **extra_fields)
 
-    def create_user(self, index_number, username, password, **extra_fields):
-        if not index_number:
-            raise ValueError("Index number field cannot be empty!")
-        if not password:
-            raise ValueError("Password field cannot be empty")
-        user = self.model(index_number=index_number, username=username, **extra_fields)
-        user.set_password(password)
-        user.save()
-        return user
 
 
 class User(AbstractUser):

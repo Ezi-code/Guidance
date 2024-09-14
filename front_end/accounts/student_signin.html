@@ -1,11 +1,11 @@
 {% extends "../base/base.html" %}
 
 {% block title %}
-  Student Signin
+Student Signin
 {% endblock title %}
 
 {% block navbar %}
-  {% include "base/navbar.html" %}
+{% include "base/navbar.html" %}
 {% endblock navbar %}
 
 {% block content %}
@@ -55,7 +55,7 @@
     margin: 1rem auto;
   }
 
-  .login-button{
+  .login-button {
     display: block;
     width: 60%;
     padding: 10px;
@@ -74,24 +74,29 @@
 <form class="account-form p-4 rounded" action="{% url 'accounts:student_login' %}" method="post">
 
   {% csrf_token %}
-    <p class="h4">Sudent Sign In</p>
+  <p class="h4">Sudent Sign In</p>
 
-    <label class="small font-weight-bold">Student ID</label>
-    <input hx-post="{% url 'accounts:student_check_username' %}" hx-target="#message" hx-swap="innerHTML" hx-trigger="keypress changed  delay:2s" class="form-control" type="text" name="username" id="id_username" required>
-    <div id="message"></div>
+  <label class="small font-weight-bold">Student ID</label>
+  <input hx-post="{% url 'accounts:student_check_username' %}" hx-target="#message" hx-swap="innerHTML"
+    hx-trigger="keypress changed  delay:2s" class="form-control" type="text" name="username" id="id_username" required>
+  <div id="message"></div>
 
-    <label class="small font-weight-bold">Password</label>
-    <input class="form-control" type="password" name="password" id="is_password" required>
+  <label class="small font-weight-bold">Password</label>
+  <input class="form-control" type="password" name="password" id="is_password" required>
 
-    <button class="login-button" type="submit">Sign In</button>
+  <p>Don't have an account?<a style="text-decoration: none;" href="{% url 'accounts:student_signup' %}"><span color:
+        #007bff;"> Sign Up</span></a></p>
 
-    <p class="small font-weight-bold text-center pb-3">
+  <button class="login-button" type="submit">Sign In</button>
 
-    </p>
+  <p class="small font-weight-bold text-center pb-3">
 
-    <hr class="mb-3">
-    <p class="small text-center">By signing in to your account, you agree to Blog
-       <a href="">Terms of Service</a> and consent to our <a href="">Cookie Policy</a> and <a href="">Privacy Policy</a>. This site is not protected by reCAPTCHA and is a demonstration website for learning purposes only.
-    </p>
+  </p>
+
+  <hr class="mb-3">
+  <p class="small text-center">By signing in to your account, you agree to Blog
+    <a href="">Terms of Service</a> and consent to our <a href="">Cookie Policy</a> and <a href="">Privacy Policy</a>.
+    This site is not protected by reCAPTCHA and is a demonstration website for learning purposes only.
+  </p>
 </form>
 {% endblock content %}
